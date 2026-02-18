@@ -2,21 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./Home";
 import reportWebVitals from "./reportWebVitals";
-import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   body {
   margin: 0;
-  border: 0;
   padding: 0;
   color: white;
-  background-color: #1f1f1f;
+  background-color: #101010;
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
   * {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 }
 `;

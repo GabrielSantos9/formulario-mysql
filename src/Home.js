@@ -12,8 +12,7 @@ const Conteudo = styled.form`
 function Home() {
   return (
     <Conteudo>
-      <h1>Formulário de Cadastro</h1>
-      <FormularioComponent/>
+      <FormularioComponent />
     </Conteudo>
   );
 }
