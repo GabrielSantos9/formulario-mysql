@@ -4,13 +4,6 @@ const Conteudo = styled.div`
   display: flex;
 `;
 
-const Formulario = styled.form`
-  display: flex;
-  width: 390px;
-  height: 631px;
-  background-color: rgba(41, 41, 41, 0.49);
-`;
-
 const Introducao = styled.div`
   width: 417px;
   height: 257px;
@@ -43,6 +36,42 @@ const BotaoCadastro = styled.button`
   font-weight: 700;
 `;
 
+const Formulario = styled.form`
+  display: flex;
+  width: 390px;
+  height: 631px;
+  background-color: rgba(41, 41, 41, 0.49);
+  justify-content: center;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TituloFormulario = styled.span`
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: -1.875rem;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0.187rem;
+    top: 100%;
+    margin-top: 8px;
+    width: 4.875rem;
+    height: 0.5rem;
+    background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
+  }
+`;
+
+const CampoFormulario = styled.input`
+  width: 318px;
+  height: 40px;
+  border-radius: 5px;
+`;
+
 function FormularioComponent() {
   return (
     <Conteudo>
@@ -54,7 +83,10 @@ function FormularioComponent() {
         </ParagrafoIntroducao>
         <BotaoCadastro>Cadastra-se</BotaoCadastro>
       </Introducao>
-      <Formulario></Formulario>
+      <Formulario>
+        <TituloFormulario>Informações</TituloFormulario>
+        <CampoFormulario type="text" placeholder="Nome Completo" />
+      </Formulario>
     </Conteudo>
   );
 }
