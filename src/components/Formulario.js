@@ -38,7 +38,6 @@ const BotaoCadastro = styled.button`
 
 const Formulario = styled.form`
   display: flex;
-  /* width: 390px; */
   padding-left: 36px;
   padding-right: 36px;
   height: 631px;
@@ -46,7 +45,7 @@ const Formulario = styled.form`
   justify-content: flex-start;
   border-radius: 10px;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const TituloFormulario = styled.span`
@@ -56,6 +55,7 @@ const TituloFormulario = styled.span`
   position: relative;
   display: inline-block;
   margin-bottom: 35px;
+   align-self: center;
 
   &::after {
     content: "";
@@ -102,7 +102,7 @@ const CampoSexo = styled.div`
 `;
 
 const OpcoesSexo = styled.div`
-display: flex;
+  display: flex;
 `;
 
 const TextSexo = styled.h2`
@@ -122,6 +122,62 @@ const RadioInput = styled.input`
 
 const Label = styled.label`
   margin-right: 30px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+`;
+
+const DataNascimento = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+const TituloDataNascimento = styled.h2`
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 7px;
+  margin-right: 5px;
+`;
+
+const InputDate = styled.input`
+  width: 126px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 5px;
+  background-color: rgba(41, 41, 41, 0.698);
+  border: none;
+  font-size: 15px;
+  color: white;
+
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+    transition: 0.5s ease;
+
+    background:
+      linear-gradient(#252525, #252525) padding-box,
+      linear-gradient(to right, #8000ff, #4d0099) border-box;
+  }
+
+  &::placeholder {
+    color: #a1a1a1;
+  }
+`;
+
+const BotaoEnviar = styled.button`
+  width: 318px;
+  height: 40px;
+  background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
 `;
 
 function FormularioComponent() {
@@ -152,6 +208,13 @@ function FormularioComponent() {
             <Label htmlFor="outros">Outros</Label>
           </OpcoesSexo>
         </CampoSexo>
+        <DataNascimento>
+          <TituloDataNascimento>Data de Nascimento:</TituloDataNascimento>
+          <InputDate type="date" placeholder="dd/mm/aaaa" />
+        </DataNascimento>
+        <Input type="text" placeholder="Cidade" />
+        <Input type="text" placeholder="Estado" />
+        <BotaoEnviar>Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>
   );
