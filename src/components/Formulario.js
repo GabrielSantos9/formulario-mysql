@@ -31,9 +31,17 @@ const BotaoCadastro = styled.button`
   cursor: pointer;
   color: white;
   border-radius: 8px;
-
   font-size: 20px;
   font-weight: 700;
+
+  background: linear-gradient(to right, #8000ff, #4d0099);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+
+  &:hover {
+    background-position: right;
+  }
 `;
 
 const Formulario = styled.form`
@@ -55,7 +63,7 @@ const TituloFormulario = styled.span`
   position: relative;
   display: inline-block;
   margin-bottom: 35px;
-   align-self: center;
+  align-self: center;
 
   &::after {
     content: "";
@@ -80,6 +88,16 @@ const Input = styled.input`
   padding: 10px;
   margin-bottom: 20px;
   color: #ffffff;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   &:focus {
     outline: none;
@@ -171,13 +189,22 @@ const BotaoEnviar = styled.button`
   width: 318px;
   height: 40px;
   background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 700;
   border: none;
   color: white;
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
+
+  background: linear-gradient(to right, #8000ff, #4d0099);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+
+  &:hover {
+    background-position: right;
+  }
 `;
 
 function FormularioComponent() {
@@ -196,7 +223,7 @@ function FormularioComponent() {
         <Input type="text" placeholder="Nome" />
         <Input type="text" placeholder="Sobrenome" />
         <Input type="text" placeholder="E-mail" />
-        <Input type="text" placeholder="Telefone" />
+        <Input type="number" placeholder="Telefone" />
         <CampoSexo>
           <TextSexo>Sexo:</TextSexo>
           <OpcoesSexo>
