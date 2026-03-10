@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {useState} from "react"; //Ajuda a armazenar os dados do formulário
 
 const Conteudo = styled.div`
   display: flex;
@@ -207,7 +208,19 @@ const BotaoEnviar = styled.button`
   }
 `;
 
+
 function FormularioComponent() {
+  const [formData, setFormData] = useState({
+  nome: "",
+  sobrenome: "",
+  email: "",
+  telefone: "",
+  sexo: "",
+  dataNascimento: "",
+  cidade: "",
+  estado: "",
+});
+
   return (
     <Conteudo>
       <Introducao>
