@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
 import {useState} from "react"; //Ajuda a armazenar os dados do formulário
 
 const Conteudo = styled.div`
@@ -210,16 +211,15 @@ const BotaoEnviar = styled.button`
 
 
 function FormularioComponent() {
-  const [formData, setFormData] = useState({
-  nome: "",
-  sobrenome: "",
-  email: "",
-  telefone: "",
-  sexo: "",
-  dataNascimento: "",
-  cidade: "",
-  estado: "",
-});
+
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [sexo, setSexo] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
 
   return (
     <Conteudo>
