@@ -65,3 +65,16 @@ app.post("/cadastrar", (req, res) => {
 app.listen(3001, () => {
   console.log("Servidor rodando na porta 3001");
 });
+
+app.get("/usuarios", (req, res) => {
+  const sql = "SELECT * FROM usuarios";
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erro ao buscar usuários");
+    } else {
+      res.send(result);
+    }
+  });
+});

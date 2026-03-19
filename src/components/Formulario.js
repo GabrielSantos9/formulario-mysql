@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
-import {useState} from "react"; //Ajuda a armazenar os dados do formulário
+import { useState } from "react"; //Ajuda a armazenar os dados do formulário
 
 const Conteudo = styled.div`
   display: flex;
@@ -209,9 +209,7 @@ const BotaoEnviar = styled.button`
   }
 `;
 
-
 function FormularioComponent() {
-
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [email, setEmail] = useState("");
@@ -220,6 +218,29 @@ function FormularioComponent() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+
+  const enviarFormulario = (e) => {
+    e.preventDefault(); //Impede recarregar a página
+
+    axios
+      .post("http://localhost:3001/cadastrar", {
+        nome,
+        sobrenome,
+        email,
+        telefone,
+        sexo,
+        data_nascimento: dataNascimento,
+        cidade,
+        estado,
+      })
+      .then(() => {
+        alert("Usuário cadastrado!");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Erro ao cadastrar");
+      });
+  };
 
   return (
     <Conteudo>
@@ -231,30 +252,68 @@ function FormularioComponent() {
         </ParagrafoIntroducao>
         <BotaoCadastro>Cadastra-se</BotaoCadastro>
       </Introducao>
-      <Formulario>
+      <Formulario onSubmit={enviarFormulario}>
         <TituloFormulario>Informações</TituloFormulario>
-        <Input type="text" placeholder="Nome" />
-        <Input type="text" placeholder="Sobrenome" />
-        <Input type="text" placeholder="E-mail" />
-        <Input type="number" placeholder="Telefone" />
+        <Input
+          type="text"
+          placeholder="Nome"
+          onChange={(e) => setNome(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="Sobrenome"
+          onChange={(e) => setSobrenome(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="E-mail"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="number"
+          placeholder="Telefone"
+          onChange={(e) => setTelefone(e.target.value)}
+        />
         <CampoSexo>
           <TextSexo>Sexo:</TextSexo>
           <OpcoesSexo>
-            <RadioInput type="radio" name="sexo" id="masculino" />
+            <RadioInput
+              type="radio"
+              name="sexo"
+              id="masculino"
+              value="Masculino"
+              onChange={(e) => setSexo(e.target.value)}
+            />
             <Label htmlFor="masculino">Masculino</Label>
-            <RadioInput type="radio" name="sexo" id="feminino" />
+            <RadioInput
+              type="radio"
+              name="sexo"
+              id="feminino"
+              value="Feminino"
+              onChange={(e) => setSexo(e.target.value)}
+            />
             <Label htmlFor="feminino">Feminino</Label>
-            <RadioInput type="radio" name="sexo" id="outros" />
+            <RadioInput
+              type="radio"
+              name="sexo"
+              id="outros"
+              value="Outros"
+              onChange={(e) => setSexo(e.target.value)}
+            />
             <Label htmlFor="outros">Outros</Label>
           </OpcoesSexo>
         </CampoSexo>
         <DataNascimento>
           <TituloDataNascimento>Data de Nascimento:</TituloDataNascimento>
-          <InputDate type="date" placeholder="dd/mm/aaaa" />
+          <InputDate
+            type="date"
+            placeholder="dd/mm/aaaa"
+            onChange={(e) => setDataNascimento(e.target.value)}
+          />
         </DataNascimento>
-        <Input type="text" placeholder="Cidade" />
-        <Input type="text" placeholder="Estado" />
-        <BotaoEnviar>Enviar</BotaoEnviar>
+        <Input type="text" placeholder="Cidade" onChange={(e) => setCidade(e.target.value)} />
+        <Input type="text" placeholder="Estado" onChange={(e) => setEstado(e.target.value)} />
+        <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>
   );
