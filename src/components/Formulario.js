@@ -221,7 +221,8 @@ function FormularioComponent() {
 
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
-
+    console.log("CLIQUEI NO BOTÃO"); // 👈 adiciona isso
+    console.log(dataNascimento);
     axios
       .post("http://localhost:3001/cadastrar", {
         nome,
@@ -307,12 +308,19 @@ function FormularioComponent() {
           <TituloDataNascimento>Data de Nascimento:</TituloDataNascimento>
           <InputDate
             type="date"
-            placeholder="dd/mm/aaaa"
             onChange={(e) => setDataNascimento(e.target.value)}
           />
         </DataNascimento>
-        <Input type="text" placeholder="Cidade" onChange={(e) => setCidade(e.target.value)} />
-        <Input type="text" placeholder="Estado" onChange={(e) => setEstado(e.target.value)} />
+        <Input
+          type="text"
+          placeholder="Cidade"
+          onChange={(e) => setCidade(e.target.value)}
+        />
+        <Input
+          type="text"
+          placeholder="Estado"
+          onChange={(e) => setEstado(e.target.value)}
+        />
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>

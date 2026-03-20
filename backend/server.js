@@ -19,8 +19,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/cadastrar", (req, res) => {
+
+  console.log(req.body);
+
   const {
-    idusuarios,
     nome,
     sobrenome,
     email,
@@ -33,14 +35,13 @@ app.post("/cadastrar", (req, res) => {
 
   const sql = `
  INSERT INTO usuarios 
- (idusuarios, nome, sobrenome, email, telefone, sexo, data_nascimento, cidade, estado)
- VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+ (nome, sobrenome, email, telefone, sexo, data_nascimento, cidade, estado)
+ VALUES (?, ?, ?, ?, ?, ?, ?, ?)
  `;
 
   db.query(
     sql,
     [
-      idusuarios,
       nome,
       sobrenome,
       email,
