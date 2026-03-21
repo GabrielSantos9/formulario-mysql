@@ -221,8 +221,6 @@ function FormularioComponent() {
 
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
-    console.log("CLIQUEI NO BOTÃO"); // 👈 adiciona isso
-    console.log(dataNascimento);
     axios
       .post("http://localhost:3001/cadastrar", {
         nome,

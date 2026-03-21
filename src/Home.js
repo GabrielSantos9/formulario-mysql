@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import FormularioComponent from "../src/components/Formulario";
 
-const Conteudo = styled.form`
+const Conteudo = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
