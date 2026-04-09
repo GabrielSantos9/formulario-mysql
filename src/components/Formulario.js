@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
-import { useState } from "react"; //Ajuda a armazenar os dados do formulário
+import { useState, useEffect } from "react"; //Ajuda a armazenar os dados do formulário e a fazer requisições para o backend
 
 const Conteudo = styled.div`
   display: flex;
@@ -219,6 +219,23 @@ function FormularioComponent() {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
 
+  const [usuarios, setUsuarios] = useState([]);
+
+  const buscarUsuarios = () => { //Função para buscar os usuários cadastrados no backend
+    axios
+      .get("http://localhost:3001/usuarios")
+      .then((response) => { //Faz uma requisição GET para o backend para buscar os usuários cadastrados
+        setUsuarios(response.data); //Armazena os usuários recebidos do backend no estado "usuarios"
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    useEffect(() => {
+      buscarUsuarios(); //
+    }, []);
+  };
+
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
     axios
@@ -234,6 +251,7 @@ function FormularioComponent() {
       })
       .then(() => {
         alert("Usuário cadastrado!");
+        buscarUsuarios(); // Atualiza a lista
       })
       .catch((err) => {
         console.error(err);
