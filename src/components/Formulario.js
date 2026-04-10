@@ -218,23 +218,23 @@ function FormularioComponent() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
-
   const [usuarios, setUsuarios] = useState([]);
 
-  const buscarUsuarios = () => { //Função para buscar os usuários cadastrados no backend
+  const buscarUsuarios = () => {
+    //Função para buscar os usuários cadastrados no backend
     axios
       .get("http://localhost:3001/usuarios")
-      .then((response) => { //Faz uma requisição GET para o backend para buscar os usuários cadastrados
+      .then((response) => {
+        //Faz uma requisição GET para o backend para buscar os usuários cadastrados
         setUsuarios(response.data); //Armazena os usuários recebidos do backend no estado "usuarios"
       })
       .catch((error) => {
         console.log(error);
       });
-
-    useEffect(() => {
-      buscarUsuarios(); //
-    }, []);
   };
+  useEffect(() => {
+    buscarUsuarios();
+  }, []);
 
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
@@ -339,6 +339,17 @@ function FormularioComponent() {
         />
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
+      <div>
+        <h2>Usuários cadastrados:</h2>
+
+        {usuarios.map((user) => (
+          <div key={user.idusuarios}>
+            <p>Nome: {user.nome}</p>
+            <p>Email: {user.email}</p>
+            <hr />
+          </div>
+        ))}
+      </div>
     </Conteudo>
   );
 }
