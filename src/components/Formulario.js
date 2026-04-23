@@ -19,7 +19,7 @@ const TituloIntroducao = styled.h1`
 `;
 
 const ParagrafoIntroducao = styled.p`
-  width: 333px;
+  width: 379px;
   height: 112px;
   font-size: 23px;
   font-weight: 500;
