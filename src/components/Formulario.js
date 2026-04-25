@@ -25,17 +25,21 @@ const ParagrafoIntroducao = styled.p`
   font-weight: 500;
 `;
 
-const BotaoUsuarios = styled.button`
+const BotaoUsuarios = styled.a`
   width: 157px;
   height: 46px;
   background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
+  max-width: 157px;
   border: none;
   cursor: pointer;
   color: white;
   border-radius: 8px;
   font-size: 20px;
   font-weight: 700;
-
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(to right, #8000ff, #4d0099);
   background-size: 200% 100%;
   background-position: left;
@@ -267,7 +271,9 @@ function FormularioComponent() {
           Esse é um formulário teste, com a finalidade de testar o banco de
           dados <strong>MySQL</strong>, preencha todos os campos na lateral!
         </ParagrafoIntroducao>
-        <BotaoUsuarios>Usuários</BotaoUsuarios>
+        <BotaoUsuarios href="http://localhost:3000/usuarios">
+          Usuários
+        </BotaoUsuarios>
       </Introducao>
       <Formulario onSubmit={enviarFormulario}>
         <TituloFormulario>Cadastro</TituloFormulario>
@@ -339,17 +345,6 @@ function FormularioComponent() {
         />
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
-      {/* <div>
-        <h2>Usuários cadastrados:</h2>
-
-        {usuarios.map((user) => (
-          <div key={user.idusuarios}>
-            <p>Nome: {user.nome}</p>
-            <p>Email: {user.email}</p>
-            <hr />
-          </div>
-        ))}
-      </div>*/}
     </Conteudo>
   );
 }

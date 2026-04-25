@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./rotas/Home";
-import Usuarios from "./rotas/Usuarios.js";
+import Usuarios from "./rotas/Usuarios";
 import reportWebVitals from "./reportWebVitals";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -27,7 +27,7 @@ root.render(
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/usuarios" element={<h1>Teste</h1>} />
+      <Route path="/usuarios" element={<Usuarios />} />
     </Routes>
     </BrowserRouter>
   </React.StrictMode>,
