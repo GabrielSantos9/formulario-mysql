@@ -269,7 +269,7 @@ function FormularioComponent() {
         <TituloIntroducao>Formulário de Teste</TituloIntroducao>
         <ParagrafoIntroducao>
           Esse é um formulário teste, com a finalidade de testar o banco de
-          dados <strong>MySQL</strong>, preencha todos os campos na lateral!
+          dados <strong>MySQL</strong>. Preencha todos os campos na lateral!
         </ParagrafoIntroducao>
         <BotaoUsuarios href="http://localhost:3000/usuarios">
           Usuários
