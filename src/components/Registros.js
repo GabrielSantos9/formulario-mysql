@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
-import { useState, useEffect } from "react"; //Ajuda a armazenar os dados do formulário e a fazer requisições para o backend
+import InputBusca from "./InputBusca";
 
 const Conteudo = styled.div`
   display: flex;
@@ -47,13 +46,6 @@ const OpcoesTabela = styled.div`
   margin-top: 34px;
 `;
 
-const CampoBusca = styled.input`
-  width: 400px;
-  height: 32px;
-  background-color: #333;
-  border: none;
-`;
-
 function UsuariosRegistrados() {
   return (
     <Conteudo>
@@ -70,7 +62,7 @@ function UsuariosRegistrados() {
       </Introducao>
       <BancoUsuarios>
         <OpcoesTabela>
-          <CampoBusca placeholder="Buscar usuários" />
+          <InputBusca placeholder="Buscar usuários"/>
         </OpcoesTabela>
       </BancoUsuarios>
     </Conteudo>
