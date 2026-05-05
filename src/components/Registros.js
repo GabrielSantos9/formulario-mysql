@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import InputBusca from "./InputBusca";
+import BotaoAdicionar from "./BotaoAdicionar";
 
 const Conteudo = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ function UsuariosRegistrados() {
       <BancoUsuarios>
         <OpcoesTabela>
           <InputBusca placeholder="Buscar usuários"/>
+          <BotaoAdicionar />
         </OpcoesTabela>
       </BancoUsuarios>
     </Conteudo>
