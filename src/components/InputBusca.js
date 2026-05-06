@@ -12,6 +12,7 @@ const Input = styled.input`
   border: none;
   padding-left: 30px;
   color: white;
+  font-size: 15px;
 `;
 
 const Icone = styled.svg`

@@ -7,10 +7,10 @@ const Botao = styled.button`
   font-size: 15px;
   color: white;
   font-weight: bold;
-
-  /* padding: 8px 24px; */
-  width: 158px;
-  height: 32px;
+  margin-left: 482px;
+  margin-right: 40px;
+  justify-content: center;
+  padding: 8.5px 18px;
   background-color: #0C62F2;
   border-radius: 5px;
   border: none;
