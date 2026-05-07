@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FormularioComponent from "../components/Formulario";
+import FormularioComponent from "../components/Formulario/Formulario.js";
 
 const Conteudo = styled.div`
   height: 100vh;

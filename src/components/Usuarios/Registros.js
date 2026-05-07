@@ -2,7 +2,7 @@ import styled from "styled-components";
 import InputBusca from "./InputBusca";
 import BotaoAdicionar from "./BotaoAdicionar";
 import BotaoEditar from "./BotaoEditar";
-import BotaoExcluir from "./BotaoExcluir.js";
+import BotaoExcluir from "./BotaoExcluir";
 
 const Conteudo = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UsuariosRegistrados from "../components/Registros";
+import UsuariosRegistrados from "../components/Usuarios/Registros";
 
 const Conteudo = styled.div`
   height: 100vh;
