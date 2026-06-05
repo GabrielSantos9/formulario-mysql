@@ -22,8 +22,7 @@ import {
 } from "./styled";
 
 function FormularioComponent() {
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
+  const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [sexo, setSexo] = useState("");
@@ -31,6 +30,7 @@ function FormularioComponent() {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [usuarios, setUsuarios] = useState([]);
+  const [pais, setPais] = useState("");
 
   const buscarUsuarios = () => {
     //Função para buscar os usuários cadastrados no backend
@@ -52,14 +52,14 @@ function FormularioComponent() {
     e.preventDefault(); //Impede recarregar a página
     axios
       .post("http://localhost:3001/cadastrar", {
-        nome,
-        sobrenome,
+        nomeCompleto,
         email,
         telefone,
         sexo,
         data_nascimento: dataNascimento,
         cidade,
         estado,
+        pais,
       })
       .then(() => {
         alert("Usuário cadastrado!");
@@ -87,13 +87,8 @@ function FormularioComponent() {
         <TituloFormulario>Cadastro</TituloFormulario>
         <Input
           type="text"
-          placeholder="Nome"
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Sobrenome"
-          onChange={(e) => setSobrenome(e.target.value)}
+          placeholder="Nome Completo"
+          onChange={(e) => setNomeCompleto(e.target.value)}
         />
         <Input
           type="text"
@@ -151,6 +146,13 @@ function FormularioComponent() {
           placeholder="Estado"
           onChange={(e) => setEstado(e.target.value)}
         />
+
+        <Input
+          type="text"
+          placeholder="País"
+          onChange={(e) => setPais(e.target.value)}
+        />
+
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>
