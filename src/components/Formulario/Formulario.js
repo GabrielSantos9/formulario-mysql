@@ -25,7 +25,7 @@ function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [sexo, setSexo] = useState("");
+  const [genero, setGenero] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
@@ -55,7 +55,7 @@ function FormularioComponent() {
         nomeCompleto,
         email,
         telefone,
-        sexo,
+        genero,
         data_nascimento: dataNascimento,
         cidade,
         estado,
@@ -105,26 +105,26 @@ function FormularioComponent() {
           <OpcoesSexo>
             <RadioInput
               type="radio"
-              name="sexo"
+              name="genero"
               id="masculino"
               value="Masculino"
-              onChange={(e) => setSexo(e.target.value)}
+              onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="masculino">Masculino</Label>
             <RadioInput
               type="radio"
-              name="sexo"
+              name="genero"
               id="feminino"
               value="Feminino"
-              onChange={(e) => setSexo(e.target.value)}
+              onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="feminino">Feminino</Label>
             <RadioInput
               type="radio"
-              name="sexo"
+              name="genero"
               id="outros"
               value="Outros"
-              onChange={(e) => setSexo(e.target.value)}
+              onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="outros">Outros</Label>
           </OpcoesSexo>

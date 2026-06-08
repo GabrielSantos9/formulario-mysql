@@ -23,33 +23,33 @@ app.post("/cadastrar", (req, res) => {
   console.log(req.body);
 
   const {
-    nome,
-    sobrenome,
+    nomeCompleto,
     email,
     telefone,
-    sexo,
+    genero,
     data_nascimento,
     cidade,
     estado,
+    pais,
   } = req.body;
 
   const sql = `
  INSERT INTO usuarios 
- (nome, sobrenome, email, telefone, sexo, data_nascimento, cidade, estado)
+ (nomeCompleto, email, telefone, genero, data_nascimento, cidade, estado, pais)
  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
  `;
 
   db.query(
     sql,
     [
-      nome,
-      sobrenome,
+      nomeCompleto,
       email,
       telefone,
-      sexo,
+      genero,
       data_nascimento,
       cidade,
       estado,
+      pais,
     ],
     (err, result) => {
       if (err) {
