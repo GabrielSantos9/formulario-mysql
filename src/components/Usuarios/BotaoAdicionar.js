@@ -7,7 +7,6 @@ const Botao = styled.button`
   font-size: 15px;
   color: white;
   font-weight: bold;
-  margin-left: 482px;
   margin-right: 40px;
   justify-content: center;
   padding: 8.5px 18px;

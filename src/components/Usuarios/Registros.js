@@ -10,6 +10,10 @@ import {
   ParagrafoUsuarios,
   BancoUsuarios,
   OpcoesTabela,
+  TabelaUsuarios,
+  CabecalhoTabela,
+  LinhaTabela,
+  CelulaTabela,
 } from "./styles";
 
 function UsuariosRegistrados() {
@@ -33,6 +37,21 @@ function UsuariosRegistrados() {
           <BotaoEditar />
           <BotaoExcluir />
         </OpcoesTabela>
+        <TabelaUsuarios>
+          <CabecalhoTabela>
+            <LinhaTabela>
+              <CelulaTabela>Id</CelulaTabela>
+              <CelulaTabela>Nome Completo</CelulaTabela>
+              <CelulaTabela>E-mail</CelulaTabela>
+              <CelulaTabela>Telefone</CelulaTabela>
+              <CelulaTabela>Gênero</CelulaTabela>
+              <CelulaTabela>Data de Nascimento</CelulaTabela>
+              <CelulaTabela>Cidade</CelulaTabela>
+              <CelulaTabela>Estado</CelulaTabela>
+              <CelulaTabela>País</CelulaTabela>
+            </LinhaTabela>
+          </CabecalhoTabela>
+        </TabelaUsuarios>
       </BancoUsuarios>
     </Conteudo>
   );

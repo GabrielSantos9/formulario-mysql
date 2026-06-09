@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   position: relative;
   width: 400px;
+  margin-right: 444px;
 `;
 
 export const Input = styled.input`
@@ -56,7 +57,8 @@ export const BancoUsuarios = styled.div`
   background-color: rgba(41, 41, 41, 0.49);
   border-radius: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 
 export const OpcoesTabela = styled.div`
@@ -65,4 +67,21 @@ export const OpcoesTabela = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 34px;
+  margin-left: 42px;
+`;
+
+export const TabelaUsuarios = styled.table`
+
+`;
+
+export const CabecalhoTabela = styled.thead`
+
+`;
+
+export const LinhaTabela = styled.tr`
+
+`;
+
+export const CelulaTabela = styled.th`
+
 `;
