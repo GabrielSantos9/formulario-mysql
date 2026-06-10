@@ -70,18 +70,27 @@ export const OpcoesTabela = styled.div`
   margin-left: 42px;
 `;
 
-export const TabelaUsuarios = styled.table`
+export const ContainerTabela = styled.div`
+  width: 100%;
+  overflow-x: auto;
+`;
 
+export const TabelaUsuarios = styled.table`
+  width: 100%;
+  min-width: 1600px;
+  border-collapse: collapse;
 `;
 
 export const CabecalhoTabela = styled.thead`
-
+  background-color: #252525;
 `;
 
-export const LinhaTabela = styled.tr`
-
-`;
+export const LinhaTabela = styled.tr``;
 
 export const CelulaTabela = styled.th`
-
+   padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
 `;

@@ -10,11 +10,24 @@ import {
   ParagrafoUsuarios,
   BancoUsuarios,
   OpcoesTabela,
+  ContainerTabela,
   TabelaUsuarios,
   CabecalhoTabela,
   LinhaTabela,
   CelulaTabela,
 } from "./styles";
+
+const colunas = [
+  { id: "id", titulo: "Id" },
+  { id: "nome", titulo: "Nome Completo" },
+  { id: "email", titulo: "E-mail" },
+  { id: "telefone", titulo: "Telefone" },
+  { id: "genero", titulo: "Gênero" },
+  { id: "dataNascimento", titulo: "Data de Nascimento" },
+  { id: "cidade", titulo: "Cidade" },
+  { id: "estado", titulo: "Estado" },
+  { id: "pais", titulo: "País" },
+];
 
 function UsuariosRegistrados() {
   return (
@@ -32,26 +45,22 @@ function UsuariosRegistrados() {
       </Introducao>
       <BancoUsuarios>
         <OpcoesTabela>
-          <InputBusca placeholder="Buscar usuários"/>
+          <InputBusca placeholder="Buscar usuários" />
           <BotaoAdicionar />
           <BotaoEditar />
           <BotaoExcluir />
         </OpcoesTabela>
-        <TabelaUsuarios>
-          <CabecalhoTabela>
-            <LinhaTabela>
-              <CelulaTabela>Id</CelulaTabela>
-              <CelulaTabela>Nome Completo</CelulaTabela>
-              <CelulaTabela>E-mail</CelulaTabela>
-              <CelulaTabela>Telefone</CelulaTabela>
-              <CelulaTabela>Gênero</CelulaTabela>
-              <CelulaTabela>Data de Nascimento</CelulaTabela>
-              <CelulaTabela>Cidade</CelulaTabela>
-              <CelulaTabela>Estado</CelulaTabela>
-              <CelulaTabela>País</CelulaTabela>
-            </LinhaTabela>
-          </CabecalhoTabela>
-        </TabelaUsuarios>
+        <ContainerTabela>
+          <TabelaUsuarios>
+            <CabecalhoTabela>
+              <LinhaTabela>
+                {colunas.map((coluna) => (
+                  <CelulaTabela key={coluna.id}>{coluna.titulo}</CelulaTabela>
+                ))}
+              </LinhaTabela>
+            </CabecalhoTabela>
+          </TabelaUsuarios>
+        </ContainerTabela>
       </BancoUsuarios>
     </Conteudo>
   );
