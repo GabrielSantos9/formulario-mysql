@@ -2,6 +2,7 @@ import InputBusca from "./InputBusca";
 import BotaoAdicionar from "./BotaoAdicionar";
 import BotaoEditar from "./BotaoEditar";
 import BotaoExcluir from "./BotaoExcluir";
+import Tabela from "./Tabela";
 import {
   Conteudo,
   Introducao,
@@ -10,23 +11,18 @@ import {
   ParagrafoUsuarios,
   BancoUsuarios,
   OpcoesTabela,
-  ContainerTabela,
-  TabelaUsuarios,
-  CabecalhoTabela,
-  LinhaTabela,
-  CelulaTabela,
 } from "./styles";
 
 const colunas = [
-  { id: "id", titulo: "Id" },
-  { id: "nome", titulo: "Nome Completo" },
-  { id: "email", titulo: "E-mail" },
-  { id: "telefone", titulo: "Telefone" },
-  { id: "genero", titulo: "Gênero" },
-  { id: "dataNascimento", titulo: "Data de Nascimento" },
-  { id: "cidade", titulo: "Cidade" },
-  { id: "estado", titulo: "Estado" },
-  { id: "pais", titulo: "País" },
+  { id: "id", titulo: "Id", largura: "80px" },
+  { id: "nome", titulo: "Nome Completo", largura: "250px" },
+  { id: "email", titulo: "E-mail", largura: "300px" },
+  { id: "telefone", titulo: "Telefone", largura: "180px" },
+  { id: "genero", titulo: "Gênero", largura: "120px" },
+  { id: "dataNascimento", titulo: "Data Nascimento", largura: "180px" },
+  { id: "cidade", titulo: "Cidade", largura: "180px" },
+  { id: "estado", titulo: "Estado", largura: "120px" },
+  { id: "pais", titulo: "País", largura: "120px" },
 ];
 
 function UsuariosRegistrados() {
@@ -50,17 +46,7 @@ function UsuariosRegistrados() {
           <BotaoEditar />
           <BotaoExcluir />
         </OpcoesTabela>
-        <ContainerTabela>
-          <TabelaUsuarios>
-            <CabecalhoTabela>
-              <LinhaTabela>
-                {colunas.map((coluna) => (
-                  <CelulaTabela key={coluna.id}>{coluna.titulo}</CelulaTabela>
-                ))}
-              </LinhaTabela>
-            </CabecalhoTabela>
-          </TabelaUsuarios>
-        </ContainerTabela>
+        <Tabela></Tabela>
       </BancoUsuarios>
     </Conteudo>
   );
