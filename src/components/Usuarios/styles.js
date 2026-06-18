@@ -77,29 +77,38 @@ export const ContainerTabela = styled.div`
 `;
 
 export const TabelaUsuarios = styled.table`
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
 `;
 
 export const CabecalhoTabela = styled.thead`
-  
+  background-color: #333;
 `;
 
-export const LinhaTabela = styled.tr``;
+export const LinhaTabela = styled.tr`
+  &:nth-child(even) {
+  background-color: #1f1f1f;
+  }
+`;
 
 export const CelulaTabela = styled.th`
-   padding: 16px;
+  padding: 16px;
   text-align: left;
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
 `;
 
+export const CorpoTabela = styled.tbody``;
+
 export const CelulaCabecalho = styled.th`
   padding: 16px;
   text-align: left;
+  white-space: nowrap;
 `;
 
 export const CelulaDados = styled.td`
   padding: 16px;
+  white-space: nowrap;
 `;
