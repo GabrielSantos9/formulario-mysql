@@ -21,6 +21,8 @@ import {
   BotaoEnviar,
 } from "./styled";
 
+import mostrarAvisoPais from "./aviso"; // Importa a função mostrarAvisoPais do arquivo aviso.js
+
 function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
@@ -138,6 +140,14 @@ function FormularioComponent() {
         </DataNascimento>
         <Input
           type="text"
+          placeholder="Brasil"
+          onChange={(e) => setPais(e.target.value)}
+          readOnly
+          onClick={mostrarAvisoPais}
+        />
+
+        <Input
+          type="text"
           placeholder="Cidade"
           onChange={(e) => setCidade(e.target.value)}
         />
@@ -146,13 +156,6 @@ function FormularioComponent() {
           placeholder="Estado"
           onChange={(e) => setEstado(e.target.value)}
         />
-
-        <Input
-          type="text"
-          placeholder="País"
-          onChange={(e) => setPais(e.target.value)}
-        />
-
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>
