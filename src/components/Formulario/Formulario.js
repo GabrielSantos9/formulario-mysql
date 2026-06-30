@@ -33,6 +33,8 @@ function FormularioComponent() {
   const [estado, setEstado] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [pais, setPais] = useState("");
+  const [estados, setEstados] = useState([]);
+  const [cidades, setCidades] = useState([]);
 
   const buscarUsuarios = () => {
     //Função para buscar os usuários cadastrados no backend
@@ -143,6 +145,12 @@ function FormularioComponent() {
           placeholder="Brasil"
           onChange={(e) => setPais(e.target.value)}
           readOnly
+          title="Este formulário é destinado apenas para residentes do Brasil."
+          style={{
+            backgroundColor: "#e9ecef",
+            color: "#6c757d",
+            cursor: "not-allowed",
+          }}
           onClick={mostrarAvisoPais}
         />
 

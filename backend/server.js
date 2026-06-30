@@ -19,7 +19,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/cadastrar", (req, res) => {
-
   console.log(req.body);
 
   const {
@@ -79,3 +78,9 @@ app.get("/usuarios", (req, res) => {
     }
   });
 });
+
+const estadosRoutes = require("./roteador/estados"); // Importa o roteador de estados definido no arquivo "estados.js" localizado na pasta "routes"
+const cidadesRoutes = require("./roteador/cidades"); // Importa o roteador de cidades definido no arquivo "cidades.js" localizado na pasta "routes"
+
+app.use("/estados", estadosRoutes); // Define que todas as requisições para o caminho "/estados" serão tratadas pelo roteador de estados, permitindo que as rotas definidas em "estados.js" sejam acessadas através desse caminho
+app.use("/cidades", cidadesRoutes); // Define que todas as requisições para o caminho "/cidades" serão tratadas pelo roteador de cidades, permitindo que as rotas definidas em "cidades.js" sejam acessadas através desse caminho
