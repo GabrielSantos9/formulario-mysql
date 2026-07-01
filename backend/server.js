@@ -7,12 +7,7 @@ app.use(cors()); //permite React (front-end) acessar o Express (back-end)
 app.use(express.json()); //permite receber dados em formato JSON do front-end
 
 // Configuração da conexão com o banco de dados MySQL
-const db = mysql.createConnection({
-  host: "localhost", //servidor do banco
-  user: "root", //usuário do MySQL
-  password: "", //senha do MySQL
-  database: "formulario_mysql", //banco que vamos usar
-});
+const db = require("./database"); // Importa a configuração do banco de dados definida no arquivo "database.js"
 
 app.get("/", (req, res) => {
   res.send("Servidor funcionando!");
