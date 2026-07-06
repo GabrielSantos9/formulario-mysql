@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; // useEffect: Executa efeitos colaterais em componentes funcionais, como buscar dados de uma API ou manipular o DOM.
+import axios from "axios";
+
 import {
   ContainerTabela,
   TabelaUsuarios,
@@ -21,65 +23,21 @@ const colunas = [
   { id: "pais", titulo: "País", largura: "120px" },
 ];
 
-const usuarios = [
-  {
-    id: 1,
-    nomeCompleto: "Gabriel Santos",
-    email: "gabriel.santos@email.com",
-    telefone: "(11) 99999-1111",
-    genero: "Masculino",
-    dataNascimento: "26/10/2003",
-    cidade: "Guarulhos",
-    estado: "SP",
-    pais: "Brasil",
-  },
-  {
-    id: 2,
-    nomeCompleto: "Mariana Oliveira",
-    email: "mariana.oliveira@email.com",
-    telefone: "(11) 98888-2222",
-    genero: "Feminino",
-    dataNascimento: "15/03/1998",
-    cidade: "São Paulo",
-    estado: "SP",
-    pais: "Brasil",
-  },
-  {
-    id: 3,
-    nomeCompleto: "Carlos Ferreira",
-    email: "carlos.ferreira@email.com",
-    telefone: "(21) 97777-3333",
-    genero: "Masculino",
-    dataNascimento: "08/07/1995",
-    cidade: "Rio de Janeiro",
-    estado: "RJ",
-    pais: "Brasil",
-  },
-  {
-    id: 4,
-    nomeCompleto: "Ana Souza",
-    email: "ana.souza@email.com",
-    telefone: "(31) 96666-4444",
-    genero: "Feminino",
-    dataNascimento: "22/11/2000",
-    cidade: "Belo Horizonte",
-    estado: "MG",
-    pais: "Brasil",
-  },
-  {
-    id: 5,
-    nomeCompleto: "Pedro Almeida",
-    email: "pedro.almeida@email.com",
-    telefone: "(41) 95555-5555",
-    genero: "Masculino",
-    dataNascimento: "10/01/1992",
-    cidade: "Curitiba",
-    estado: "PR",
-    pais: "Brasil",
-  },
-];
-
 function Tabela() {
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/usuarios")
+      .then((response) => {
+        console.log(response.data);
+        setUsuarios(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []); // O useEffect é usado para buscar os dados dos usuários do backend quando o componente Tabela é montado. A função de callback dentro do useEffect faz uma requisição GET para a rota "/usuarios" do backend, e quando a resposta é recebida, os dados dos usuários são armazenados no estado "usuarios" usando a função setUsuarios. Se ocorrer algum erro durante a requisição, ele será registrado no console. O array vazio [] passado como segundo argumento garante que o efeito seja executado apenas uma vez, quando o componente é montado.
+
   return (
     <ContainerTabela>
       <TabelaUsuarios>
@@ -98,12 +56,14 @@ function Tabela() {
         <CorpoTabela>
           {usuarios.map((usuario) => (
             <LinhaTabela key={usuario.id}>
-              <CelulaDados>{usuario.id}</CelulaDados>
+              <CelulaDados>{usuario.idusuarios}</CelulaDados>
               <CelulaDados>{usuario.nomeCompleto}</CelulaDados>
               <CelulaDados>{usuario.email}</CelulaDados>
               <CelulaDados>{usuario.telefone}</CelulaDados>
               <CelulaDados>{usuario.genero}</CelulaDados>
-              <CelulaDados>{usuario.dataNascimento}</CelulaDados>
+              <CelulaDados>
+                {new Date(usuario.data_nascimento).toLocaleDateString("pt-BR")}
+              </CelulaDados>
               <CelulaDados>{usuario.cidade}</CelulaDados>
               <CelulaDados>{usuario.estado}</CelulaDados>
               <CelulaDados>{usuario.pais}</CelulaDados>

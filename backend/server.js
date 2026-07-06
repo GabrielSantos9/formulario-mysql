@@ -62,7 +62,23 @@ app.listen(3001, () => {
 });
 
 app.get("/usuarios", (req, res) => {
-  const sql = "SELECT * FROM usuarios";
+  const sql = `
+    SELECT
+      u.idusuarios,
+      u.nomeCompleto,
+      u.email,
+      u.telefone,
+      u.genero,
+      u.data_nascimento,
+      c.nome AS cidade,
+      e.nome AS estado,
+      u.pais
+    FROM usuarios u
+    LEFT JOIN cidades c
+      ON u.cidade = c.id
+    LEFT JOIN estados e
+      ON u.estado = e.id
+  `;
 
   db.query(sql, (err, result) => {
     if (err) {

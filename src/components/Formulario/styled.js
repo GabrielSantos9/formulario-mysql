@@ -246,4 +246,9 @@ export const Select = styled.select`
   &::placeholder {
     color: #a1a1a1;
   }
+
+  option {
+    background: #1f1f1f;
+    color: white;
+  }
 `;

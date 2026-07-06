@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
 import { useState, useEffect } from "react"; //Ajuda a armazenar os dados do formulário e a fazer requisições para o backend
 import {
@@ -22,7 +21,7 @@ import {
   Select,
 } from "./styled";
 
-import mostrarAvisoPais from "./aviso"; // Importa a função mostrarAvisoPais do arquivo aviso.js
+import { mostrarAvisoPais, mostrarAvisoCidade } from "./aviso";
 
 function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -33,7 +32,7 @@ function FormularioComponent() {
   const [cidade, setCidade] = useState(""); // 'cidade': guarda o valor e 'setCidade': atualiza o valor do campo 'cidade'
   const [estado, setEstado] = useState("");
   const [usuarios, setUsuarios] = useState([]);
-  const [pais, setPais] = useState("");
+  const pais = "Brasil"; // O valor do país é fixo, então não precisa de um estado para armazenar o valor do país.
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
 
@@ -168,10 +167,8 @@ function FormularioComponent() {
         </DataNascimento>
         <Input
           type="text"
-          placeholder="Brasil"
-          onChange={(e) => setPais(e.target.value)}
+          value={pais}
           readOnly
-          title="Este formulário é destinado apenas para residentes do Brasil."
           style={{
             backgroundColor: "#e9ecef",
             color: "#6c757d",
@@ -181,16 +178,22 @@ function FormularioComponent() {
         />
 
         <Select value={estado} onChange={(e) => setEstado(e.target.value)}>
+          {" "}
+          {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
           <option value="">Selecione um estado</option>
-
           {estados.map((estado) => (
             <option key={estado.id} value={estado.id}>
               {estado.nome}
             </option>
-          ))}
+          ))}{" "}
+          {/* // O 'estados.map' ele percorre a lista de estados e cria uma opção para cada estado, onde o 'estado.id' é o valor da opção e o 'estado.nome' é o texto da opção. */}
         </Select>
 
-        <Select value={cidade} onChange={(e) => setCidade(e.target.value)}>
+        <Select
+          value={cidade}
+          onChange={(e) => setCidade(e.target.value)}
+          onClick={() => mostrarAvisoCidade(estado)}
+        >
           <option value="">Selecione uma cidade</option>
 
           {cidades.map((cidade) => (
