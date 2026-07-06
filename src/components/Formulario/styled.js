@@ -210,3 +210,40 @@ export const BotaoEnviar = styled.button`
     background-position: right;
   }
 `;
+
+export const Select = styled.select`
+  width: 318px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgba(41, 41, 41, 0.698);
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #ffffff;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+    transition: 0.5s ease;
+
+    background:
+      linear-gradient(#252525, #252525) padding-box,
+      linear-gradient(to right, #8000ff, #4d0099) border-box;
+  }
+
+  &::placeholder {
+    color: #a1a1a1;
+  }
+`;

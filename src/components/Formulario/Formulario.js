@@ -19,6 +19,7 @@ import {
   TituloDataNascimento,
   InputDate,
   BotaoEnviar,
+  Select,
 } from "./styled";
 
 import mostrarAvisoPais from "./aviso"; // Importa a função mostrarAvisoPais do arquivo aviso.js
@@ -29,12 +30,12 @@ function FormularioComponent() {
   const [telefone, setTelefone] = useState("");
   const [genero, setGenero] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [cidade, setCidade] = useState("");
+  const [cidade, setCidade] = useState(""); // 'cidade': guarda o valor e 'setCidade': atualiza o valor do campo 'cidade'
   const [estado, setEstado] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   const [pais, setPais] = useState("");
   const [estados, setEstados] = useState([]);
-  const [cidades, setCidades] = useState([]);
+  const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
 
   const buscarUsuarios = () => {
     //Função para buscar os usuários cadastrados no backend
@@ -50,7 +51,32 @@ function FormularioComponent() {
   };
   useEffect(() => {
     buscarUsuarios();
-  }, []);
+
+    axios
+      .get("http://localhost:3001/estados")
+      .then((response) => {
+        setEstados(response.data); //Armazena os estados recebidos do backend no estado "estados"
+      }) // Faz uma requisição GET para o backend para buscar os estados cadastrados
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []); // O useEffect acima é executado apenas uma vez, quando o componente é montado, e busca os estados do backend. O array vazio [] indica que não há dependências ou seja, a função será executada apenas na primeira renderização do componente.
+
+  useEffect(() => {
+    if (!estado) {
+      setCidades([]);
+      return;
+    } // Se o estado não estiver selecionado, a lista de cidades é limpa e a função retorna sem fazer nada.
+
+    axios
+      .get(`http://localhost:3001/cidades/${estado}`)
+      .then((response) => {
+        setCidades(response.data);
+      }) // Faz uma requisição GET para o backend para buscar as cidades do estado selecionado. O estado selecionado é passado como parâmetro na URL da requisição. O backend retorna a lista de cidades do estado selecionado, que é armazenada no estado "cidades".
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [estado]); // O useEffect acima é executado sempre que o estado selecionado é alterado. O array [estado] indica que a função será executada sempre que o valor do estado mudar.
 
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
@@ -154,16 +180,26 @@ function FormularioComponent() {
           onClick={mostrarAvisoPais}
         />
 
-        <Input
-          type="text"
-          placeholder="Cidade"
-          onChange={(e) => setCidade(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Estado"
-          onChange={(e) => setEstado(e.target.value)}
-        />
+        <Select value={estado} onChange={(e) => setEstado(e.target.value)}>
+          <option value="">Selecione um estado</option>
+
+          {estados.map((estado) => (
+            <option key={estado.id} value={estado.id}>
+              {estado.nome}
+            </option>
+          ))}
+        </Select>
+
+        <Select value={cidade} onChange={(e) => setCidade(e.target.value)}>
+          <option value="">Selecione uma cidade</option>
+
+          {cidades.map((cidade) => (
+            <option key={cidade.id} value={cidade.id}>
+              {cidade.nome}
+            </option>
+          ))}
+        </Select>
+
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>
       </Formulario>
     </Conteudo>

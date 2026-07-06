@@ -4,7 +4,6 @@ import {
   TabelaUsuarios,
   CabecalhoTabela,
   LinhaTabela,
-  CelulaTabela,
   CelulaDados,
   CelulaCabecalho,
   CorpoTabela,
