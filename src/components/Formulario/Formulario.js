@@ -22,10 +22,11 @@ import {
   CampoIntrodutorio,
   TextLimparSelecao,
 } from "./styled";
+import Swal from "sweetalert2";
 
-import { mostrarAvisoPais, mostrarAvisoCidade } from "./aviso";
+import { mostrarAvisoPais, mostrarAvisoCidade, mostrarAvisoPreenchimento, mostrarAvisoCadastro, mostrarAvisoErroCadastro } from "./aviso";
 
-function FormularioComponent() {
+ function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -81,6 +82,21 @@ function FormularioComponent() {
 
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
+
+    if (
+      !nomeCompleto ||
+      !email ||
+      !telefone ||
+      !genero ||
+      !dataNascimento ||
+      !estado ||
+      !cidade ||
+      !pais
+    ) {
+      mostrarAvisoPreenchimento();
+      return;
+    }
+
     axios
       .post("http://localhost:3001/cadastrar", {
         nomeCompleto,
@@ -93,12 +109,12 @@ function FormularioComponent() {
         pais,
       })
       .then(() => {
-        alert("Usuário cadastrado!");
+        mostrarAvisoCadastro();
         buscarUsuarios(); // Atualiza a lista
       })
       .catch((err) => {
         console.error(err);
-        alert("Erro ao cadastrar");
+        mostrarAvisoErroCadastro();
       });
   };
 
@@ -119,16 +135,20 @@ function FormularioComponent() {
         <Input
           type="text"
           placeholder="Nome Completo"
+          export
+          required
           onChange={(e) => setNomeCompleto(e.target.value)}
         />
         <Input
           type="text"
           placeholder="E-mail"
+          required
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
           type="number"
           placeholder="Telefone"
+          required
           onChange={(e) => setTelefone(e.target.value)}
         />
         <CampoSexo>
@@ -144,6 +164,7 @@ function FormularioComponent() {
               name="genero"
               id="masculino"
               value="Masculino"
+              required
               checked={genero === "Masculino"}
               onChange={(e) => setGenero(e.target.value)}
             />
@@ -153,6 +174,7 @@ function FormularioComponent() {
               name="genero"
               id="feminino"
               value="Feminino"
+              required
               checked={genero === "Feminino"}
               onChange={(e) => setGenero(e.target.value)}
             />
@@ -162,6 +184,7 @@ function FormularioComponent() {
               name="genero"
               id="outros"
               value="Outros"
+              required
               checked={genero === "Outros"}
               onChange={(e) => setGenero(e.target.value)}
             />
@@ -172,6 +195,7 @@ function FormularioComponent() {
           <TituloDataNascimento>Data de Nascimento:</TituloDataNascimento>
           <InputDate
             type="date"
+            required
             onChange={(e) => setDataNascimento(e.target.value)}
           />
         </DataNascimento>
@@ -179,6 +203,7 @@ function FormularioComponent() {
           type="text"
           value={pais}
           readOnly
+          required
           style={{
             backgroundColor: "#e9ecef",
             color: "#6c757d",
@@ -187,10 +212,12 @@ function FormularioComponent() {
           onClick={mostrarAvisoPais}
         />
 
-        <Select value={estado} onChange={(e) => setEstado(e.target.value)}>
+        <Select value={estado} required onChange={(e) => setEstado(e.target.value)}>
           {" "}
           {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
-          <option value="">Selecione um estado</option>
+          <option value="" required>
+            Selecione um estado
+          </option>
           {estados.map((estado) => (
             <option key={estado.id} value={estado.id}>
               {estado.nome}
@@ -203,8 +230,11 @@ function FormularioComponent() {
           value={cidade}
           onChange={(e) => setCidade(e.target.value)}
           onClick={() => mostrarAvisoCidade(estado)}
+          required
         >
-          <option value="">Selecione uma cidade</option>
+          <option value="" required>
+            Selecione uma cidade
+          </option>
 
           {cidades.map((cidade) => (
             <option key={cidade.id} value={cidade.id}>

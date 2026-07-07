@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import FormularioComponent from "./Formulario";
 
 export const mostrarAvisoPais = () => {
   Swal.fire({
@@ -20,4 +21,40 @@ export const mostrarAvisoCidade = (estado) => {
   }
 };
 
-export default { mostrarAvisoPais, mostrarAvisoCidade };
+export const mostrarAvisoPreenchimento = () => {
+  Swal.fire({
+    icon: "warning",
+    title: "Campos obrigatórios",
+    text: "Por favor, preencha todos os campos obrigatórios antes de enviar o formulário.",
+    confirmButtonText: "Entendi",
+  });
+};
+
+export const mostrarAvisoCadastro = () => {
+  Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "Usuário cadastrado com sucesso!",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+};
+
+export const mostrarAvisoErroCadastro = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro no cadastro",
+    text: "Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente.",
+    confirmButtonText: "Entendi",
+  });
+};
+
+export default {
+  mostrarAvisoPais,
+  mostrarAvisoCidade,
+  mostrarAvisoPreenchimento,
+  mostrarAvisoCadastro,
+  mostrarAvisoErroCadastro,
+};
