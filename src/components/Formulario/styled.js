@@ -123,6 +123,11 @@ export const CampoSexo = styled.div`
   flex-direction: column;
 `;
 
+export const CampoIntrodutorio = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
 export const OpcoesSexo = styled.div`
   display: flex;
 `;
@@ -131,6 +136,20 @@ export const TextSexo = styled.h2`
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 7px;
+`;
+
+export const TextLimparSelecao = styled.h2`
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #c9c9c9;
+
+  &:hover {
+    transition: 0.5s ease;
+    color: white;
+    font-weight: 500;
+  }
 `;
 
 export const RadioInput = styled.input`

@@ -19,6 +19,8 @@ import {
   InputDate,
   BotaoEnviar,
   Select,
+  CampoIntrodutorio,
+  TextLimparSelecao,
 } from "./styled";
 
 import { mostrarAvisoPais, mostrarAvisoCidade } from "./aviso";
@@ -130,13 +132,19 @@ function FormularioComponent() {
           onChange={(e) => setTelefone(e.target.value)}
         />
         <CampoSexo>
-          <TextSexo>Sexo:</TextSexo>
+          <CampoIntrodutorio>
+            <TextSexo>Gênero:</TextSexo>
+            <TextLimparSelecao onClick={() => setGenero("")}>
+              Limpar seleção
+            </TextLimparSelecao>
+          </CampoIntrodutorio>
           <OpcoesSexo>
             <RadioInput
               type="radio"
               name="genero"
               id="masculino"
               value="Masculino"
+              checked={genero === "Masculino"}
               onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="masculino">Masculino</Label>
@@ -145,6 +153,7 @@ function FormularioComponent() {
               name="genero"
               id="feminino"
               value="Feminino"
+              checked={genero === "Feminino"}
               onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="feminino">Feminino</Label>
@@ -153,6 +162,7 @@ function FormularioComponent() {
               name="genero"
               id="outros"
               value="Outros"
+              checked={genero === "Outros"}
               onChange={(e) => setGenero(e.target.value)}
             />
             <Label htmlFor="outros">Outros</Label>
