@@ -1,5 +1,4 @@
 import Swal from "sweetalert2";
-import FormularioComponent from "./Formulario";
 
 export const mostrarAvisoPais = () => {
   Swal.fire({
@@ -51,10 +50,20 @@ export const mostrarAvisoErroCadastro = () => {
   });
 };
 
+export const mostrarAvisoEmailDuplicado = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro no cadastro do usuário",
+    text: "Esse e-mail já está em uso.",
+    confirmButtonText: "Entendi",
+  });
+};
+
 export default {
   mostrarAvisoPais,
   mostrarAvisoCidade,
   mostrarAvisoPreenchimento,
   mostrarAvisoCadastro,
   mostrarAvisoErroCadastro,
+  mostrarAvisoEmailDuplicado,
 };

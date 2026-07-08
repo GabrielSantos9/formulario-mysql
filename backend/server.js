@@ -27,34 +27,54 @@ app.post("/cadastrar", (req, res) => {
     pais,
   } = req.body;
 
-  const sql = `
- INSERT INTO usuarios 
- (nomeCompleto, email, telefone, genero, data_nascimento, cidade, estado, pais)
- VALUES (?, ?, ?, ?, ?, ?, ?, ?)
- `;
+  const verificarEmail = "SELECT * FROM usuarios WHERE email = ?";
 
-  db.query(
-    sql,
-    [
-      nomeCompleto,
-      email,
-      telefone,
-      genero,
-      data_nascimento,
-      cidade,
-      estado,
-      pais,
-    ],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Erro ao cadastrar");
-      } else {
-        res.send("Usuário cadastrado!");
-      }
-    },
-  );
-  //Em resumo, o código acima define uma rota POST "/cadastrar" que recebe os dados do formulário, insere esses dados na tabela "usuarios" do banco de dados MySQL e retorna uma resposta indicando se o cadastro foi bem-sucedido ou se ocorreu um erro. O React envvia dados, Node recebe, Node envia para o MySQL, MySQL salva no banco de dados.
+  db.query(verificarEmail, [email], (erroEmail, resultadoEmail) => {
+    if (erroEmail) {
+      console.log(erroEmail);
+
+      return res.status(500).send("Erro ao verificar e-mail");
+    }
+    if (resultadoEmail.length > 0) {
+      return res.status(400).send("E-mail já cadastrado");
+    }
+
+    const sql = `
+      INSERT INTO usuarios
+      (
+        nomeCompleto,
+        email,
+        telefone,
+        genero,
+        data_nascimento,
+        cidade,
+        estado,
+        pais
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.query(
+      sql,
+      [
+        nomeCompleto,
+        email,
+        telefone,
+        genero,
+        data_nascimento,
+        cidade,
+        estado,
+        pais,
+      ],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("Erro ao cadastrar");
+        } else {
+          res.send("Usuário cadastrado!");
+        }
+      },
+    );
+  });
 });
 
 app.listen(3001, () => {

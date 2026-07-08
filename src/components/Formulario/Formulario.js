@@ -24,9 +24,16 @@ import {
 } from "./styled";
 import Swal from "sweetalert2";
 
-import { mostrarAvisoPais, mostrarAvisoCidade, mostrarAvisoPreenchimento, mostrarAvisoCadastro, mostrarAvisoErroCadastro } from "./aviso";
+import {
+  mostrarAvisoPais,
+  mostrarAvisoCidade,
+  mostrarAvisoPreenchimento,
+  mostrarAvisoCadastro,
+  mostrarAvisoErroCadastro,
+  mostrarAvisoEmailDuplicado,
+} from "./aviso";
 
- function FormularioComponent() {
+function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -80,8 +87,56 @@ import { mostrarAvisoPais, mostrarAvisoCidade, mostrarAvisoPreenchimento, mostra
       });
   }, [estado]); // O useEffect acima é executado sempre que o estado selecionado é alterado. O array [estado] indica que a função será executada sempre que o valor do estado mudar.
 
+  const validarNome = (nome) => {
+    const regex = /^[A-Za-zÀ-ÿ\s]+$/;
+
+    return regex.test(nome);
+  };
+
+  const validarEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return regex.test(email);
+  };
+
+  const validarTelefone = (telefone) => {
+    const regex = /^\d{11}$/;
+
+    return regex.test(telefone);
+  };
+
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
+
+    if (!validarNome(nomeCompleto)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Nome inválido",
+        text: "Digite apenas letras no nome.",
+      });
+
+      return;
+    }
+
+    if (!validarEmail(email)) {
+      Swal.fire({
+        icon: "warning",
+        title: "E-mail inválido",
+        text: "Digite um e-mail válido.",
+      });
+
+      return;
+    }
+
+    if (!validarTelefone(telefone)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Telefone inválido",
+        text: "Digite um telefone com 11 números.",
+      });
+
+      return;
+    }
 
     if (
       !nomeCompleto ||
@@ -113,7 +168,10 @@ import { mostrarAvisoPais, mostrarAvisoCidade, mostrarAvisoPreenchimento, mostra
         buscarUsuarios(); // Atualiza a lista
       })
       .catch((err) => {
-        console.error(err);
+        if (err.response?.status === 400) {
+          mostrarAvisoEmailDuplicado();
+          return;
+        }
         mostrarAvisoErroCadastro();
       });
   };
@@ -212,7 +270,11 @@ import { mostrarAvisoPais, mostrarAvisoCidade, mostrarAvisoPreenchimento, mostra
           onClick={mostrarAvisoPais}
         />
 
-        <Select value={estado} required onChange={(e) => setEstado(e.target.value)}>
+        <Select
+          value={estado}
+          required
+          onChange={(e) => setEstado(e.target.value)}
+        >
           {" "}
           {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
           <option value="" required>
