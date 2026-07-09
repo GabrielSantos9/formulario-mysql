@@ -9,6 +9,20 @@ app.use(express.json()); //permite receber dados em formato JSON do front-end
 // Configuração da conexão com o banco de dados MySQL
 const db = require("./database"); // Importa a configuração do banco de dados definida no arquivo "database.js"
 
+const validarCamposObrigatorios = (dados) => {
+  return Object.values(dados).every((valor) => {
+    if (valor === null || valor === undefined) {
+      return false;
+    }
+
+    if (typeof valor === "string" && valor.trim() === "") {
+      return false;
+    }
+
+    return true;
+  });
+};
+
 app.get("/", (req, res) => {
   res.send("Servidor funcionando!");
 });
@@ -27,6 +41,24 @@ app.post("/cadastrar", (req, res) => {
     pais,
   } = req.body;
 
+  const dadosFormulario = {
+    nomeCompleto,
+    email,
+    telefone,
+    genero,
+    data_nascimento,
+    cidade,
+    estado,
+    pais,
+  };
+
+  if (!validarCamposObrigatorios(dadosFormulario)) {
+    return res.status(400).json({
+      erro: "CAMPOS_OBRIGATORIOS",
+      mensagem: "Todos os campos são obrigatórios.",
+    });
+  }
+
   const verificarEmail = "SELECT * FROM usuarios WHERE email = ?";
 
   db.query(verificarEmail, [email], (erroEmail, resultadoEmail) => {
@@ -36,7 +68,10 @@ app.post("/cadastrar", (req, res) => {
       return res.status(500).send("Erro ao verificar e-mail");
     }
     if (resultadoEmail.length > 0) {
-      return res.status(400).send("E-mail já cadastrado");
+      return res.status(400).json({
+        erro: "EMAIL_DUPLICADO",
+        mensagem: "E-mail já cadastrado",
+      });
     }
 
     const sql = `

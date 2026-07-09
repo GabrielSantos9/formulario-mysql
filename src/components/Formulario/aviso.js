@@ -50,12 +50,37 @@ export const mostrarAvisoErroCadastro = () => {
   });
 };
 
+
 export const mostrarAvisoEmailDuplicado = () => {
   Swal.fire({
     icon: "error",
     title: "Erro no cadastro do usuário",
     text: "Esse e-mail já está em uso.",
     confirmButtonText: "Entendi",
+  });
+};
+
+export const mostrarAvisoNomeInvalido = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Nome inválido",
+    text: "Digite apenas letras no nome.",
+  });
+};
+
+export const mostrarAvisoEmailInvalido = () => {
+  Swal.fire({
+    icon: "warning",
+    title: "E-mail inválido",
+    text: "Digite um e-mail válido.",
+  });
+};
+
+export const mostrarAvisoTelefoneInvalido = () => {
+  Swal.fire({
+    icon: "warning",
+    title: "Telefone inválido",
+    text: "Digite um telefone com 11 números.",
   });
 };
 
@@ -66,4 +91,7 @@ export default {
   mostrarAvisoCadastro,
   mostrarAvisoErroCadastro,
   mostrarAvisoEmailDuplicado,
+  mostrarAvisoNomeInvalido,
+  mostrarAvisoEmailInvalido,
+  mostrarAvisoTelefoneInvalido
 };

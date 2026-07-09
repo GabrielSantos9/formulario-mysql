@@ -116,6 +116,12 @@ export const Input = styled.input`
   &::placeholder {
     color: #a1a1a1;
   }
+
+  &#input-pais {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: "not-allowed";
+  }
 `;
 
 export const CampoSexo = styled.div`
@@ -124,8 +130,8 @@ export const CampoSexo = styled.div`
 `;
 
 export const CampoIntrodutorio = styled.div`
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const OpcoesSexo = styled.div`

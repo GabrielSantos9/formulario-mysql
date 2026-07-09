@@ -31,7 +31,12 @@ import {
   mostrarAvisoCadastro,
   mostrarAvisoErroCadastro,
   mostrarAvisoEmailDuplicado,
+  mostrarAvisoNomeInvalido,
+  mostrarAvisoEmailInvalido,
+  mostrarAvisoTelefoneInvalido,
 } from "./aviso";
+
+import { validarNome, validarEmail, validarTelefone, validarCamposObrigatorios } from "./validacoes";
 
 function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -87,68 +92,21 @@ function FormularioComponent() {
       });
   }, [estado]); // O useEffect acima é executado sempre que o estado selecionado é alterado. O array [estado] indica que a função será executada sempre que o valor do estado mudar.
 
-  const validarNome = (nome) => {
-    const regex = /^[A-Za-zÀ-ÿ\s]+$/;
-
-    return regex.test(nome);
-  };
-
-  const validarEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return regex.test(email);
-  };
-
-  const validarTelefone = (telefone) => {
-    const regex = /^\d{11}$/;
-
-    return regex.test(telefone);
-  };
-
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página
 
     if (!validarNome(nomeCompleto)) {
-      Swal.fire({
-        icon: "warning",
-        title: "Nome inválido",
-        text: "Digite apenas letras no nome.",
-      });
-
+      mostrarAvisoNomeInvalido();
       return;
     }
 
     if (!validarEmail(email)) {
-      Swal.fire({
-        icon: "warning",
-        title: "E-mail inválido",
-        text: "Digite um e-mail válido.",
-      });
-
+      mostrarAvisoEmailInvalido();
       return;
     }
 
     if (!validarTelefone(telefone)) {
-      Swal.fire({
-        icon: "warning",
-        title: "Telefone inválido",
-        text: "Digite um telefone com 11 números.",
-      });
-
-      return;
-    }
-
-    if (
-      !nomeCompleto ||
-      !email ||
-      !telefone ||
-      !genero ||
-      !dataNascimento ||
-      !estado ||
-      !cidade ||
-      !pais
-    ) {
-      mostrarAvisoPreenchimento();
+      mostrarAvisoTelefoneInvalido();
       return;
     }
 
@@ -165,15 +123,14 @@ function FormularioComponent() {
       })
       .then(() => {
         mostrarAvisoCadastro();
-        buscarUsuarios(); // Atualiza a lista
-      })
+      }) // Se a requisição for bem-sucedida, mostra um aviso de sucesso e atualiza a lista de usuários cadastrados.
       .catch((err) => {
-        if (err.response?.status === 400) {
+        if (err.response?.data?.erro === "EMAIL_DUPLICADO") {
           mostrarAvisoEmailDuplicado();
           return;
         }
         mostrarAvisoErroCadastro();
-      });
+      }); // Se houver algum erro na requisição, o catch é executado e mostra um aviso de erro no cadastro. Se o erro for de e-mail duplicado, mostra um aviso específico para isso.
   };
 
   return (
@@ -262,11 +219,7 @@ function FormularioComponent() {
           value={pais}
           readOnly
           required
-          style={{
-            backgroundColor: "#e9ecef",
-            color: "#6c757d",
-            cursor: "not-allowed",
-          }}
+          id="input-pais"
           onClick={mostrarAvisoPais}
         />
 
@@ -275,7 +228,6 @@ function FormularioComponent() {
           required
           onChange={(e) => setEstado(e.target.value)}
         >
-          {" "}
           {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
           <option value="" required>
             Selecione um estado
@@ -284,7 +236,7 @@ function FormularioComponent() {
             <option key={estado.id} value={estado.id}>
               {estado.nome}
             </option>
-          ))}{" "}
+          ))}
           {/* // O 'estados.map' ele percorre a lista de estados e cria uma opção para cada estado, onde o 'estado.id' é o valor da opção e o 'estado.nome' é o texto da opção. */}
         </Select>
 
