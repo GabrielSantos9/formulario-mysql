@@ -9,6 +9,8 @@ app.use(express.json()); //permite receber dados em formato JSON do front-end
 // Configuração da conexão com o banco de dados MySQL
 const db = require("./database"); // Importa a configuração do banco de dados definida no arquivo "database.js"
 
+const { validarNome, validarEmail, validarTelefone } = require("../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
+
 const validarCamposObrigatorios = (dados) => {
   return Object.values(dados).every((valor) => {
     if (valor === null || valor === undefined) {
@@ -56,6 +58,27 @@ app.post("/cadastrar", (req, res) => {
     return res.status(400).json({
       erro: "CAMPOS_OBRIGATORIOS",
       mensagem: "Todos os campos são obrigatórios.",
+    });
+  }
+
+  if (!validarNome(nomeCompleto)) {
+    return res.status(400).json({
+      erro: "NOME_INVALIDO",
+      mensagem: "O nome deve conter apenas letras e espaços.",
+    });
+  }
+
+  if (!validarEmail(email)) {
+    return res.status(400).json({
+      erro: "EMAIL_INVALIDO",
+      mensagem: "O e-mail fornecido não é válido.",
+    });
+  }
+
+  if (!validarTelefone(telefone)) {
+    return res.status(400).json({
+      erro: "TELEFONE_INVALIDO",
+      mensagem: "O telefone deve conter exatamente 11 dígitos.",
     });
   }
 
