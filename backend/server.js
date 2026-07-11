@@ -9,27 +9,13 @@ app.use(express.json()); //permite receber dados em formato JSON do front-end
 // Configuração da conexão com o banco de dados MySQL
 const db = require("./database"); // Importa a configuração do banco de dados definida no arquivo "database.js"
 
-const { validarNome, validarEmail, validarTelefone } = require("../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
-
-const validarCamposObrigatorios = (dados) => {
-  return Object.values(dados).every((valor) => {
-    if (valor === null || valor === undefined) {
-      return false;
-    }
-
-    if (typeof valor === "string" && valor.trim() === "") {
-      return false;
-    }
-
-    return true;
-  });
-};
+const { validarCamposObrigatorios, validarNome, validarEmail, validarTelefone } = require("../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
 
 app.get("/", (req, res) => {
   res.send("Servidor funcionando!");
 });
 
-app.post("/cadastrar", (req, res) => {
+app.post("/cadastrar", (req, res) => { // Define uma rota POST para o caminho "/cadastrar", que será responsável por receber os dados do formulário enviados pelo front-end e realizar o cadastro no banco de dados. A função de callback recebe os objetos "req" (requisição) e "res" (resposta) como parâmetros, permitindo acessar os dados enviados pelo front-end e enviar uma resposta de volta.
   console.log(req.body);
 
   const {
@@ -41,7 +27,7 @@ app.post("/cadastrar", (req, res) => {
     cidade,
     estado,
     pais,
-  } = req.body;
+  } = req.body; // Desestrutura os dados recebidos no corpo da requisição (req.body) e os armazena em variáveis correspondentes, facilitando o acesso aos valores enviados pelo front-end.
 
   const dadosFormulario = {
     nomeCompleto,

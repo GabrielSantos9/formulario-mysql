@@ -36,7 +36,7 @@ import {
   mostrarAvisoTelefoneInvalido,
 } from "./aviso";
 
-import { validarNome, validarEmail, validarTelefone, validarCamposObrigatorios } from "./validacoes";
+import { validarNome, validarEmail, validarTelefone } from "./validacoes";
 
 function FormularioComponent() {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -64,7 +64,7 @@ function FormularioComponent() {
       });
   };
   useEffect(() => {
-    buscarUsuarios();
+    buscarUsuarios(); // O useEffect acima é executado apenas uma vez, quando o componente é montado, e busca os usuários cadastrados do backend. O array vazio [] indica que não há dependências ou seja, a função será executada apenas na primeira renderização do componente.
 
     axios
       .get("http://localhost:3001/estados")

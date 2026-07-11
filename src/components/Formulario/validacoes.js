@@ -1,7 +1,15 @@
 export const validarCamposObrigatorios = (dados) => {
-  return Object.values(dados).every(
-    (valor) => valor !== null && valor !== undefined && valor !== "",
-  );
+  return Object.values(dados).every((valor) => {
+    if (valor === null || valor === undefined) {
+      return false;
+    }
+
+    if (typeof valor === "string" && valor.trim() === "") {
+      return false;
+    }
+
+    return true;
+  });
 };
 
 export const validarNome = (nome) => {
