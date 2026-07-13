@@ -25,7 +25,7 @@ const colunas = [
 
 function Tabela() {
   const [usuarios, setUsuarios] = useState([]);
-
+ //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
   useEffect(() => {
     axios
       .get("http://localhost:3001/usuarios")
@@ -45,7 +45,7 @@ function Tabela() {
           <LinhaTabela>
             {colunas.map((coluna) => (
               <CelulaCabecalho
-                key={coluna.id}
+                key={coluna.id} // A chave única para cada célula do cabeçalho, necessária para o React identificar quais itens foram alterados, adicionados ou removidos. A key serve para o React identificar quais itens mudaram, foram inseridos ou removidos sem ter que refazer a tela inteira. Na prática deste código, se eu ordenar a tabela por nome, deletar um usuário ou esconder uma coluna, o React usa o id da coluna e do usuário para mexer apenas nas linhas e células exatas que sofreram a ação, deixando a tabela rápida e performática."
                 style={{ minWidth: coluna.largura }}
               >
                 {coluna.titulo}

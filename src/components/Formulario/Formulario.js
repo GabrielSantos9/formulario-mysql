@@ -51,9 +51,11 @@ function FormularioComponent() {
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
 
+
+  //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND
   const buscarUsuarios = () => {
     //Função para buscar os usuários cadastrados no backend
-    axios
+    axios // o 'axios' é uma biblioteca que ajuda a fazer requisições HTTP para o backend. O 'axios.get' faz uma requisição GET para o backend, que é um pedido para buscar informações do backend. O 'http://localhost:3001/usuarios' é a URL do backend onde estão os usuários cadastrados. O 'then' é executado quando a requisição é bem-sucedida e o 'catch' é executado quando há algum erro na requisição.
       .get("http://localhost:3001/usuarios")
       .then((response) => {
         //Faz uma requisição GET para o backend para buscar os usuários cadastrados
@@ -63,19 +65,22 @@ function FormularioComponent() {
         console.log(error);
       });
   };
+
+  //*FUNÇÃO PARA BUSCAR ESTADOS DO BACKEND
   useEffect(() => {
-    buscarUsuarios(); // O useEffect acima é executado apenas uma vez, quando o componente é montado, e busca os usuários cadastrados do backend. O array vazio [] indica que não há dependências ou seja, a função será executada apenas na primeira renderização do componente.
+    buscarUsuarios();
 
     axios
       .get("http://localhost:3001/estados")
       .then((response) => {
-        setEstados(response.data); //Armazena os estados recebidos do backend no estado "estados"
+        setEstados(response.data); //Armazena os estados recebidos do backend no estado "estados". o 'setEstados' ele tem a função de apenas trocar a lista de estados, quando o componente é montado, aí ele passa para a 'estados', onde guarda a lista de estados cadastrados no backend. o response.data é a lista de estados recebidos do backend, que é um array de objetos, onde cada objeto representa um estado com suas propriedades (id e nome). O 'setEstados' atualiza o estado "estados" com a lista de estados recebidos do backend.
       }) // Faz uma requisição GET para o backend para buscar os estados cadastrados
       .catch((error) => {
         console.error(error);
       });
   }, []); // O useEffect acima é executado apenas uma vez, quando o componente é montado, e busca os estados do backend. O array vazio [] indica que não há dependências ou seja, a função será executada apenas na primeira renderização do componente.
 
+  //*FUNÇÃO PARA BUSCAR CIDADES DE ACORDO COM O ESTADO SELECIONADO
   useEffect(() => {
     if (!estado) {
       setCidades([]);
@@ -92,8 +97,9 @@ function FormularioComponent() {
       });
   }, [estado]); // O useEffect acima é executado sempre que o estado selecionado é alterado. O array [estado] indica que a função será executada sempre que o valor do estado mudar.
 
+  //*FUNÇÃO PARA ENVIAR O FORMULÁRIO PARA O BACKEND
   const enviarFormulario = (e) => {
-    e.preventDefault(); //Impede recarregar a página
+    e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
     if (!validarNome(nomeCompleto)) {
       mostrarAvisoNomeInvalido();
