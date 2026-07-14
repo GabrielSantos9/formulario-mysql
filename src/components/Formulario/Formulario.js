@@ -164,10 +164,14 @@ function FormularioComponent() {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
-          type="number"
+          type="text"
           placeholder="Telefone"
           required
-          onChange={(e) => setTelefone(e.target.value)}
+          value={telefone}
+          onChange={(e) => {
+            const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
+            setTelefone(valor);
+          }}
         />
         <CampoSexo>
           <CampoIntrodutorio>

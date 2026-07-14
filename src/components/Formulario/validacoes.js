@@ -24,5 +24,5 @@ export const validarEmail = (email) => {
 
 export const validarTelefone = (telefone) => {
   const regex = /^\d{11}$/;
-  return regex.test(telefone);
+  return regex.test(telefone); // A função 'validarTelefone' recebe um parâmetro 'telefone' e verifica se ele contém exatamente 11 dígitos numéricos.
 };

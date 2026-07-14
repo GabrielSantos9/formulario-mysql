@@ -71,7 +71,7 @@ app.post("/cadastrar", (req, res) => {
   if (!validarTelefone(telefone)) {
     return res.status(400).json({
       erro: "TELEFONE_INVALIDO",
-      mensagem: "O telefone deve conter exatamente 11 dígitos.",
+      mensagem: "O telefone deve conter exatamente 11 números.",
     });
   }
 
