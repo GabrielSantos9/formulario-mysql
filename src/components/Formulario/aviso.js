@@ -50,7 +50,6 @@ export const mostrarAvisoErroCadastro = () => {
   });
 };
 
-
 export const mostrarAvisoEmailDuplicado = () => {
   Swal.fire({
     icon: "error",
@@ -93,5 +92,5 @@ export default {
   mostrarAvisoEmailDuplicado,
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
-  mostrarAvisoTelefoneInvalido
+  mostrarAvisoTelefoneInvalido,
 };

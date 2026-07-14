@@ -22,12 +22,10 @@ import {
   CampoIntrodutorio,
   TextLimparSelecao,
 } from "./styled";
-import Swal from "sweetalert2";
 
 import {
   mostrarAvisoPais,
   mostrarAvisoCidade,
-  mostrarAvisoPreenchimento,
   mostrarAvisoCadastro,
   mostrarAvisoErroCadastro,
   mostrarAvisoEmailDuplicado,
@@ -50,7 +48,6 @@ function FormularioComponent() {
   const pais = "Brasil"; // O valor do país é fixo, então não precisa de um estado para armazenar o valor do país.
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
-
 
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND
   const buscarUsuarios = () => {

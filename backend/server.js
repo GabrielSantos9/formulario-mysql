@@ -2,6 +2,7 @@ const express = require("express"); //cria um servidor back-end
 const mysql = require("mysql2"); //conecta o node ao mysql
 const cors = require("cors"); //permite que o front-end acesse o back-end, mesmo que estejam em portas diferentes
 
+//*CONFIGURAÇÃO DO EXPRESS
 const app = express();
 app.use(cors()); //permite React (front-end) acessar o Express (back-end)
 app.use(express.json()); //permite receber dados em formato JSON do front-end
@@ -9,14 +10,20 @@ app.use(express.json()); //permite receber dados em formato JSON do front-end
 // Configuração da conexão com o banco de dados MySQL
 const db = require("./database"); // Importa a configuração do banco de dados definida no arquivo "database.js"
 
-const { validarCamposObrigatorios, validarNome, validarEmail, validarTelefone } = require("../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
+const {
+  validarCamposObrigatorios,
+  validarNome,
+  validarEmail,
+  validarTelefone,
+} = require("../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
 
 app.get("/", (req, res) => {
   res.send("Servidor funcionando!");
 });
 
-app.post("/cadastrar", (req, res) => { // Define uma rota POST para o caminho "/cadastrar", que será responsável por receber os dados do formulário enviados pelo front-end e realizar o cadastro no banco de dados. A função de callback recebe os objetos "req" (requisição) e "res" (resposta) como parâmetros, permitindo acessar os dados enviados pelo front-end e enviar uma resposta de volta.
-  console.log(req.body);
+//*FUNÇÃO PARA CADASTRAR USUÁRIOS NO BANCO DE DADOS.
+app.post("/cadastrar", (req, res) => {
+  // Define uma rota POST para o caminho "/cadastrar", que será responsável por receber os dados do formulário enviados pelo front-end e realizar o cadastro no banco de dados. A função de callback recebe os objetos "req" (requisição) e "res" (resposta) como parâmetros, permitindo acessar os dados enviados pelo front-end e enviar uma resposta de volta.
 
   const {
     nomeCompleto,
@@ -143,6 +150,14 @@ app.get("/usuarios", (req, res) => {
     LEFT JOIN estados e
       ON u.estado = e.id
   `;
+
+  //c.nome AS cidade e e.nome AS estado, Pega c.nome e renomeia para cidade / Pega e.nome e Renomeia para estado
+
+  //ON u.cidade = c.id e ON u.estado = e.id ao invés de informar o número do id, informar o nome armazenado no id, tanto o nome da cidade, quanto o nome do estado?
+
+  //FROM usuarios u: Define a tabela principal da busca e atribui a ela a letra u como apelido (alias). Isso evita ter que digitar usuarios.nomeCompleto toda vez.
+  // LEFT JOIN cidades c: Junta a tabela de cidades à busca, dando a ela o apelido c.
+  // LEFT JOIN estados e: Junta a tabela de estados à busca, dando a ela o apelido e.
 
   db.query(sql, (err, result) => {
     if (err) {
