@@ -153,6 +153,9 @@ function FormularioComponent() {
         <Input
           type="text"
           placeholder="Nome Completo"
+          autocomplete="name"
+          minlength="5"
+          maxlength="70"
           export
           required
           onChange={(e) => setNomeCompleto(e.target.value)}
