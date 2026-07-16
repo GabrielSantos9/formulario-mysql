@@ -47,17 +47,30 @@ app.post("/cadastrar", (req, res) => {
     pais,
   };
 
+  const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
+  if (!resultadoNome.valido) {
+    resultadoNome.erro === "MINIMO_CARACTERES" &&
+      res.status(400).json({
+      erro: "CAMPOS_OBRIGATORIOS",
+      mensagem: "O nome deve ter no mínimo 5 caracteres.",
+    });
+    resultadoNome.erro === "MAXIMO_CARACTERES" &&
+      res.status(400).json({
+      erro: "CAMPOS_OBRIGATORIOS",
+      mensagem: "O nome deve ter no máximo 80 caracteres.",
+    });
+    resultadoNome.erro === "CARACTERES_INVALIDOS" &&
+       res.status(400).json({
+        erro: "NOME_INVALIDO",
+        mensagem: "O nome deve conter apenas letras e espaços.",
+      });
+    return;
+  }
+
   if (!validarCamposObrigatorios(dadosFormulario)) {
     return res.status(400).json({
       erro: "CAMPOS_OBRIGATORIOS",
       mensagem: "Todos os campos são obrigatórios.",
-    });
-  }
-
-  if (!validarNome(nomeCompleto)) {
-    return res.status(400).json({
-      erro: "NOME_INVALIDO",
-      mensagem: "O nome deve conter apenas letras e espaços.",
     });
   }
 

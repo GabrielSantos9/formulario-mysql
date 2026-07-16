@@ -67,6 +67,22 @@ export const mostrarAvisoNomeInvalido = () => {
   });
 };
 
+export const mostrarAvisoNomeQntdMinima = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Nome inválido",
+    text: "O nome deve ter no mínimo 5 caracteres.",
+  });
+};
+
+export const mostrarAvisoNomeQntdMaxima = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Nome inválido",
+    text: "O nome deve ter no máximo 80 caracteres.",
+  });
+};
+
 export const mostrarAvisoEmailInvalido = () => {
   Swal.fire({
     icon: "warning",

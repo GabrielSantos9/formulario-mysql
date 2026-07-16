@@ -13,8 +13,36 @@ export const validarCamposObrigatorios = (dados) => {
 };
 
 export const validarNome = (nome) => {
-  const regex = /^[A-Za-zÀ-ÿ\s]+$/;
-  return regex.test(nome); // A função 'validarNome' recebe um parâmetro 'nome' e verifica se ele contém apenas letras (maiúsculas e minúsculas), incluindo letras acentuadas, e espaços.
+  const nomeNormalizado = nome
+    .trim()
+    .replace(/\s+/g, " ");
+
+  if (nomeNormalizado.length < 5) {
+    return {
+      valido: false,
+      erro: "MINIMO_CARACTERES",
+    };
+  }
+
+  if (nomeNormalizado.length > 80) {
+    return {
+      valido: false,
+      erro: "MAXIMO_CARACTERES",
+    };
+  }
+
+  const regex = /^[A-Za-zÀ-ÿ\s'-]+$/;
+
+  if (!regex.test(nomeNormalizado)) {
+    return {
+      valido: false,
+      erro: "CARACTERES_INVALIDOS",
+    };
+  }
+
+  return {
+    valido: true,
+  };
 };
 
 export const validarEmail = (email) => {

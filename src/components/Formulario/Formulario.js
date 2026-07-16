@@ -32,6 +32,8 @@ import {
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
   mostrarAvisoTelefoneInvalido,
+  mostrarAvisoNomeQntdMinima,
+  mostrarAvisoNomeQntdMaxima,
 } from "./aviso";
 
 import { validarNome, validarEmail, validarTelefone } from "./validacoes";
@@ -98,8 +100,14 @@ function FormularioComponent() {
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
-    if (!validarNome(nomeCompleto)) {
-      mostrarAvisoNomeInvalido();
+    const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
+    if (!resultadoNome.valido) {
+      resultadoNome.erro === "MINIMO_CARACTERES" &&
+        mostrarAvisoNomeQntdMinima();
+      resultadoNome.erro === "MAXIMO_CARACTERES" &&
+        mostrarAvisoNomeQntdMaxima();
+      resultadoNome.erro === "CARACTERES_INVALIDOS" &&
+        mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
       return;
     }
 
@@ -155,7 +163,7 @@ function FormularioComponent() {
           placeholder="Nome Completo"
           autocomplete="name"
           minlength="5"
-          maxlength="70"
+          maxlength="80"
           export
           required
           onChange={(e) => setNomeCompleto(e.target.value)}
