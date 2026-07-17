@@ -46,8 +46,33 @@ export const validarNome = (nome) => {
 };
 
 export const validarEmail = (email) => {
+  const emailNormalizado = email
+  if (emailNormalizado.length < 5) {
+    return {
+      valido: false,
+      erro: "MINIMO_CARACTERES",
+    };
+  }
+  
+  if (emailNormalizado.length > 254) {
+    return {
+      valido: false,
+      erro: "MAXIMO_CARACTERES",
+    };
+  }
+  
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
+
+  if (!regex.test(emailNormalizado)) {
+    return {
+      valido: false,
+      erro: "EMAIL_INVALIDO",
+    };
+  }
+
+  return {
+    valido: true,
+  };
 };
 
 export const validarTelefone = (telefone) => {

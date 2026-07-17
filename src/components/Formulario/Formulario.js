@@ -171,6 +171,8 @@ function FormularioComponent() {
         <Input
           type="text"
           placeholder="E-mail"
+          minlength="5"
+          maxlength="254"
           required
           onChange={(e) => setEmail(e.target.value)}
         />

@@ -51,16 +51,16 @@ app.post("/cadastrar", (req, res) => {
   if (!resultadoNome.valido) {
     resultadoNome.erro === "MINIMO_CARACTERES" &&
       res.status(400).json({
-      erro: "CAMPOS_OBRIGATORIOS",
-      mensagem: "O nome deve ter no mínimo 5 caracteres.",
-    });
+        erro: "CAMPOS_OBRIGATORIOS",
+        mensagem: "O nome deve ter no mínimo 5 caracteres.",
+      });
     resultadoNome.erro === "MAXIMO_CARACTERES" &&
       res.status(400).json({
-      erro: "CAMPOS_OBRIGATORIOS",
-      mensagem: "O nome deve ter no máximo 80 caracteres.",
-    });
+        erro: "CAMPOS_OBRIGATORIOS",
+        mensagem: "O nome deve ter no máximo 80 caracteres.",
+      });
     resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-       res.status(400).json({
+      res.status(400).json({
         erro: "NOME_INVALIDO",
         mensagem: "O nome deve conter apenas letras e espaços.",
       });
@@ -74,12 +74,27 @@ app.post("/cadastrar", (req, res) => {
     });
   }
 
-  if (!validarEmail(email)) {
-    return res.status(400).json({
-      erro: "EMAIL_INVALIDO",
-      mensagem: "O e-mail fornecido não é válido.",
-    });
+  const resultadoEmail = validarEmail(email);
+  if (!resultadoEmail.valido) {
+    resultadoEmail.erro === "MINIMO_CARACTERES" &&
+      res.status(400).json({
+        erro: "CAMPOS_OBRIGATORIOS",
+        mensagem: "O e-mail deve ter no mínimo 5 caracteres.",
+      });
+    resultadoEmail.erro === "MAXIMO_CARACTERES" &&
+      res.status(400).json({
+        erro: "CAMPOS_OBRIGATORIOS",
+        mensagem: "O e-mail deve ter no máximo 254 caracteres.",
+      });
+    return;
   }
+
+  // if (!validarEmail(email)) {
+  //   return res.status(400).json({
+  //     erro: "EMAIL_INVALIDO",
+  //     mensagem: "O e-mail fornecido não é válido.",
+  //   });
+  // }
 
   if (!validarTelefone(telefone)) {
     return res.status(400).json({
