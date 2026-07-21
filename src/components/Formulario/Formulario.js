@@ -8,12 +8,15 @@ import {
   BotaoUsuarios,
   Formulario,
   TituloFormulario,
+  CampoInput,
   Input,
+  Inpuut,
   CampoSexo,
   OpcoesSexo,
   TextSexo,
   RadioInput,
   Label,
+  Labeel,
   DataNascimento,
   TituloDataNascimento,
   InputDate,
@@ -158,34 +161,42 @@ function FormularioComponent() {
       </Introducao>
       <Formulario onSubmit={enviarFormulario}>
         <TituloFormulario>Cadastro</TituloFormulario>
-        <Input
-          type="text"
-          placeholder="Nome Completo"
-          autocomplete="name"
-          minlength="5"
-          maxlength="80"
-          export
-          required
-          onChange={(e) => setNomeCompleto(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="E-mail"
-          minlength="5"
-          maxlength="254"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Telefone"
-          required
-          value={telefone}
-          onChange={(e) => {
-            const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
-            setTelefone(valor);
-          }}
-        />
+        <CampoInput>
+          <Inpuut
+            type="text"
+            placeholder=" "
+            autocomplete="name"
+            minlength="5"
+            maxlength="80"
+            required
+            onChange={(e) => setNomeCompleto(e.target.value)}
+          />
+          <Labeel>Nome Completo</Labeel>
+        </CampoInput>
+        <CampoInput>
+          <Inpuut
+            type="text"
+            placeholder=" "
+            minlength="5"
+            maxlength="254"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Labeel>E-mail</Labeel>
+        </CampoInput>
+        <CampoInput>
+          <Inpuut
+            type="text"
+            placeholder=" "
+            required
+            value={telefone}
+            onChange={(e) => {
+              const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
+              setTelefone(valor);
+            }}
+          />
+          <Labeel>Telefone</Labeel>
+        </CampoInput>
         <CampoSexo>
           <CampoIntrodutorio>
             <TextSexo>Gênero:</TextSexo>
