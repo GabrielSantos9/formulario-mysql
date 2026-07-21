@@ -169,6 +169,7 @@ function FormularioComponent() {
             minlength="5"
             maxlength="80"
             required
+            title="Digite seu nome completo (Nome e Sobrenome)."
             onChange={(e) => setNomeCompleto(e.target.value)}
           />
           <Labeel>Nome Completo</Labeel>
@@ -180,6 +181,7 @@ function FormularioComponent() {
             minlength="5"
             maxlength="254"
             required
+            title="Digite seu e-mail."
             onChange={(e) => setEmail(e.target.value)}
           />
           <Labeel>E-mail</Labeel>
@@ -189,6 +191,7 @@ function FormularioComponent() {
             type="text"
             placeholder=" "
             required
+            title="Digite seu telefone."
             value={telefone}
             onChange={(e) => {
               const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
@@ -199,7 +202,7 @@ function FormularioComponent() {
         </CampoInput>
         <CampoSexo>
           <CampoIntrodutorio>
-            <TextSexo>Gênero:</TextSexo>
+            <TextSexo title="Selecione seu gênero.">Gênero:</TextSexo>
             <TextLimparSelecao onClick={() => setGenero("")}>
               Limpar seleção
             </TextLimparSelecao>
@@ -209,6 +212,7 @@ function FormularioComponent() {
               type="radio"
               name="genero"
               id="masculino"
+              title="Se você for masculino, selecione esta opção."
               value="Masculino"
               required
               checked={genero === "Masculino"}
@@ -219,6 +223,7 @@ function FormularioComponent() {
               type="radio"
               name="genero"
               id="feminino"
+              title="Se você for feminino, selecione esta opção."
               value="Feminino"
               required
               checked={genero === "Feminino"}
@@ -229,6 +234,7 @@ function FormularioComponent() {
               type="radio"
               name="genero"
               id="outros"
+              title="Se você for outros, selecione esta opção."
               value="Outros"
               required
               checked={genero === "Outros"}
@@ -238,10 +244,11 @@ function FormularioComponent() {
           </OpcoesSexo>
         </CampoSexo>
         <DataNascimento>
-          <TituloDataNascimento>Data de Nascimento:</TituloDataNascimento>
+          <TituloDataNascimento title="Selecione sua data de nascimento.">Data de Nascimento:</TituloDataNascimento>
           <InputDate
             type="date"
             required
+            title="Selecione sua data de nascimento."
             onChange={(e) => setDataNascimento(e.target.value)}
           />
         </DataNascimento>
