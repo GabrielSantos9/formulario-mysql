@@ -74,7 +74,8 @@ app.post("/cadastrar", (req, res) => {
     });
   }
 
-  const resultadoEmail = validarEmail(email);
+  const emailNormalizado = email.trim().toLowerCase();
+  const resultadoEmail = validarEmail(emailNormalizado);
   if (!resultadoEmail.valido) {
     resultadoEmail.erro === "MINIMO_CARACTERES" &&
       res.status(400).json({
@@ -86,15 +87,13 @@ app.post("/cadastrar", (req, res) => {
         erro: "CAMPOS_OBRIGATORIOS",
         mensagem: "O e-mail deve ter no máximo 254 caracteres.",
       });
+    resultadoEmail.erro === "EMAIL_INVALIDO" &&
+      res.status(400).json({
+        erro: "EMAIL_INVALIDO",
+        mensagem: "O e-mail fornecido não é válido.",
+      });
     return;
   }
-
-  // if (!validarEmail(email)) {
-  //   return res.status(400).json({
-  //     erro: "EMAIL_INVALIDO",
-  //     mensagem: "O e-mail fornecido não é válido.",
-  //   });
-  // }
 
   if (!validarTelefone(telefone)) {
     return res.status(400).json({
@@ -105,7 +104,7 @@ app.post("/cadastrar", (req, res) => {
 
   const verificarEmail = "SELECT * FROM usuarios WHERE email = ?";
 
-  db.query(verificarEmail, [email], (erroEmail, resultadoEmail) => {
+  db.query(verificarEmail, [emailNormalizado], (erroEmail, resultadoEmail) => {
     if (erroEmail) {
       console.log(erroEmail);
 
@@ -136,7 +135,7 @@ app.post("/cadastrar", (req, res) => {
       sql,
       [
         nomeCompleto,
-        email,
+        emailNormalizado,
         telefone,
         genero,
         data_nascimento,

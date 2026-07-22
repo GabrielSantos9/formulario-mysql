@@ -30,8 +30,7 @@ function Tabela() {
     axios
       .get("http://localhost:3001/usuarios")
       .then((response) => {
-        console.log(response.data);
-        setUsuarios(response.data);
+        setUsuarios(response.data); //data: Contém os dados da resposta da requisição, que neste caso é a lista de usuários recebida do backend. O setUsuarios é a função que atualiza o estado "usuarios" com os dados recebidos do backend, permitindo que a tabela seja renderizada com as informações corretas.
       })
       .catch((error) => {
         console.error(error);
@@ -43,7 +42,7 @@ function Tabela() {
       <TabelaUsuarios>
         <CabecalhoTabela>
           <LinhaTabela>
-            {colunas.map((coluna) => (
+            {colunas.map((coluna) => ( // O map() é usado para iterar sobre o array de colunas e renderizar uma célula de cabeçalho para cada coluna, usando o título e a largura definidos no array de colunas. A função de callback recebe cada objeto de coluna como argumento e retorna um componente CelulaCabecalho com as propriedades correspondentes.
               <CelulaCabecalho
                 key={coluna.id} // A chave única para cada célula do cabeçalho, necessária para o React identificar quais itens foram alterados, adicionados ou removidos. A key serve para o React identificar quais itens mudaram, foram inseridos ou removidos sem ter que refazer a tela inteira. Na prática deste código, se eu ordenar a tabela por nome, deletar um usuário ou esconder uma coluna, o React usa o id da coluna e do usuário para mexer apenas nas linhas e células exatas que sofreram a ação, deixando a tabela rápida e performática."
                 style={{ minWidth: coluna.largura }}

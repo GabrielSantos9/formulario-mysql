@@ -89,10 +89,11 @@ function FormularioComponent() {
       return;
     } // Se o estado não estiver selecionado, a lista de cidades é limpa e a função retorna sem fazer nada.
 
+    //*FUNÇÃO PARA BUSCAR CIDADES DO BACKEND DE ACORDO COM O ESTADO SELECIONADO
     axios
       .get(`http://localhost:3001/cidades/${estado}`)
       .then((response) => {
-        setCidades(response.data);
+        setCidades(response.data); // Armazena as cidades recebidas do backend no estado "cidades". o 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado. o response.data é a lista de cidades recebidos do backend, que é um array de objetos, onde cada objeto representa uma cidade com suas propriedades (id e nome). O 'setCidades' atualiza o estado "cidades" com a lista de cidades recebidos do backend.
       }) // Faz uma requisição GET para o backend para buscar as cidades do estado selecionado. O estado selecionado é passado como parâmetro na URL da requisição. O backend retorna a lista de cidades do estado selecionado, que é armazenada no estado "cidades".
       .catch((error) => {
         console.error(error);
@@ -134,7 +135,8 @@ function FormularioComponent() {
       mostrarAvisoTelefoneInvalido();
       return;
     }
-
+     
+    //*ENVIA OS DADOS DO FORMULÁRIO PARA O BACKEND
     axios
       .post("http://localhost:3001/cadastrar", {
         nomeCompleto,

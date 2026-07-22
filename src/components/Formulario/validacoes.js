@@ -13,9 +13,7 @@ export const validarCamposObrigatorios = (dados) => {
 };
 
 export const validarNome = (nome) => {
-  const nomeNormalizado = nome
-    .trim()
-    .replace(/\s+/g, " ");
+  const nomeNormalizado = nome.trim().replace(/\s+/g, " ");
 
   if (nomeNormalizado.length < 5) {
     return {
@@ -53,15 +51,15 @@ export const validarEmail = (email) => {
       erro: "MINIMO_CARACTERES",
     };
   }
-  
+
   if (emailNormalizado.length > 254) {
     return {
       valido: false,
       erro: "MAXIMO_CARACTERES",
     };
   }
-  
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const regex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
   if (!regex.test(emailNormalizado)) {
     return {
