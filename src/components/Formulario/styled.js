@@ -96,6 +96,52 @@ export const Input = styled.input`
   font-size: 15px;
   font-weight: 500;
   padding: 10px;
+  color: #ffffff;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid transparent;
+    transition: 0.5s ease;
+    background:
+      linear-gradient(#252525, #252525) padding-box,
+      linear-gradient(to right, #8000ff, #4d0099) border-box;
+  }
+
+  &:focus ~ label,
+  &:not(:placeholder-shown) ~ label {
+    top: 0px;
+    font-size: 12px;
+    color: #8000ff;
+    background-color: #252525; /* Fundo escuro para cobrir a borda atrás do texto */
+    padding: 0 4px; /* Pequeno espaçamento nas laterais do texto */
+  }
+
+  &#input-pais {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: "not-allowed";
+  }
+`;
+
+export const InputPais = styled.input`
+  width: 318px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgba(41, 41, 41, 0.698);
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px;
   margin-bottom: 20px;
   color: #ffffff;
 
@@ -130,59 +176,7 @@ export const Input = styled.input`
   }
 `;
 
-export const Inpuut = styled.input`
-  width: 318px;
-  /* width: 100%; */
-  height: 40px;
-  border-radius: 5px;
-  background-color: rgba(41, 41, 41, 0.698);
-  border: none;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 10px;
-  /* margin-bottom: 20px; */
-  color: #ffffff;
-
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: textfield;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  &:focus {
-    outline: none;
-    border: 1px solid transparent;
-    transition: 0.5s ease;
-    background:
-      linear-gradient(#252525, #252525) padding-box,
-      linear-gradient(to right, #8000ff, #4d0099) border-box;
-  }
-
-  /* &::placeholder {
-    color: #a1a1a1;
-  } */
-
-  &:focus ~ label,
-  &:not(:placeholder-shown) ~ label {
-    top: 0px;
-    font-size: 12px;
-    color: #8000ff;
-    background-color: #252525; /* Fundo escuro para cobrir a borda atrás do texto */
-    padding: 0 4px; /* Pequeno espaçamento nas laterais do texto */
-  }
-
-  &#input-pais {
-    background-color: #e9ecef;
-    color: #6c757d;
-    cursor: "not-allowed";
-  }
-`;
-
-export const Labeel = styled.label`
+export const Label = styled.label`
   position: absolute;
   left: 10px;
   top: 50%;
@@ -192,6 +186,14 @@ export const Labeel = styled.label`
   color: #a1a1a1;
   transition: 0.2s ease;
   pointer-events: none;
+`;
+
+export const LabelOpcoes = styled.label`
+  margin-right: 30px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 `;
 
 export const CampoSexo = styled.div`
@@ -235,14 +237,6 @@ export const RadioInput = styled.input`
   cursor: pointer;
 
   accent-color: #8000ff;
-`;
-
-export const Label = styled.label`
-  margin-right: 30px;
-
-  &:last-of-type {
-    margin-right: 0;
-  }
 `;
 
 export const DataNascimento = styled.div`

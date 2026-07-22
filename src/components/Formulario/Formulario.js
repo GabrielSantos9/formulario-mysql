@@ -10,13 +10,13 @@ import {
   TituloFormulario,
   CampoInput,
   Input,
-  Inpuut,
+  InputPais,
   CampoSexo,
   OpcoesSexo,
   TextSexo,
   RadioInput,
   Label,
-  Labeel,
+  LabelOpcoes,
   DataNascimento,
   TituloDataNascimento,
   InputDate,
@@ -99,6 +99,17 @@ function FormularioComponent() {
       });
   }, [estado]); // O useEffect acima é executado sempre que o estado selecionado é alterado. O array [estado] indica que a função será executada sempre que o valor do estado mudar.
 
+  //*FUNÇÃO DE LIMPAR O FORMULÁRIO APÓS O ENVIO
+  const limparFormulario = () => {
+    setNomeCompleto("");
+    setEmail("");
+    setTelefone("");
+    setGenero("");
+    setDataNascimento("");
+    setCidade("");
+    setEstado("");
+  };
+
   //*FUNÇÃO PARA ENVIAR O FORMULÁRIO PARA O BACKEND
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
@@ -137,6 +148,7 @@ function FormularioComponent() {
       })
       .then(() => {
         mostrarAvisoCadastro();
+        limparFormulario();
       }) // Se a requisição for bem-sucedida, mostra um aviso de sucesso e atualiza a lista de usuários cadastrados.
       .catch((err) => {
         if (err.response?.data?.erro === "EMAIL_DUPLICADO") {
@@ -162,32 +174,34 @@ function FormularioComponent() {
       <Formulario onSubmit={enviarFormulario}>
         <TituloFormulario>Cadastro</TituloFormulario>
         <CampoInput>
-          <Inpuut
+          <Input
             type="text"
             placeholder=" "
             autocomplete="name"
+            value={nomeCompleto}
             minlength="5"
             maxlength="80"
             required
             title="Digite seu nome completo (Nome e Sobrenome)."
             onChange={(e) => setNomeCompleto(e.target.value)}
           />
-          <Labeel>Nome Completo</Labeel>
+          <Label>Nome Completo</Label>
         </CampoInput>
         <CampoInput>
-          <Inpuut
+          <Input
             type="text"
             placeholder=" "
+            value={email}
             minlength="5"
             maxlength="254"
             required
             title="Digite seu e-mail."
             onChange={(e) => setEmail(e.target.value)}
           />
-          <Labeel>E-mail</Labeel>
+          <Label>E-mail</Label>
         </CampoInput>
         <CampoInput>
-          <Inpuut
+          <Input
             type="text"
             placeholder=" "
             required
@@ -198,7 +212,7 @@ function FormularioComponent() {
               setTelefone(valor);
             }}
           />
-          <Labeel>Telefone</Labeel>
+          <Label>Telefone</Label>
         </CampoInput>
         <CampoSexo>
           <CampoIntrodutorio>
@@ -218,7 +232,7 @@ function FormularioComponent() {
               checked={genero === "Masculino"}
               onChange={(e) => setGenero(e.target.value)}
             />
-            <Label htmlFor="masculino">Masculino</Label>
+            <LabelOpcoes htmlFor="masculino">Masculino</LabelOpcoes>
             <RadioInput
               type="radio"
               name="genero"
@@ -229,7 +243,7 @@ function FormularioComponent() {
               checked={genero === "Feminino"}
               onChange={(e) => setGenero(e.target.value)}
             />
-            <Label htmlFor="feminino">Feminino</Label>
+            <LabelOpcoes htmlFor="feminino">Feminino</LabelOpcoes>
             <RadioInput
               type="radio"
               name="genero"
@@ -240,19 +254,22 @@ function FormularioComponent() {
               checked={genero === "Outros"}
               onChange={(e) => setGenero(e.target.value)}
             />
-            <Label htmlFor="outros">Outros</Label>
+            <LabelOpcoes htmlFor="outros">Outros</LabelOpcoes>
           </OpcoesSexo>
         </CampoSexo>
         <DataNascimento>
-          <TituloDataNascimento title="Selecione sua data de nascimento.">Data de Nascimento:</TituloDataNascimento>
+          <TituloDataNascimento title="Selecione sua data de nascimento.">
+            Data de Nascimento:
+          </TituloDataNascimento>
           <InputDate
             type="date"
+            value={dataNascimento}
             required
             title="Selecione sua data de nascimento."
             onChange={(e) => setDataNascimento(e.target.value)}
           />
         </DataNascimento>
-        <Input
+        <InputPais
           type="text"
           value={pais}
           readOnly
