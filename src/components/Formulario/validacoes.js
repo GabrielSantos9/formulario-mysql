@@ -29,7 +29,7 @@ export const validarNome = (nome) => {
     };
   }
 
-  const regex = /^[A-Za-zÀ-ÿ\s'-]+$/;
+  const regex = /^[A-Za-zÀ-ÿ]+(?:[ '-][A-Za-zÀ-ÿ]+)*$/;
 
   if (!regex.test(nomeNormalizado)) {
     return {
@@ -44,7 +44,7 @@ export const validarNome = (nome) => {
 };
 
 export const validarEmail = (email) => {
-  const emailNormalizado = email
+  const emailNormalizado = email;
   if (emailNormalizado.length < 5) {
     return {
       valido: false,
@@ -59,7 +59,7 @@ export const validarEmail = (email) => {
     };
   }
 
-  const regex = /^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+  const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
   if (!regex.test(emailNormalizado)) {
     return {

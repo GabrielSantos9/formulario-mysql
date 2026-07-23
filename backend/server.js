@@ -36,9 +36,11 @@ app.post("/cadastrar", (req, res) => {
     pais,
   } = req.body; // Desestrutura os dados recebidos no corpo da requisição (req.body) e os armazena em variáveis correspondentes, facilitando o acesso aos valores enviados pelo front-end.
 
+  const nomeNormalizado = nomeCompleto.trim().replace(/\s+/g, " ");
+  const emailNormalizado = email.trim().toLowerCase();
   const dadosFormulario = {
-    nomeCompleto,
-    email,
+    nomeCompleto: nomeNormalizado,
+    email: emailNormalizado,
     telefone,
     genero,
     data_nascimento,
@@ -47,26 +49,6 @@ app.post("/cadastrar", (req, res) => {
     pais,
   };
 
-  const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
-  if (!resultadoNome.valido) {
-    resultadoNome.erro === "MINIMO_CARACTERES" &&
-      res.status(400).json({
-        erro: "CAMPOS_OBRIGATORIOS",
-        mensagem: "O nome deve ter no mínimo 5 caracteres.",
-      });
-    resultadoNome.erro === "MAXIMO_CARACTERES" &&
-      res.status(400).json({
-        erro: "CAMPOS_OBRIGATORIOS",
-        mensagem: "O nome deve ter no máximo 80 caracteres.",
-      });
-    resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-      res.status(400).json({
-        erro: "NOME_INVALIDO",
-        mensagem: "O nome deve conter apenas letras e espaços.",
-      });
-    return;
-  }
-
   if (!validarCamposObrigatorios(dadosFormulario)) {
     return res.status(400).json({
       erro: "CAMPOS_OBRIGATORIOS",
@@ -74,25 +56,50 @@ app.post("/cadastrar", (req, res) => {
     });
   }
 
-  const emailNormalizado = email.trim().toLowerCase();
+  const resultadoNome = validarNome(nomeNormalizado); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
+  if (!resultadoNome.valido) {
+    if (resultadoNome.erro === "MINIMO_CARACTERES") {
+      return res.status(400).json({
+        erro: "NOME_INVALIDO",
+        mensagem: "O nome deve ter no mínimo 5 caracteres.",
+      });
+    }
+    if (resultadoNome.erro === "MAXIMO_CARACTERES") {
+      return res.status(400).json({
+        erro: "NOME_INVALIDO",
+        mensagem: "O nome deve ter no máximo 80 caracteres.",
+      });
+    }
+    if (resultadoNome.erro === "CARACTERES_INVALIDOS") {
+      return res.status(400).json({
+        erro: "NOME_INVALIDO",
+        mensagem:
+          "Informe um e-mail válido. Utilize apenas letras, números, ponto (.), underline (_), hífen (-), porcentagem (%) e sinal de mais (+) antes do @, seguido de um domínio válido (ex.: joao.silva+cadastro@email.com).",
+      });
+    }
+  }
+
   const resultadoEmail = validarEmail(emailNormalizado);
   if (!resultadoEmail.valido) {
-    resultadoEmail.erro === "MINIMO_CARACTERES" &&
-      res.status(400).json({
-        erro: "CAMPOS_OBRIGATORIOS",
+    if (resultadoEmail.erro === "MINIMO_CARACTERES") {
+      return res.status(400).json({
+        erro: "EMAIL_INVALIDO",
         mensagem: "O e-mail deve ter no mínimo 5 caracteres.",
       });
-    resultadoEmail.erro === "MAXIMO_CARACTERES" &&
-      res.status(400).json({
-        erro: "CAMPOS_OBRIGATORIOS",
+    }
+    if (resultadoEmail.erro === "MAXIMO_CARACTERES") {
+      return res.status(400).json({
+        erro: "EMAIL_INVALIDO",
         mensagem: "O e-mail deve ter no máximo 254 caracteres.",
       });
-    resultadoEmail.erro === "EMAIL_INVALIDO" &&
-      res.status(400).json({
+    }
+    if (resultadoEmail.erro === "EMAIL_INVALIDO") {
+      return res.status(400).json({
         erro: "EMAIL_INVALIDO",
-        mensagem: "O e-mail fornecido não é válido.",
+        mensagem:
+          "Informe um e-mail válido. Utilize apenas letras, números, ponto (.), hífen (-) ou underline (_) antes do @ e um domínio válido após o @ (ex.: joao.silva@email.com).",
       });
-    return;
+    }
   }
 
   if (!validarTelefone(telefone)) {
@@ -108,8 +115,12 @@ app.post("/cadastrar", (req, res) => {
     if (erroEmail) {
       console.log(erroEmail);
 
-      return res.status(500).send("Erro ao verificar e-mail");
+      return res.status(500).json({
+        erro: "ERRO_INTERNO",
+        mensagem: "Ocorreu um erro ao verificar o e-mail.",
+      });
     }
+
     if (resultadoEmail.length > 0) {
       return res.status(400).json({
         erro: "EMAIL_DUPLICADO",
@@ -134,7 +145,7 @@ app.post("/cadastrar", (req, res) => {
     db.query(
       sql,
       [
-        nomeCompleto,
+        nomeNormalizado,
         emailNormalizado,
         telefone,
         genero,
@@ -148,7 +159,9 @@ app.post("/cadastrar", (req, res) => {
           console.log(err);
           res.status(500).send("Erro ao cadastrar");
         } else {
-          res.send("Usuário cadastrado!");
+          res.status(201).json({
+            mensagem: "Usuário cadastrado com sucesso.",
+          });
         }
       },
     );

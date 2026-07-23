@@ -135,7 +135,7 @@ function FormularioComponent() {
       mostrarAvisoTelefoneInvalido();
       return;
     }
-     
+
     //*ENVIA OS DADOS DO FORMULÁRIO PARA O BACKEND
     axios
       .post("http://localhost:3001/cadastrar", {
@@ -161,6 +161,16 @@ function FormularioComponent() {
       }); // Se houver algum erro na requisição, o catch é executado e mostra um aviso de erro no cadastro. Se o erro for de e-mail duplicado, mostra um aviso específico para isso.
   };
 
+  const tratarNome = (e) => {
+    let valor = e.target.value;
+
+    valor = valor.replace(/^\s+/, "");
+
+    valor = valor.replace(/\s{2,}/g, " ");
+
+    setNomeCompleto(valor);
+  };
+
   return (
     <Conteudo>
       <Introducao>
@@ -179,13 +189,13 @@ function FormularioComponent() {
           <Input
             type="text"
             placeholder=" "
-            autocomplete="name"
-            value={nomeCompleto}
+            autoComplete="name"
             minlength="5"
             maxlength="80"
             required
             title="Digite seu nome completo (Nome e Sobrenome)."
-            onChange={(e) => setNomeCompleto(e.target.value)}
+            value={nomeCompleto}
+            onChange={tratarNome}
           />
           <Label>Nome Completo</Label>
         </CampoInput>
@@ -198,7 +208,7 @@ function FormularioComponent() {
             maxlength="254"
             required
             title="Digite seu e-mail."
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))} // Remove espaços em branco do e-mail
           />
           <Label>E-mail</Label>
         </CampoInput>

@@ -45,7 +45,7 @@ export const mostrarAvisoErroCadastro = () => {
   Swal.fire({
     icon: "error",
     title: "Erro no cadastro",
-    text: "Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente.",
+    text: "Ocorreu um erro ao cadastrar o usuário. Por favora, tente novamente.",
     confirmButtonText: "Entendi",
   });
 };
