@@ -1,3 +1,5 @@
+//*CONTROLE: recebe a requisição, aplica as regras de negócio e devolve a resposta.
+
 const {
   validarCamposObrigatorios,
   validarNome,
@@ -5,9 +7,9 @@ const {
   validarTelefone,
 } = require("../../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
 
-const cadastrarUsuario = (req, res) => {
-  // Define uma rota POST para o caminho "/cadastrar", que será responsável por receber os dados do formulário enviados pelo front-end e realizar o cadastro no banco de dados. A função de callback recebe os objetos "req" (requisição) e "res" (resposta) como parâmetros, permitindo acessar os dados enviados pelo front-end e enviar uma resposta de volta.
+const usuarioModel = require("../modelos/usuarioModel");
 
+const cadastrarUsuario = (req, res) => {
   const {
     nomeCompleto,
     email,
@@ -57,7 +59,7 @@ const cadastrarUsuario = (req, res) => {
       return res.status(400).json({
         erro: "NOME_INVALIDO",
         mensagem:
-          "O nome deve conter apenas letras, espaços, hífens (-) e apóstrofos (')."
+          "O nome deve conter apenas letras, espaços, hífens (-) e apóstrofos (').",
       });
     }
   }
@@ -92,65 +94,60 @@ const cadastrarUsuario = (req, res) => {
     });
   }
 
-  const verificarEmail = "SELECT * FROM usuarios WHERE email = ?";
+  usuarioModel.buscarUsuarioPorEmail(
+    emailNormalizado,
+    (erroEmail, resultadoEmail) => {
+      if (erroEmail) {
+        console.log(erroEmail);
 
-  db.query(verificarEmail, [emailNormalizado], (erroEmail, resultadoEmail) => {
-    if (erroEmail) {
-      console.log(erroEmail);
+        return res.status(500).json({
+          erro: "ERRO_INTERNO",
+          mensagem: "Ocorreu um erro ao verificar o e-mail.",
+        });
+      }
+
+      if (resultadoEmail.length > 0) {
+        return res.status(400).json({
+          erro: "EMAIL_DUPLICADO",
+          mensagem: "E-mail já cadastrado",
+        });
+      }
+
+      usuarioModel.cadastrarUsuario(dadosFormulario, (err) => {
+        if (err) {
+          console.log(err);
+
+          return res.status(500).json({
+            erro: "ERRO_INTERNO",
+            mensagem: "Ocorreu um erro ao cadastrar usuário.",
+          });
+        }
+
+        return res.status(201).json({
+          mensagem: "Usuário cadastrado com sucesso.",
+        });
+      });
+    },
+  );
+};
+
+const listarUsuarios = (req, res) => {
+  usuarioModel.listarUsuarios((err, resultado) => {
+    //Recebe o resultado do banco e decide qual resposta enviar ao cliente.
+    if (err) {
+      console.log(err);
 
       return res.status(500).json({
         erro: "ERRO_INTERNO",
-        mensagem: "Ocorreu um erro ao verificar o e-mail.",
+        mensagem: "Ocorreu um erro ao buscar usuários.",
       });
     }
 
-    if (resultadoEmail.length > 0) {
-      return res.status(400).json({
-        erro: "EMAIL_DUPLICADO",
-        mensagem: "E-mail já cadastrado",
-      });
-    }
-
-    const sql = `
-      INSERT INTO usuarios
-      (
-        nomeCompleto,
-        email,
-        telefone,
-        genero,
-        data_nascimento,
-        cidade,
-        estado,
-        pais
-      )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    db.query(
-      sql,
-      [
-        nomeNormalizado,
-        emailNormalizado,
-        telefone,
-        genero,
-        data_nascimento,
-        cidade,
-        estado,
-        pais,
-      ],
-      (err, result) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("Erro ao cadastrar");
-        } else {
-          res.status(201).json({
-            mensagem: "Usuário cadastrado com sucesso.",
-          });
-        }
-      },
-    );
+    return res.status(200).json(resultado);
   });
 };
 
 module.exports = {
   cadastrarUsuario,
+  listarUsuarios,
 };
