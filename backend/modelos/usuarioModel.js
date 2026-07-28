@@ -34,6 +34,7 @@ function cadastrarUsuario(dados, callback) {
   );
 }
 
+//* FUNÇÃO PARA RETORNAR A LISTA DE USUÁRIOS CADASTRADOS.
 function listarUsuarios(callback) {
   //Consulta o banco
   const sql = `

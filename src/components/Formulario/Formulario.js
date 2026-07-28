@@ -153,7 +153,7 @@ function FormularioComponent() {
         limparFormulario();
       }) // Se a requisição for bem-sucedida, mostra um aviso de sucesso e atualiza a lista de usuários cadastrados.
       .catch((err) => {
-        if (err.response?.data?.erro === "EMAIL_DUPLICADO") {
+        if (err.response?.data?.erro === "EMAIL_DUPLICADO") { //err.response?.data?.erro: serve para capturar a mensagem de erro específica retornada pelo servidor em uma requisição HTTP mal-sucedida.
           mostrarAvisoEmailDuplicado();
           return;
         }
@@ -313,7 +313,7 @@ function FormularioComponent() {
           onClick={() => mostrarAvisoCidade(estado)}
           required
         >
-          <option value="" required>
+          <option value="" required> {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
             Selecione uma cidade
           </option>
 
@@ -322,6 +322,13 @@ function FormularioComponent() {
               {cidade.nome}
             </option>
           ))}
+          {/*
+          1. cidades.map(...): Percorre uma lista (array) de cidades que você buscou de um banco de dados ou API.
+          2. (cidade) => ...: Para cada cidade encontrada nessa lista, ele executa o bloco de código de dentro.
+          3. key={cidade.id}: É uma regra do React. Toda lista gerada dinamicamente precisa de um identificador único (key) para que o React saiba exatamente qual item atualizar se a lista mudar.
+          4. value={cidade.id}: Define o valor interno que o sistema vai salvar (o ID da cidade).
+          5. {cidade.nome}: É o texto que o usuário final vai ler na tela (o nome da cidade).
+          */}
         </Select>
 
         <BotaoEnviar type="submit">Enviar</BotaoEnviar>

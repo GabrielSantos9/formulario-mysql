@@ -13,7 +13,6 @@ import {
   OpcoesTabela,
 } from "./styles";
 
-
 function UsuariosRegistrados() {
   return (
     <Conteudo>

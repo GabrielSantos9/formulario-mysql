@@ -1,5 +1,5 @@
 export const validarCamposObrigatorios = (dados) => {
-  return Object.values(dados).every((valor) => {
+  return Object.values(dados).every((valor) => { // Object.values(dados).every((valor): serve para verificar se todos os valores de um objeto atendem a uma condição específica.
     if (valor === null || valor === undefined) {
       return false;
     }
