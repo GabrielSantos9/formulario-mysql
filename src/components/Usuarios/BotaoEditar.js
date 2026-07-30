@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Botao = styled.button`
+const Botao = styled.a`
   display: flex;
   align-items: center;
   gap: 5px;
@@ -8,11 +8,21 @@ const Botao = styled.button`
   color: white;
   font-weight: bold;
   margin-right: 40px;
+  font-family: "Montserrat", serif;
+
   justify-content: center;
   padding: 8.5px 18.5px;
-  background-color: #6e48cc;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #6e48cc 0%, #4c03ff 60%);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+
+  &:hover {
+    background-position: right;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 0.22);  }
 `;
 
 function BotaoEditar() {

@@ -71,7 +71,7 @@ export const mostrarAvisoNomeQntdMinima = () => {
   Swal.fire({
     icon: "error",
     title: "Nome inválido",
-    text: "O nome deve ter no mínimo 5 caracteres.",
+    text: "O nome deve ter no mínimo 50 caracteres.",
   });
 };
 

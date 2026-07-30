@@ -1,18 +1,28 @@
 import styled from "styled-components";
 
-const Botao = styled.button`
+const Botao = styled.a`
   display: flex;
   align-items: center;
   gap: 5px;
   font-size: 15px;
   color: white;
   font-weight: bold;
+  font-family: "Montserrat", serif;
 
   justify-content: center;
   padding: 8.5px 18px;
-  background-color: #b70000;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
+  background-color: #b70000;
+  background: linear-gradient(to right, #b70000 0%, #620000 60%);
+  background-size: 200% 100%;
+  background-position: left;
+  transition: background-position 0.5s ease;
+  &:hover {
+    background-position: right;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 0.22);
+  }
 `;
 
 function BotaoExcluir() {

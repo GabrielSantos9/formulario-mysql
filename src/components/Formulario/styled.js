@@ -6,7 +6,6 @@ export const Conteudo = styled.div`
 
 export const Introducao = styled.div`
   width: 417px;
-  height: 257px;
   margin-top: 128px;
   margin-right: 222px;
 `;
@@ -26,7 +25,6 @@ export const ParagrafoIntroducao = styled.p`
 export const BotaoUsuarios = styled.a`
   width: 157px;
   height: 46px;
-  background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
   max-width: 157px;
   border: none;
   cursor: pointer;
@@ -281,7 +279,6 @@ export const InputDate = styled.input`
 export const BotaoEnviar = styled.button`
   width: 318px;
   height: 40px;
-  background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
   font-size: 20px;
   font-weight: 700;
   border: none;
