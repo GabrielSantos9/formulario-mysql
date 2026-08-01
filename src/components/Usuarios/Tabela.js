@@ -39,6 +39,11 @@ function Tabela() {
       });
   }, []); // O useEffect é usado para buscar os dados dos usuários do backend quando o componente Tabela é montado. A função de callback dentro do useEffect faz uma requisição GET para a rota "/usuarios" do backend, e quando a resposta é recebida, os dados dos usuários são armazenados no estado "usuarios" usando a função setUsuarios. Se ocorrer algum erro durante a requisição, ele será registrado no console. O array vazio [] passado como segundo argumento garante que o efeito seja executado apenas uma vez, quando o componente é montado.
 
+  //*Função responsável por armazenar o ID do usuário selecionado.
+  const selecionarUsuario = (idUsuario) => {
+    setUsuarioSelecionado(idUsuario);
+  };
+
   return (
     <ContainerTabela>
       <TabelaUsuarios>
@@ -49,10 +54,10 @@ function Tabela() {
             </CelulaCabecalho>
 
             {colunas
-              .filter((coluna) => coluna.id !== "selecao")
+              .filter((coluna) => coluna.id !== "selecao") // Filtra o array colunas, tém apenas as colunas cujo id seja diferente de "selecao".
               .map((coluna) => (
                 <CelulaCabecalho
-                  key={coluna.id}
+                  key={coluna.id} // A chave única para cada célula do cabeçalho, necessária para o React identificar quais itens foram alterados, adicionados ou removidos. A key serve para o React identificar quais itens mudaram, foram inseridos ou removidos sem ter que refazer a tela inteira. Na prática deste código, se eu ordenar a tabela por nome, deletar um usuário ou esconder uma coluna, o React usa o id da coluna e do usuário para mexer apenas nas linhas e células exatas que sofreram a ação, deixando a tabela rápida e performática."
                   style={{ minWidth: coluna.largura }}
                 >
                   {coluna.titulo}
