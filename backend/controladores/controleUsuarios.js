@@ -147,7 +147,33 @@ const listarUsuarios = (req, res) => {
   });
 };
 
+const buscarUsuarioPorId = (req, res) => {
+  const { id } = req.params; //Pega o id do usuario selecionado e busca no banco de dados, retornando as informações desse id.
+
+  //Procura o usuário no banco de dados pelo ID selecionado na lista de registros.
+  usuarioModel.buscarUsuarioPorId(id, (err, resultado) => {
+    if (err) {
+      console.log(err);
+
+      return res.status(500).json({ // Se ocorrer algum erro interno durante a busca do usuário selecionado, retornará esse erro.
+        erro: "ERRO_INTERNO",
+        mensagem: "Erro ao buscar usuário.",
+      });
+    }
+
+    if (resultado.length === 0) { //Se o resultado da busca for vazio (não encontrou o usuário), retorna esse erro, de usuário não encontrado.
+      return res.status(404).json({
+        erro: "USUARIO_NAO_ENCONTRADO",
+        mensagem: "Usuário não encontrado.",
+      });
+    }
+
+    return res.status(200).json(resultado[0]); //Retorna o usuário encontrado no banco de dados, retorna em forma de JSON. o "[0]" é usado por conta que estamos buscando apenas um usuário, então como será retornado apenas um usuário, a indice dele é 0.
+  });
+};
+
 module.exports = {
   cadastrarUsuario,
   listarUsuarios,
+  buscarUsuarioPorId,
 };

@@ -22,12 +22,15 @@ const Botao = styled.a`
 
   &:hover {
     background-position: right;
-    box-shadow: 0 4px 4px rgb(0 0 0 / 0.22);  }
+    box-shadow: 0 4px 4px rgb(0 0 0 / 0.22);
+  }
 `;
 
-function BotaoEditar() {
+function BotaoEditar({ onClick }) {
+  // O componente BotaoEditar recebe a prop usuarioSelecionado, que indica qual usuário está atualmente selecionado na tabela (id 1, 2, 3, etc.). Essa informação pode ser usada para determinar se o botão deve estar ativo ou desativado, dependendo de se um usuário foi selecionado ou não.
+
   return (
-    <Botao>
+    <Botao onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

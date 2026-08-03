@@ -24,9 +24,8 @@ const colunas = [
   { id: "pais", titulo: "País", largura: "120px" },
 ];
 
-function Tabela() {
+function Tabela({ usuarioSelecionado, selecionarUsuario }) {
   const [usuarios, setUsuarios] = useState([]); //Guarda os usuários cadastrados
-  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null); //Guarda apenas o selecionado para alguma ação do CRUD.
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
   useEffect(() => {
     axios
@@ -38,11 +37,6 @@ function Tabela() {
         console.error(error);
       });
   }, []); // O useEffect é usado para buscar os dados dos usuários do backend quando o componente Tabela é montado. A função de callback dentro do useEffect faz uma requisição GET para a rota "/usuarios" do backend, e quando a resposta é recebida, os dados dos usuários são armazenados no estado "usuarios" usando a função setUsuarios. Se ocorrer algum erro durante a requisição, ele será registrado no console. O array vazio [] passado como segundo argumento garante que o efeito seja executado apenas uma vez, quando o componente é montado.
-
-  //*Função responsável por armazenar o ID do usuário selecionado.
-  const selecionarUsuario = (idUsuario) => {
-    setUsuarioSelecionado(idUsuario);
-  };
 
   return (
     <ContainerTabela>
@@ -69,7 +63,12 @@ function Tabela() {
           {usuarios.map((usuario) => (
             <LinhaTabela key={usuario.idusuarios}>
               <CelulaDados>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={usuarioSelecionado === usuario.idusuarios}
+                  onChange={() => selecionarUsuario(usuario.idusuarios)}
+                />
+                {/*"checked={usuarioSelecionado === usuario.idusuarios}"": Seleciona apenas um id. e "onChange={() => selecionarUsuario(usuario.idusuarios)}" é executado quando o usuário clica no checkbox. Ele chama a função selecionarUsuario, que por sua vez atualiza o estado através de setUsuarioSelecionado(usuario.idusuarios).*/}
               </CelulaDados>
               <CelulaDados>{usuario.idusuarios}</CelulaDados>
               <CelulaDados>{usuario.nomeCompleto}</CelulaDados>

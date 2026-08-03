@@ -72,8 +72,28 @@ function buscarUsuarioPorEmail(email, callback) {
   db.query(sql, [email], callback);
 }
 
+function buscarUsuarioPorId(id, callback) { // A função buscarUsuarioPorId é responsável por buscar um usuário específico no banco de dados com base no seu ID. Ela recebe dois parâmetros: o ID do usuário que se deseja buscar e uma função de callback que será executada após a consulta ao banco de dados.
+  const sql = `
+    SELECT
+      u.idusuarios,
+      u.nomeCompleto,
+      u.email,
+      u.telefone,
+      u.genero,
+      u.data_nascimento,
+      u.cidade,
+      u.estado,
+      u.pais
+    FROM usuarios u
+    WHERE u.idusuarios = ?
+  `;
+
+  db.query(sql, [id], callback);
+}
+
 module.exports = {
   cadastrarUsuario,
   listarUsuarios,
   buscarUsuarioPorEmail,
+  buscarUsuarioPorId,
 };
