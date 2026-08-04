@@ -14,10 +14,13 @@ import {
   BancoUsuarios,
   OpcoesTabela,
 } from "./styles";
+import ModalEditarUsuario from "./ModalEditarUsuario";
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
   const [usuarioSelecionado, setUsuarioSelecionado] = useState(null); //Armazena o id do usuário atualmente selecionado na tabela.
+  const [usuarioEdicao, setUsuarioEdicao] = useState(null); //Guarda os dados coletados para serem editados.
+  const [modalAberto, setModalAberto] = useState(false); //Responsável por controlar o modal.
 
   const selecionarUsuario = (idUsuario) => {
     setUsuarioSelecionado(idUsuario);
@@ -32,16 +35,16 @@ function UsuariosRegistrados() {
     axios
       .get(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
       .then((response) => {
-        console.log(response.data);
+        //Faz uma requisição GET para o endpoint da API, passando o id do usuário selecionado. then() é chamado quando a requisição é bem-sucedida, recebendo a resposta da API como argumento (response).
+        setUsuarioEdicao(response.data); //Armaena os dados do usuário selecionado no checkbox no estado usuarioEdicao, para serem utiliados no modal de edição
+        setModalAberto(true); //Abre o modal de edição, alterando o estado do modalAberto para true.
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
   return (
     <Conteudo>
-      {" "}
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
       <Introducao>
         <Localizacao>
@@ -58,7 +61,7 @@ function UsuariosRegistrados() {
         <OpcoesTabela>
           <InputBusca placeholder="Buscar usuários" />
           <BotaoAdicionar />
-          <BotaoEditar onClick={editarUsuario}/>
+          <BotaoEditar onClick={editarUsuario} />
           {/*Toda vez que o usuário selecionar outra linha, esse valor será atualizado automaticamente (Depois de clicar no checkbox do ID 8, usuarioSelecionado = 8) */}
           <BotaoExcluir />
         </OpcoesTabela>
@@ -66,6 +69,7 @@ function UsuariosRegistrados() {
           usuarioSelecionado={usuarioSelecionado} //Informa qual linha da tabela está selecionada.
           selecionarUsuario={selecionarUsuario} //Envia a função para que a Tabela possa avisar ao componente pai quando outro usuário for selecionado.
         />
+        {modalAberto && <ModalEditarUsuario />} {/*Mostra o modal caso esteja aberto (quando modalAberto for true) */}
       </BancoUsuarios>
     </Conteudo>
   );
