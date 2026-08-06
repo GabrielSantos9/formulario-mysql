@@ -41,7 +41,10 @@ import {
 
 import { validarNome, validarEmail, validarTelefone } from "./validacoes";
 
-function FormularioComponent() {
+function FormularioComponent({
+  modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
+  usuario = null, //Caso o modo seja "edição", o usuário selecionado será passado como prop para o formulário, para que os campos do formulário sejam preenchidos com os dados do usuário selecionado.
+}) {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -53,6 +56,23 @@ function FormularioComponent() {
   const pais = "Brasil"; // O valor do país é fixo, então não precisa de um estado para armazenar o valor do país.
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
+
+  // *FUNÇÃO PARA ATUALIZAR O FORMULÁRIO COM OS DADOS DO USUÁRIO SELECIONADO PARA EDIÇÃO.
+  useEffect(() => {
+    if (modo === "edicao" && usuario) {
+      setNomeCompleto(usuario.nomeCompleto);
+      setEmail(usuario.email);
+      setTelefone(usuario.telefone);
+      setGenero(usuario.genero);
+
+      setDataNascimento(
+        usuario.data_nascimento ? usuario.data_nascimento.split("T")[0] : "",
+      );
+
+      setCidade(usuario.cidade);
+      setEstado(usuario.estado);
+    }
+  }, [modo, usuario]);
 
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND
   const buscarUsuarios = () => {
@@ -115,6 +135,12 @@ function FormularioComponent() {
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
+    if (modo === "edicao") {
+      console.log("Modo edição");
+    } else {
+      console.log("Modo cadastro");
+    }
+
     const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
     if (!resultadoNome.valido) {
       resultadoNome.erro === "MINIMO_CARACTERES" &&
@@ -153,7 +179,8 @@ function FormularioComponent() {
         limparFormulario();
       }) // Se a requisição for bem-sucedida, mostra um aviso de sucesso e atualiza a lista de usuários cadastrados.
       .catch((err) => {
-        if (err.response?.data?.erro === "EMAIL_DUPLICADO") { //err.response?.data?.erro: serve para capturar a mensagem de erro específica retornada pelo servidor em uma requisição HTTP mal-sucedida.
+        if (err.response?.data?.erro === "EMAIL_DUPLICADO") {
+          //err.response?.data?.erro: serve para capturar a mensagem de erro específica retornada pelo servidor em uma requisição HTTP mal-sucedida.
           mostrarAvisoEmailDuplicado();
           return;
         }
@@ -313,7 +340,9 @@ function FormularioComponent() {
           onClick={() => mostrarAvisoCidade(estado)}
           required
         >
-          <option value="" required> {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
+          <option value="" required>
+            {" "}
+            {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
             Selecione uma cidade
           </option>
 
