@@ -69,7 +69,7 @@ function UsuariosRegistrados() {
           usuarioSelecionado={usuarioSelecionado} //Informa qual linha da tabela está selecionada.
           selecionarUsuario={selecionarUsuario} //Envia a função para que a Tabela possa avisar ao componente pai quando outro usuário for selecionado.
         />
-        {modalAberto && <ModalEditarUsuario />} {/*Mostra o modal caso esteja aberto (quando modalAberto for true) */}
+        {modalAberto && <ModalEditarUsuario usuario={usuarioEdicao} />}
       </BancoUsuarios>
     </Conteudo>
   );
