@@ -56,6 +56,11 @@ export const Formulario = styled.form`
   border-radius: 10px;
   flex-direction: column;
   align-items: flex-start;
+
+   background-color: ${({ modo }) =>
+    modo === "edicao"
+      ? "#1C1C1C"
+      : "rgba(41, 41, 41, 0.49)"};
 `;
 
 export const TituloFormulario = styled.span`

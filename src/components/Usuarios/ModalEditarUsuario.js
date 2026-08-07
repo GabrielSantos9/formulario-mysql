@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import FormularioComponent from "../Formulario/Formulario";
 
 const Fundo = styled.div`
@@ -10,6 +9,8 @@ const Fundo = styled.div`
   height: 100%;
 
   background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
   display: flex;
   justify-content: center;
@@ -17,10 +18,6 @@ const Fundo = styled.div`
 `;
 
 const Janela = styled.div`
-  width: 600px;
-  background: white;
-  border-radius: 8px;
-  padding: 25px;
 `;
 
 function ModalEditarUsuario({ usuario }) {

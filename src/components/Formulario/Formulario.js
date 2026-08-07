@@ -200,18 +200,23 @@ function FormularioComponent({
 
   return (
     <Conteudo>
-      <Introducao>
-        <TituloIntroducao>Formulário de Teste</TituloIntroducao>
-        <ParagrafoIntroducao>
-          Esse é um formulário teste, com a finalidade de testar o banco de
-          dados <strong>MySQL</strong>. Preencha todos os campos na lateral!
-        </ParagrafoIntroducao>
-        <BotaoUsuarios href="http://localhost:3000/usuarios">
-          Usuários
-        </BotaoUsuarios>
-      </Introducao>
-      <Formulario onSubmit={enviarFormulario}>
-        <TituloFormulario>Cadastro</TituloFormulario>
+      {modo === "cadastro" && (
+        <Introducao>
+          <TituloIntroducao>Formulário de Teste</TituloIntroducao>
+          <ParagrafoIntroducao>
+            Esse é um formulário teste, com a finalidade de testar o banco de
+            dados <strong>MySQL</strong>. Preencha todos os campos na lateral!
+          </ParagrafoIntroducao>
+          <BotaoUsuarios href="http://localhost:3000/usuarios">
+            Usuários
+          </BotaoUsuarios>
+        </Introducao>
+      )}
+      <Formulario onSubmit={enviarFormulario} modo={modo}>
+        <TituloFormulario>
+          {" "}
+          {modo === "edicao" ? "Editar usuário" : "Cadastro"}
+        </TituloFormulario>
         <CampoInput>
           <Input
             type="text"
@@ -360,7 +365,9 @@ function FormularioComponent({
           */}
         </Select>
 
-        <BotaoEnviar type="submit">Enviar</BotaoEnviar>
+        <BotaoEnviar type="submit">
+          {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
+        </BotaoEnviar>
       </Formulario>
     </Conteudo>
   );
