@@ -91,9 +91,41 @@ function buscarUsuarioPorId(id, callback) { // A função buscarUsuarioPorId é 
   db.query(sql, [id], callback);
 }
 
+//* A função é responsável por atualizar os dados do usuário selecionado para edição. Ela recebe três parâmetros: o ID do usuário que se deseja atualizar, um objeto contendo os novos dados do usuário e uma função de callback que será executada após a atualização no banco de dados.
+function atualizarUsuario(id, dados, callback) {
+  const sql = `
+    UPDATE usuarios
+    SET
+      nomeCompleto = ?,
+      email = ?,
+      telefone = ?,
+      genero = ?,
+      data_nascimento = ?,
+      cidade = ?,
+      estado = ?
+    WHERE idusuarios = ?
+  `;
+
+  db.query(
+    sql,
+    [
+      dados.nomeCompleto,
+      dados.email,
+      dados.telefone,
+      dados.genero,
+      dados.data_nascimento,
+      dados.cidade,
+      dados.estado,
+      id,
+    ],
+    callback
+  );
+}
+
 module.exports = {
   cadastrarUsuario,
   listarUsuarios,
   buscarUsuarioPorEmail,
   buscarUsuarioPorId,
+  atualizarUsuario,
 };

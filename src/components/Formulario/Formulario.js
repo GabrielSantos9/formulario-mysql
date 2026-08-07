@@ -44,6 +44,7 @@ import { validarNome, validarEmail, validarTelefone } from "./validacoes";
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
   usuario = null, //Caso o modo seja "edição", o usuário selecionado será passado como prop para o formulário, para que os campos do formulário sejam preenchidos com os dados do usuário selecionado.
+  onAtualizado, // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
 }) {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
@@ -136,9 +137,27 @@ function FormularioComponent({
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
     if (modo === "edicao") {
-      console.log("Modo edição");
-    } else {
-      console.log("Modo cadastro");
+      axios
+        .put(`http://localhost:3001/usuarios/${usuario.idusuarios}`, {
+          nomeCompleto,
+          email,
+          telefone,
+          genero,
+          data_nascimento: dataNascimento,
+          cidade,
+          estado,
+          pais,
+        })
+        .then(() => {
+          alert("Usuário atualizado com sucesso.");
+          onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Erro ao atualizar usuário.");
+        });
+
+      return;
     }
 
     const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
@@ -214,7 +233,6 @@ function FormularioComponent({
       )}
       <Formulario onSubmit={enviarFormulario} modo={modo}>
         <TituloFormulario>
-          {" "}
           {modo === "edicao" ? "Editar usuário" : "Cadastro"}
         </TituloFormulario>
         <CampoInput>
@@ -346,7 +364,6 @@ function FormularioComponent({
           required
         >
           <option value="" required>
-            {" "}
             {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
             Selecione uma cidade
           </option>

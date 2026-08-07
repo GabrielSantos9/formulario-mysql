@@ -26,6 +26,11 @@ function UsuariosRegistrados() {
     setUsuarioSelecionado(idUsuario);
   }; // A função selecionarUsuario recebe um valor (idUsuario) e o atualiza para o estado usuarioSelecionado através do setUsuarioSelecionado.
 
+  // Função responsável por fechar o modal depois que o formulário confirmar que o usuário foi atualizado
+  const usuarioAtualizado = () => {
+    setModalAberto(false);
+  };
+
   const editarUsuario = () => {
     if (!usuarioSelecionado) {
       alert("Selecione um usuário para editar.");
@@ -69,7 +74,14 @@ function UsuariosRegistrados() {
           usuarioSelecionado={usuarioSelecionado} //Informa qual linha da tabela está selecionada.
           selecionarUsuario={selecionarUsuario} //Envia a função para que a Tabela possa avisar ao componente pai quando outro usuário for selecionado.
         />
-        {modalAberto && <ModalEditarUsuario usuario={usuarioEdicao} />} {/*Após o modal ser aberto, será mostrado os dados do usuário selecionado. */}
+        {modalAberto && (
+          <ModalEditarUsuario
+            usuario={usuarioEdicao}
+            onAtualizado={usuarioAtualizado}
+            onFechar={() => setModalAberto(false)} //Serve para fechar o modal, alterando o estado do modalAberto para 'false'.
+          />
+        )}
+        {/*Após o modal ser aberto, será mostrado os dados do usuário selecionado. */}
       </BancoUsuarios>
     </Conteudo>
   );
