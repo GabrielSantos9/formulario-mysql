@@ -30,7 +30,9 @@ import {
   mostrarAvisoPais,
   mostrarAvisoCidade,
   mostrarAvisoCadastro,
+  mostrarAvisoEdicao,
   mostrarAvisoErroCadastro,
+  mostrarAvisoErroEdicao,
   mostrarAvisoEmailDuplicado,
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
@@ -149,12 +151,14 @@ function FormularioComponent({
           pais,
         })
         .then(() => {
-          alert("Usuário atualizado com sucesso.");
+          mostrarAvisoEdicao();
+          // alert("Usuário atualizado com sucesso.");
           onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
         })
         .catch((error) => {
           console.error(error);
-          alert("Erro ao atualizar usuário.");
+          mostrarAvisoErroEdicao();
+          // alert("Erro ao atualizar usuário.");
         });
 
       return;

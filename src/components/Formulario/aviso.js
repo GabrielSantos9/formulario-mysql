@@ -41,12 +41,41 @@ export const mostrarAvisoCadastro = () => {
   });
 };
 
+export const mostrarSelecaoUsuario = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na edição",
+    text: "Selecione um usuário para editar.",
+    confirmButtonText: "Entendi",
+  });
+};
+
+export const mostrarAvisoEdicao = () => {
+  Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "Usuário editado com sucesso!",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+};
+
 export const mostrarAvisoErroCadastro = () => {
   Swal.fire({
     icon: "error",
     title: "Erro no cadastro",
     text: "Ocorreu um erro ao cadastrar o usuário. Por favora, tente novamente.",
     confirmButtonText: "Entendi",
+  });
+};
+
+export const mostrarAvisoErroEdicao = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na edição",
+    text: "Ocorreu um erro ao editar o usuário. Por favor, tente novamente.",
   });
 };
 
@@ -104,7 +133,10 @@ export default {
   mostrarAvisoCidade,
   mostrarAvisoPreenchimento,
   mostrarAvisoCadastro,
+  mostrarSelecaoUsuario,
+  mostrarAvisoEdicao,
   mostrarAvisoErroCadastro,
+  mostrarAvisoErroEdicao,
   mostrarAvisoEmailDuplicado,
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,

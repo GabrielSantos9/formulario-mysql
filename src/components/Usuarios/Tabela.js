@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"; // useEffect: Executa efeitos colaterais em componentes funcionais, como buscar dados de uma API ou manipular o DOM.
-import axios from "axios";
+//*ESSE ARQUIVO RECEBE OS USUÁRIOS E EXIBE ELES!
+import React from "react";
 
 import {
   ContainerTabela,
@@ -24,19 +24,7 @@ const colunas = [
   { id: "pais", titulo: "País", largura: "120px" },
 ];
 
-function Tabela({ usuarioSelecionado, selecionarUsuario }) {
-  const [usuarios, setUsuarios] = useState([]); //Guarda os usuários cadastrados
-  //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/usuarios")
-      .then((response) => {
-        setUsuarios(response.data); //data: Contém os dados da resposta da requisição, que neste caso é a lista de usuários recebida do backend. O setUsuarios é a função que atualiza o estado "usuarios" com os dados recebidos do backend, permitindo que a tabela seja renderizada com as informações corretas.
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []); // O useEffect é usado para buscar os dados dos usuários do backend quando o componente Tabela é montado. A função de callback dentro do useEffect faz uma requisição GET para a rota "/usuarios" do backend, e quando a resposta é recebida, os dados dos usuários são armazenados no estado "usuarios" usando a função setUsuarios. Se ocorrer algum erro durante a requisição, ele será registrado no console. O array vazio [] passado como segundo argumento garante que o efeito seja executado apenas uma vez, quando o componente é montado.
+function Tabela({ usuarioSelecionado, selecionarUsuario, usuarios }) {
 
   return (
     <ContainerTabela>
