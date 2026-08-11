@@ -128,6 +128,14 @@ export const mostrarAvisoTelefoneInvalido = () => {
   });
 };
 
+export const mostrarAvisoDataInvalida = () => {
+  Swal.fire({
+    icon: "warning",
+    title: "Data inválida",
+    text: "Digite uma data válida no formato Dia/Mês/Ano.",
+  });
+};
+
 export default {
   mostrarAvisoPais,
   mostrarAvisoCidade,
@@ -141,4 +149,5 @@ export default {
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
   mostrarAvisoTelefoneInvalido,
+  mostrarAvisoDataInvalida,
 };

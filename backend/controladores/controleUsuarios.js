@@ -5,6 +5,7 @@ const {
   validarNome,
   validarEmail,
   validarTelefone,
+  validarData,
 } = require("../../src/components/Formulario/validacoes"); // Importa as funções de validação definidas no arquivo "validacoes.js"
 
 const {
@@ -100,6 +101,34 @@ const cadastrarUsuarioController = (req, res) => {
     });
   }
 
+  const resultadoData = validarData(data_nascimento);
+  if (!resultadoData.valido) {
+    if (resultadoData.erro === "DATA_INVALIDA") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "Digite uma data válida no formato Dia/Mês/Ano.",
+      });
+    }
+    if (resultadoData.erro === "ANO_INVALIDO") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "É permitido apenas anos entre 1900 adiante!",
+      });
+    }
+    if (resultadoData.erro === "DATA_INEXISTENTE") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "Data de nascimento inexistente. Por gentileza, informe uma data válida.",
+      });
+    }
+    if (resultadoData.erro === "DATA_FUTURA") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "Data de nascimento não pode ser futura.",
+      });
+    }
+  }
+
   buscarUsuarioPorEmail(emailNormalizado, (erroEmail, resultadoEmail) => {
     if (erroEmail) {
       console.log(erroEmail);
@@ -179,9 +208,6 @@ const buscarUsuarioPorIdController = (req, res) => {
 
 function atualizarUsuarioController(req, res) {
   const { id } = req.params; //Pega o id do usuário selecionado para edição, que é passado como parâmetro na url da requuisição.
-
-  console.log("ID do usuário:", id);
-  console.log("Dados recebidos para atualização:", req.body);
 
   const {
     nomeCompleto,
@@ -267,6 +293,13 @@ function atualizarUsuarioController(req, res) {
     return res.status(400).json({
       erro: "TELEFONE_INVALIDO",
       mensagem: "O telefone deve conter exatamente 11 números.",
+    });
+  }
+
+  if (!validarData(data_nascimento)) {
+    return res.status(400).json({
+      erro: "DATA_NASCIMENTO_INVALIDA",
+      mensagem: "Informe uma data de nascimento válida.",
     });
   }
 

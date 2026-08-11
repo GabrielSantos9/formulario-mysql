@@ -39,9 +39,15 @@ import {
   mostrarAvisoTelefoneInvalido,
   mostrarAvisoNomeQntdMinima,
   mostrarAvisoNomeQntdMaxima,
+  mostrarAvisoDataInvalida,
 } from "./aviso";
 
-import { validarNome, validarEmail, validarTelefone } from "./validacoes";
+import {
+  validarNome,
+  validarEmail,
+  validarTelefone,
+  validarData,
+} from "./validacoes";
 
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
@@ -182,6 +188,11 @@ function FormularioComponent({
 
     if (!validarTelefone(telefone)) {
       mostrarAvisoTelefoneInvalido();
+      return;
+    }
+
+    if (!validarData(dataNascimento)) {
+      mostrarAvisoDataInvalida();
       return;
     }
 
@@ -331,6 +342,7 @@ function FormularioComponent({
             type="date"
             value={dataNascimento}
             required
+            min="1900-01-01"
             title="Selecione sua data de nascimento."
             onChange={(e) => setDataNascimento(e.target.value)}
           />
