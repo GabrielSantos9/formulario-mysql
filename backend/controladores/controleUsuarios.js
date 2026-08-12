@@ -118,7 +118,8 @@ const cadastrarUsuarioController = (req, res) => {
     if (resultadoData.erro === "DATA_INEXISTENTE") {
       return res.status(400).json({
         erro: "DATA_NASCIMENTO_INVALIDA",
-        mensagem: "Data de nascimento inexistente. Por gentileza, informe uma data válida.",
+        mensagem:
+          "Data de nascimento inexistente. Por gentileza, informe uma data válida.",
       });
     }
     if (resultadoData.erro === "DATA_FUTURA") {
@@ -234,8 +235,6 @@ function atualizarUsuarioController(req, res) {
     pais,
   };
 
-  console.log("Dados recebidos para atualização:", dadosFormulario);
-
   if (!validarCamposObrigatorios(dadosFormulario)) {
     return res.status(400).json({
       erro: "CAMPOS_OBRIGATORIOS",
@@ -296,11 +295,33 @@ function atualizarUsuarioController(req, res) {
     });
   }
 
-  if (!validarData(data_nascimento)) {
-    return res.status(400).json({
-      erro: "DATA_NASCIMENTO_INVALIDA",
-      mensagem: "Informe uma data de nascimento válida.",
-    });
+  const resultadoData = validarData(data_nascimento);
+  if (!resultadoData.valido) {
+    if (resultadoData.erro === "DATA_INVALIDA") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "Digite uma data válida no formato Dia/Mês/Ano.",
+      });
+    }
+    if (resultadoData.erro === "ANO_INVALIDO") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "É permitido apenas anos entre 1900 adiante!",
+      });
+    }
+    if (resultadoData.erro === "DATA_INEXISTENTE") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem:
+          "Data de nascimento inexistente. Por gentileza, informe uma data válida.",
+      });
+    }
+    if (resultadoData.erro === "DATA_FUTURA") {
+      return res.status(400).json({
+        erro: "DATA_NASCIMENTO_INVALIDA",
+        mensagem: "Data de nascimento não pode ser futura.",
+      });
+    }
   }
 
   atualizarUsuario(id, dadosFormulario, (erro, resultado) => {

@@ -40,6 +40,7 @@ import {
   mostrarAvisoNomeQntdMinima,
   mostrarAvisoNomeQntdMaxima,
   mostrarAvisoDataInvalida,
+  mostrarAvisoDataFutura,
 } from "./aviso";
 
 import {
@@ -145,26 +146,56 @@ function FormularioComponent({
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
     if (modo === "edicao") {
+      const dadosFormulario = {
+        nomeCompleto,
+        email,
+        telefone,
+        genero,
+        data_nascimento: dataNascimento,
+        cidade,
+        estado,
+        pais,
+      };
+
+      const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
+      if (!resultadoNome.valido) {
+        resultadoNome.erro === "MINIMO_CARACTERES" &&
+          mostrarAvisoNomeQntdMinima();
+        resultadoNome.erro === "MAXIMO_CARACTERES" &&
+          mostrarAvisoNomeQntdMaxima();
+        resultadoNome.erro === "CARACTERES_INVALIDOS" &&
+          mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
+        return;
+      }
+
+      if (!validarEmail(email)) {
+        mostrarAvisoEmailInvalido();
+        return;
+      }
+
+      if (!validarTelefone(telefone)) {
+        mostrarAvisoTelefoneInvalido();
+        return;
+      }
+
+      const resultadoData = validarData(dataNascimento);
+      if (!resultadoData.valido) {
+        resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
+        return;
+      }
+
       axios
-        .put(`http://localhost:3001/usuarios/${usuario.idusuarios}`, {
-          nomeCompleto,
-          email,
-          telefone,
-          genero,
-          data_nascimento: dataNascimento,
-          cidade,
-          estado,
-          pais,
-        })
+        .put(
+          `http://localhost:3001/usuarios/${usuario.idusuarios}`,
+          dadosFormulario /* Envia os dados do formulário para o backend, para atualizar o usuário (editar).*/,
+        )
         .then(() => {
           mostrarAvisoEdicao();
-          // alert("Usuário atualizado com sucesso.");
           onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
         })
         .catch((error) => {
           console.error(error);
           mostrarAvisoErroEdicao();
-          // alert("Erro ao atualizar usuário.");
         });
 
       return;
@@ -255,8 +286,8 @@ function FormularioComponent({
             type="text"
             placeholder=" "
             autoComplete="name"
-            minlength="5"
-            maxlength="80"
+            minLength="5"
+            maxLength="80"
             required
             title="Digite seu nome completo (Nome e Sobrenome)."
             value={nomeCompleto}
@@ -269,8 +300,8 @@ function FormularioComponent({
             type="text"
             placeholder=" "
             value={email}
-            minlength="5"
-            maxlength="254"
+            minLength="5"
+            maxLength="254"
             required
             title="Digite seu e-mail."
             onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))} // Remove espaços em branco do e-mail
@@ -342,6 +373,7 @@ function FormularioComponent({
             type="date"
             value={dataNascimento}
             required
+            max={new Date().toISOString().split("T")[0]} // Define a data máxima como a data atual, para que o usuário não possa selecionar uma data futura.
             min="1900-01-01"
             title="Selecione sua data de nascimento."
             onChange={(e) => setDataNascimento(e.target.value)}

@@ -111,7 +111,6 @@ export const validarData = (data_nascimento) => {
 
   //Verifica se a data não é futura
   const hoje = new Date();
-
   //Zera horas/minutos, no intuito de conferir apenas a data.
   hoje.setHours(0, 0, 0, 0);
   if (data > hoje) {

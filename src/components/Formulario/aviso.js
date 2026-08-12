@@ -100,7 +100,7 @@ export const mostrarAvisoNomeQntdMinima = () => {
   Swal.fire({
     icon: "error",
     title: "Nome inválido",
-    text: "O nome deve ter no mínimo 50 caracteres.",
+    text: "O nome deve ter no mínimo 5 caracteres.",
   });
 };
 
@@ -130,11 +130,19 @@ export const mostrarAvisoTelefoneInvalido = () => {
 
 export const mostrarAvisoDataInvalida = () => {
   Swal.fire({
-    icon: "warning",
+    icon: "error",
     title: "Data inválida",
     text: "Digite uma data válida no formato Dia/Mês/Ano.",
   });
 };
+
+export const mostrarAvisoDataFutura = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Data inválida",
+    text: "A data de nascimento não pode ser maior que a data atual.",
+  });
+}
 
 export default {
   mostrarAvisoPais,
@@ -150,4 +158,5 @@ export default {
   mostrarAvisoEmailInvalido,
   mostrarAvisoTelefoneInvalido,
   mostrarAvisoDataInvalida,
+  mostrarAvisoDataFutura,
 };

@@ -17,15 +17,18 @@ const Fundo = styled.div`
   align-items: center;
 `;
 
-const Janela = styled.div`
-`;
+const Janela = styled.div``;
 
 function ModalEditarUsuario({ usuario, onFechar, onAtualizado }) {
   return (
     <Fundo>
-      <button onClick={onFechar}>X</button>
       <Janela>
-        <FormularioComponent modo="edicao" usuario={usuario} onAtualizado={onAtualizado}/>
+        <FormularioComponent
+          modo="edicao"
+          usuario={usuario}
+          onAtualizado={onAtualizado}
+          onFechar={onFechar}
+        />
       </Janela>
     </Fundo>
   );
