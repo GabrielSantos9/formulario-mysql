@@ -24,6 +24,7 @@ import {
   Select,
   CampoIntrodutorio,
   TextLimparSelecao,
+  FuncaoFechar,
 } from "./styled";
 
 import {
@@ -50,10 +51,13 @@ import {
   validarData,
 } from "./validacoes";
 
+import Swal from "sweetalert2";
+
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
   usuario = null, //Caso o modo seja "edição", o usuário selecionado será passado como prop para o formulário, para que os campos do formulário sejam preenchidos com os dados do usuário selecionado.
   onAtualizado, // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
+  onFechar,
 }) {
   const [nomeCompleto, setNomeCompleto] = useState("");
   const [email, setEmail] = useState("");
@@ -74,11 +78,9 @@ function FormularioComponent({
       setEmail(usuario.email);
       setTelefone(usuario.telefone);
       setGenero(usuario.genero);
-
       setDataNascimento(
         usuario.data_nascimento ? usuario.data_nascimento.split("T")[0] : "",
       );
-
       setCidade(usuario.cidade);
       setEstado(usuario.estado);
     }
@@ -146,6 +148,7 @@ function FormularioComponent({
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
     if (modo === "edicao") {
+      // Se o modo do formulário for "edição", ele envia os dados do formulário para o backend para atualizar o usuário selecionado.
       const dadosFormulario = {
         nomeCompleto,
         email,
@@ -261,6 +264,32 @@ function FormularioComponent({
     valor = valor.replace(/\s{2,}/g, " ");
 
     setNomeCompleto(valor);
+  };
+
+  const teste = () => {
+    console.log("Funcionou!");
+
+    Swal.fire({
+      title: "O que deseja fazer antes de fechar?",
+      icon: "question",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Salvar e Sair",
+      denyButtonText: "Sair sem Salvar",
+      cancelButtonText: "Voltar",
+      allowOutsideClick: false,
+      confirmButtonColor: "#2eb85c",
+      denyButtonColor: "#e55353",
+      cancelButtonColor: "#636f83",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onAtualizado();
+        onFechar();
+      } else if (result.isDenied) {
+        onFechar();
+      } else if (result.isDismissed) {
+      }
+    });
   };
 
   return (
@@ -425,7 +454,7 @@ function FormularioComponent({
           1. cidades.map(...): Percorre uma lista (array) de cidades que você buscou de um banco de dados ou API.
           2. (cidade) => ...: Para cada cidade encontrada nessa lista, ele executa o bloco de código de dentro.
           3. key={cidade.id}: É uma regra do React. Toda lista gerada dinamicamente precisa de um identificador único (key) para que o React saiba exatamente qual item atualizar se a lista mudar.
-          4. value={cidade.id}: Define o valor interno que o sistema vai salvar (o ID da cidade).
+          4. value={cidade.id}: Define o valorll interno que o sistema vai salvar (o ID da cidade).
           5. {cidade.nome}: É o texto que o usuário final vai ler na tela (o nome da cidade).
           */}
         </Select>
@@ -433,6 +462,9 @@ function FormularioComponent({
         <BotaoEnviar type="submit">
           {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
         </BotaoEnviar>
+        {modo === "edicao" && (
+          <FuncaoFechar onClick={teste}>Fechar</FuncaoFechar>
+        )}
       </Formulario>
     </Conteudo>
   );

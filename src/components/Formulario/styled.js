@@ -50,17 +50,16 @@ export const Formulario = styled.form`
   display: flex;
   padding-left: 36px;
   padding-right: 36px;
-  height: 631px;
   background-color: rgba(41, 41, 41, 0.49);
   justify-content: flex-start;
   border-radius: 10px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  margin: 10px 0px 0px 0px;
+  height: none;
 
-   background-color: ${({ modo }) =>
-    modo === "edicao"
-      ? "#1C1C1C"
-      : "rgba(41, 41, 41, 0.49)"};
+  background-color: ${({ modo }) =>
+    modo === "edicao" ? "#1C1C1C" : "rgba(41, 41, 41, 0.49)"};
 `;
 
 export const TituloFormulario = styled.span`
@@ -291,6 +290,7 @@ export const BotaoEnviar = styled.button`
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
+  margin-bottom: 25px;
 
   background: linear-gradient(to right, #8000ff, #4d0099);
   background-size: 200% 100%;
@@ -300,6 +300,9 @@ export const BotaoEnviar = styled.button`
   &:hover {
     background-position: right;
   }
+
+  margin-bottom: ${({ modo }) =>
+    modo === "edicao" ? "25px" : "20px"};
 `;
 
 export const Select = styled.select`
@@ -342,4 +345,16 @@ export const Select = styled.select`
     background: #1f1f1f;
     color: white;
   }
+`;
+
+export const FuncaoFechar = styled.a`
+  color: #ffffff;
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 10px 0px 20px 0px;
+  cursor: pointer;
+
+  margin: ${({ modo }) =>
+    modo === "edicao" ? "10px 0px 20px 0px" : "0px 0px 25px 0px"};
 `;
