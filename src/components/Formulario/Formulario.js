@@ -53,6 +53,8 @@ import {
 
 import Swal from "sweetalert2";
 
+import atualizarUsuario from "../../services/usuarioService";
+
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
   usuario = null, //Caso o modo seja "edição", o usuário selecionado será passado como prop para o formulário, para que os campos do formulário sejam preenchidos com os dados do usuário selecionado.
@@ -187,11 +189,7 @@ function FormularioComponent({
         return;
       }
 
-      axios
-        .put(
-          `http://localhost:3001/usuarios/${usuario.idusuarios}`,
-          dadosFormulario /* Envia os dados do formulário para o backend, para atualizar o usuário (editar).*/,
-        )
+      atualizarUsuario(usuario.idusuarios, dadosFormulario)
         .then(() => {
           mostrarAvisoEdicao();
           onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
@@ -328,7 +326,7 @@ function FormularioComponent({
           )
           .then(() => {
             mostrarAvisoEdicao();
-        onFechar();
+            onFechar();
 
             onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
           })
