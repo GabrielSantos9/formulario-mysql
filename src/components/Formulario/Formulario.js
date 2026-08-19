@@ -283,8 +283,61 @@ function FormularioComponent({
       cancelButtonColor: "#636f83",
     }).then((result) => {
       if (result.isConfirmed) {
-        onAtualizado();
+        const dadosFormulario = {
+          nomeCompleto,
+          email,
+          telefone,
+          genero,
+          data_nascimento: dataNascimento,
+          cidade,
+          estado,
+          pais,
+        };
+
+        const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
+        if (!resultadoNome.valido) {
+          resultadoNome.erro === "MINIMO_CARACTERES" &&
+            mostrarAvisoNomeQntdMinima();
+          resultadoNome.erro === "MAXIMO_CARACTERES" &&
+            mostrarAvisoNomeQntdMaxima();
+          resultadoNome.erro === "CARACTERES_INVALIDOS" &&
+            mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
+          return;
+        }
+
+        if (!validarEmail(email)) {
+          mostrarAvisoEmailInvalido();
+          return;
+        }
+
+        if (!validarTelefone(telefone)) {
+          mostrarAvisoTelefoneInvalido();
+          return;
+        }
+
+        const resultadoData = validarData(dataNascimento);
+        if (!resultadoData.valido) {
+          resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
+          return;
+        }
+
+        axios
+          .put(
+            `http://localhost:3001/usuarios/${usuario.idusuarios}`,
+            dadosFormulario /* Envia os dados do formulário para o backend, para atualizar o usuário (editar).*/,
+          )
+          .then(() => {
+            mostrarAvisoEdicao();
         onFechar();
+
+            onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
+          })
+          .catch((error) => {
+            console.error(error);
+            mostrarAvisoErroEdicao();
+          });
+
+        return;
       } else if (result.isDenied) {
         onFechar();
       } else if (result.isDismissed) {
