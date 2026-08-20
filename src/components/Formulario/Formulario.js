@@ -37,10 +37,14 @@ import {
   mostrarAvisoEmailDuplicado,
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
+  MostrarAvisoEmailQntdMaxima,
+  MostrarAvisoEmailQntdMinima,
   mostrarAvisoTelefoneInvalido,
   mostrarAvisoNomeQntdMinima,
   mostrarAvisoNomeQntdMaxima,
   mostrarAvisoDataInvalida,
+  mostrarAvisoAnoInvalido,
+  mostrarAvisoDataInexistente,
   mostrarAvisoDataFutura,
 } from "./aviso";
 
@@ -173,8 +177,13 @@ function FormularioComponent({
         return;
       }
 
-      if (!validarEmail(email)) {
-        mostrarAvisoEmailInvalido();
+      const resultadoEmail = validarEmail(email);
+      if (!resultadoEmail.valido) {
+        resultadoEmail.erro === "EMAIL_INVALIDO" && mostrarAvisoEmailInvalido();
+        resultadoEmail.erro === "MINIMO_CARACTERES" &&
+          MostrarAvisoEmailQntdMinima();
+        resultadoEmail.erro === "MAXIMO_CARACTERES" &&
+          MostrarAvisoEmailQntdMaxima();
         return;
       }
 
@@ -185,6 +194,10 @@ function FormularioComponent({
 
       const resultadoData = validarData(dataNascimento);
       if (!resultadoData.valido) {
+        resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
+        resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
+        resultadoData.erro === "DATA_INEXISTENTE" &&
+          mostrarAvisoDataInexistente();
         resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
         return;
       }
@@ -209,12 +222,17 @@ function FormularioComponent({
       resultadoNome.erro === "MAXIMO_CARACTERES" &&
         mostrarAvisoNomeQntdMaxima();
       resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-        mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
+        mostrarAvisoNomeInvalido();
       return;
     }
 
-    if (!validarEmail(email)) {
-      mostrarAvisoEmailInvalido();
+    const resultadoEmail = validarEmail(email);
+    if (!resultadoEmail.valido) {
+      resultadoEmail.erro === "EMAIL_INVALIDO" && mostrarAvisoEmailInvalido();
+      resultadoEmail.erro === "MINIMO_CARACTERES" &&
+        MostrarAvisoEmailQntdMinima();
+      resultadoEmail.erro === "MAXIMO_CARACTERES" &&
+        MostrarAvisoEmailQntdMaxima();
       return;
     }
 
@@ -223,8 +241,13 @@ function FormularioComponent({
       return;
     }
 
-    if (!validarData(dataNascimento)) {
-      mostrarAvisoDataInvalida();
+    const resultadoData = validarData(dataNascimento);
+    if (!resultadoData.valido) {
+      resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
+      resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
+      resultadoData.erro === "DATA_INEXISTENTE" &&
+        mostrarAvisoDataInexistente();
+      resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
       return;
     }
 
@@ -264,9 +287,7 @@ function FormularioComponent({
     setNomeCompleto(valor);
   };
 
-  const teste = () => {
-    console.log("Funcionou!");
-
+  const modalConfirmacao = () => {
     Swal.fire({
       title: "O que deseja fazer antes de fechar?",
       icon: "question",
@@ -303,8 +324,14 @@ function FormularioComponent({
           return;
         }
 
-        if (!validarEmail(email)) {
-          mostrarAvisoEmailInvalido();
+        const resultadoEmail = validarEmail(email);
+        if (!resultadoEmail.valido) {
+          resultadoEmail.erro === "EMAIL_INVALIDO" &&
+            mostrarAvisoEmailInvalido();
+          resultadoEmail.erro === "MINIMO_CARACTERES" &&
+            MostrarAvisoEmailQntdMinima();
+          resultadoEmail.erro === "MAXIMO_CARACTERES" &&
+            MostrarAvisoEmailQntdMaxima();
           return;
         }
 
@@ -315,6 +342,10 @@ function FormularioComponent({
 
         const resultadoData = validarData(dataNascimento);
         if (!resultadoData.valido) {
+          resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
+          resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
+          resultadoData.erro === "DATA_INEXISTENTE" &&
+            mostrarAvisoDataInexistente();
           resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
           return;
         }
@@ -514,7 +545,7 @@ function FormularioComponent({
           {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
         </BotaoEnviar>
         {modo === "edicao" && (
-          <FuncaoFechar onClick={teste}>Fechar</FuncaoFechar>
+          <FuncaoFechar onClick={modalConfirmacao}>Fechar</FuncaoFechar>
         )}
       </Formulario>
     </Conteudo>

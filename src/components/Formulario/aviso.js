@@ -66,7 +66,7 @@ export const mostrarAvisoErroCadastro = () => {
   Swal.fire({
     icon: "error",
     title: "Erro no cadastro",
-    text: "Ocorreu um erro ao cadastrar o usuário. Por favora, tente novamente.",
+    text: "Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente.",
     confirmButtonText: "Entendi",
   });
 };
@@ -116,7 +116,23 @@ export const mostrarAvisoEmailInvalido = () => {
   Swal.fire({
     icon: "warning",
     title: "E-mail inválido",
-    text: "Digite um e-mail válido.",
+    text: "O e-mail inserido deve conter apenas letras minúsculas, números e os caracteres especiais permitidos (., _, %, +, -), seguidos pelo símbolo @ e um domínio válido finalizado com no mínimo duas letras (ex: .com).",
+  });
+};
+
+export const MostrarAvisoEmailQntdMinima = () => {
+  Swal.fire({
+    icon: "error",
+    title: "E-mail inválido",
+    text: "O E-mail deve ter no mínimo 5 caracteres.",
+  });
+};
+
+export const MostrarAvisoEmailQntdMaxima = () => {
+  Swal.fire({
+    icon: "error",
+    title: "E-mail inválido",
+    text: "O E-mail deve ter no máximo 254 caracteres.",
   });
 };
 
@@ -136,13 +152,29 @@ export const mostrarAvisoDataInvalida = () => {
   });
 };
 
+export const mostrarAvisoAnoInvalido = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Data inválida",
+    text: "O ano de nascimento não pode ser anterior a 1900.",
+  });
+};
+
+export const mostrarAvisoDataInexistente = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Data inválida",
+    text: "A data introduzida não existe no calendário. Por favor, verifique os dados.",
+  });
+};
+
 export const mostrarAvisoDataFutura = () => {
   Swal.fire({
     icon: "error",
     title: "Data inválida",
     text: "A data de nascimento não pode ser maior que a data atual.",
   });
-}
+};
 
 export default {
   mostrarAvisoPais,
@@ -156,7 +188,11 @@ export default {
   mostrarAvisoEmailDuplicado,
   mostrarAvisoNomeInvalido,
   mostrarAvisoEmailInvalido,
+  MostrarAvisoEmailQntdMinima,
+  MostrarAvisoEmailQntdMaxima,
   mostrarAvisoTelefoneInvalido,
   mostrarAvisoDataInvalida,
+  mostrarAvisoAnoInvalido,
+  mostrarAvisoDataInexistente,
   mostrarAvisoDataFutura,
 };
