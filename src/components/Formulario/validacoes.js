@@ -1,16 +1,25 @@
 export const validarCamposObrigatorios = (dados) => {
-  return Object.values(dados).every((valor) => {
-    // Object.values(dados).every((valor): serve para verificar se todos os valores de um objeto atendem a uma condição específica.
+  const valores = Object.values(dados);
+
+  for (const valor of valores) {
     if (valor === null || valor === undefined) {
-      return false;
+      return {
+        valido: false,
+        erro: "CAMPO_AUSENTE",
+      };
     }
 
     if (typeof valor === "string" && valor.trim() === "") {
-      return false;
+      return {
+        valido: false,
+        erro: "CAMPO_VAZIO",
+      };
     }
+  }
 
-    return true; // Se todas as validações forem bem-sucedidas, a função retorna um objeto indicando que a data é válida.
-  });
+  return {
+    valido: true, // Se todas as validações forem bem-sucedidas, a função retorna um objeto indicando que a data é válida.
+  };
 };
 
 export const validarNome = (nome) => {

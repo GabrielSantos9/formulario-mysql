@@ -35,25 +35,7 @@ import {
   mostrarAvisoErroCadastro,
   mostrarAvisoErroEdicao,
   mostrarAvisoEmailDuplicado,
-  mostrarAvisoNomeInvalido,
-  mostrarAvisoEmailInvalido,
-  MostrarAvisoEmailQntdMaxima,
-  MostrarAvisoEmailQntdMinima,
-  mostrarAvisoTelefoneInvalido,
-  mostrarAvisoNomeQntdMinima,
-  mostrarAvisoNomeQntdMaxima,
-  mostrarAvisoDataInvalida,
-  mostrarAvisoAnoInvalido,
-  mostrarAvisoDataInexistente,
-  mostrarAvisoDataFutura,
 } from "./aviso";
-
-import {
-  validarNome,
-  validarEmail,
-  validarTelefone,
-  validarData,
-} from "./validacoes";
 
 import Swal from "sweetalert2";
 
@@ -62,7 +44,9 @@ import {
   cadastrarUsuario,
 } from "../../services/usuarioService";
 
-import { criarDadosFormulario } from "./formularioUtils";
+import { criarDadosFormulario } from "../../utils/formularioUtils";
+
+import { validarFormulario } from "../../utils/validacaoFormulario";
 
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
@@ -172,39 +156,15 @@ function FormularioComponent({
     if (modo === "edicao") {
       // Se o modo do formulário for "edição", ele envia os dados do formulário para o backend para atualizar o usuário selecionado.
 
-      const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
-      if (!resultadoNome.valido) {
-        resultadoNome.erro === "MINIMO_CARACTERES" &&
-          mostrarAvisoNomeQntdMinima();
-        resultadoNome.erro === "MAXIMO_CARACTERES" &&
-          mostrarAvisoNomeQntdMaxima();
-        resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-          mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
-        return;
-      }
+      const formularioValido = validarFormulario({
+        dadosFormulario,
+        nomeCompleto,
+        email,
+        telefone,
+        dataNascimento,
+      });
 
-      const resultadoEmail = validarEmail(email);
-      if (!resultadoEmail.valido) {
-        resultadoEmail.erro === "EMAIL_INVALIDO" && mostrarAvisoEmailInvalido();
-        resultadoEmail.erro === "MINIMO_CARACTERES" &&
-          MostrarAvisoEmailQntdMinima();
-        resultadoEmail.erro === "MAXIMO_CARACTERES" &&
-          MostrarAvisoEmailQntdMaxima();
-        return;
-      }
-
-      if (!validarTelefone(telefone)) {
-        mostrarAvisoTelefoneInvalido();
-        return;
-      }
-
-      const resultadoData = validarData(dataNascimento);
-      if (!resultadoData.valido) {
-        resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
-        resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
-        resultadoData.erro === "DATA_INEXISTENTE" &&
-          mostrarAvisoDataInexistente();
-        resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
+      if (!formularioValido) {
         return;
       }
 
@@ -221,39 +181,15 @@ function FormularioComponent({
       return;
     }
 
-    const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
-    if (!resultadoNome.valido) {
-      resultadoNome.erro === "MINIMO_CARACTERES" &&
-        mostrarAvisoNomeQntdMinima();
-      resultadoNome.erro === "MAXIMO_CARACTERES" &&
-        mostrarAvisoNomeQntdMaxima();
-      resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-        mostrarAvisoNomeInvalido();
-      return;
-    }
+    const formularioValido = validarFormulario({
+      dadosFormulario,
+      nomeCompleto,
+      email,
+      telefone,
+      dataNascimento,
+    });
 
-    const resultadoEmail = validarEmail(email);
-    if (!resultadoEmail.valido) {
-      resultadoEmail.erro === "EMAIL_INVALIDO" && mostrarAvisoEmailInvalido();
-      resultadoEmail.erro === "MINIMO_CARACTERES" &&
-        MostrarAvisoEmailQntdMinima();
-      resultadoEmail.erro === "MAXIMO_CARACTERES" &&
-        MostrarAvisoEmailQntdMaxima();
-      return;
-    }
-
-    if (!validarTelefone(telefone)) {
-      mostrarAvisoTelefoneInvalido();
-      return;
-    }
-
-    const resultadoData = validarData(dataNascimento);
-    if (!resultadoData.valido) {
-      resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
-      resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
-      resultadoData.erro === "DATA_INEXISTENTE" &&
-        mostrarAvisoDataInexistente();
-      resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
+    if (!formularioValido) {
       return;
     }
 
@@ -310,40 +246,15 @@ function FormularioComponent({
           pais,
         };
 
-        const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
-        if (!resultadoNome.valido) {
-          resultadoNome.erro === "MINIMO_CARACTERES" &&
-            mostrarAvisoNomeQntdMinima();
-          resultadoNome.erro === "MAXIMO_CARACTERES" &&
-            mostrarAvisoNomeQntdMaxima();
-          resultadoNome.erro === "CARACTERES_INVALIDOS" &&
-            mostrarAvisoNomeInvalido("CARACTERES_INVALIDOS");
-          return;
-        }
+        const formularioValido = validarFormulario({
+          dadosFormulario,
+          nomeCompleto,
+          email,
+          telefone,
+          dataNascimento,
+        });
 
-        const resultadoEmail = validarEmail(email);
-        if (!resultadoEmail.valido) {
-          resultadoEmail.erro === "EMAIL_INVALIDO" &&
-            mostrarAvisoEmailInvalido();
-          resultadoEmail.erro === "MINIMO_CARACTERES" &&
-            MostrarAvisoEmailQntdMinima();
-          resultadoEmail.erro === "MAXIMO_CARACTERES" &&
-            MostrarAvisoEmailQntdMaxima();
-          return;
-        }
-
-        if (!validarTelefone(telefone)) {
-          mostrarAvisoTelefoneInvalido();
-          return;
-        }
-
-        const resultadoData = validarData(dataNascimento);
-        if (!resultadoData.valido) {
-          resultadoData.erro === "DATA_INVALIDA" && mostrarAvisoDataInvalida();
-          resultadoData.erro === "ANO_INVALIDO" && mostrarAvisoAnoInvalido();
-          resultadoData.erro === "DATA_INEXISTENTE" &&
-            mostrarAvisoDataInexistente();
-          resultadoData.erro === "DATA_FUTURA" && mostrarAvisoDataFutura();
+        if (!formularioValido) {
           return;
         }
 
