@@ -57,7 +57,12 @@ import {
 
 import Swal from "sweetalert2";
 
-import atualizarUsuario from "../../services/usuarioService";
+import {
+  atualizarUsuario,
+  cadastrarUsuario,
+} from "../../services/usuarioService";
+
+import { criarDadosFormulario } from "./formularioUtils";
 
 function FormularioComponent({
   modo = "cadastro", //Define o modo do formulario, que pode ser tanto "cadastro" quanto "edição", mas o modo padrão é o cadastro.
@@ -153,18 +158,19 @@ function FormularioComponent({
   const enviarFormulario = (e) => {
     e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
 
+    const dadosFormulario = criarDadosFormulario({
+      nomeCompleto,
+      email,
+      telefone,
+      genero,
+      dataNascimento,
+      cidade,
+      estado,
+      pais,
+    });
+
     if (modo === "edicao") {
       // Se o modo do formulário for "edição", ele envia os dados do formulário para o backend para atualizar o usuário selecionado.
-      const dadosFormulario = {
-        nomeCompleto,
-        email,
-        telefone,
-        genero,
-        data_nascimento: dataNascimento,
-        cidade,
-        estado,
-        pais,
-      };
 
       const resultadoNome = validarNome(nomeCompleto); // A função 'validarNome' recebe o valor do campo 'nomeCompleto' e retorna um objeto com a propriedade 'valido' (true ou false) e a propriedade 'erro' (uma string indicando o tipo de erro, se houver). O resultado da validação é armazenado na constante 'resultadoNome'.
       if (!resultadoNome.valido) {
@@ -252,17 +258,7 @@ function FormularioComponent({
     }
 
     //*ENVIA OS DADOS DO FORMULÁRIO PARA O BACKEND
-    axios
-      .post("http://localhost:3001/cadastrar", {
-        nomeCompleto,
-        email,
-        telefone,
-        genero,
-        data_nascimento: dataNascimento,
-        cidade,
-        estado,
-        pais,
-      })
+    cadastrarUsuario(dadosFormulario)
       .then(() => {
         mostrarAvisoCadastro();
         limparFormulario();
@@ -270,6 +266,7 @@ function FormularioComponent({
       .catch((err) => {
         if (err.response?.data?.erro === "EMAIL_DUPLICADO") {
           //err.response?.data?.erro: serve para capturar a mensagem de erro específica retornada pelo servidor em uma requisição HTTP mal-sucedida.
+          console.error(err);
           mostrarAvisoEmailDuplicado();
           return;
         }
@@ -350,11 +347,7 @@ function FormularioComponent({
           return;
         }
 
-        axios
-          .put(
-            `http://localhost:3001/usuarios/${usuario.idusuarios}`,
-            dadosFormulario /* Envia os dados do formulário para o backend, para atualizar o usuário (editar).*/,
-          )
+        atualizarUsuario(usuario.idusuarios, dadosFormulario)
           .then(() => {
             mostrarAvisoEdicao();
             onFechar();
