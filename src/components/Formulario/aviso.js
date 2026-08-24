@@ -175,24 +175,3 @@ export const mostrarAvisoDataFutura = () => {
     text: "A data de nascimento não pode ser maior que a data atual.",
   });
 };
-
-export default {
-  mostrarAvisoPais,
-  mostrarAvisoCidade,
-  mostrarAvisoPreenchimento,
-  mostrarAvisoCadastro,
-  mostrarSelecaoUsuario,
-  mostrarAvisoEdicao,
-  mostrarAvisoErroCadastro,
-  mostrarAvisoErroEdicao,
-  mostrarAvisoEmailDuplicado,
-  mostrarAvisoNomeInvalido,
-  mostrarAvisoEmailInvalido,
-  MostrarAvisoEmailQntdMinima,
-  MostrarAvisoEmailQntdMaxima,
-  mostrarAvisoTelefoneInvalido,
-  mostrarAvisoDataInvalida,
-  mostrarAvisoAnoInvalido,
-  mostrarAvisoDataInexistente,
-  mostrarAvisoDataFutura,
-};

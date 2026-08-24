@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import { Wrapper, Input, Icone } from "./styles";
 
 function InputBusca({ placeholder }) {

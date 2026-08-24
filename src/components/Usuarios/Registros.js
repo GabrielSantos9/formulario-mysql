@@ -19,7 +19,6 @@ import {
 import ModalEditarUsuario from "./ModalEditarUsuario";
 import {
   mostrarSelecaoUsuario,
-  mostrarAvisoEmailInvalido,
 } from "../Formulario/aviso";
 
 function UsuariosRegistrados() {
