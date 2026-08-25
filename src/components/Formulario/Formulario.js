@@ -44,8 +44,6 @@ import {
   cadastrarUsuario,
 } from "../../services/usuarioService";
 
-import { criarDadosFormulario } from "../../utils/formularioUtils";
-
 import { validarFormulario } from "../../utils/validacaoFormulario";
 
 function FormularioComponent({
@@ -61,7 +59,7 @@ function FormularioComponent({
   const [dataNascimento, setDataNascimento] = useState("");
   const [cidade, setCidade] = useState(""); // 'cidade': guarda o valor e 'setCidade': atualiza o valor do campo 'cidade'
   const [estado, setEstado] = useState("");
-  const [setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const pais = "Brasil"; // O valor do país é fixo, então não precisa de um estado para armazenar o valor do país.
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
@@ -74,7 +72,7 @@ function FormularioComponent({
       setTelefone(usuario.telefone);
       setGenero(usuario.genero);
       setDataNascimento(
-        usuario.data_nascimento ? usuario.data_nascimento.split("T")[0] : "",
+        usuario.dataNascimento ? usuario.dataNascimento.split("T")[0] : "",
       );
       setCidade(usuario.cidade);
       setEstado(usuario.estado);
@@ -138,11 +136,8 @@ function FormularioComponent({
     setEstado("");
   };
 
-  //*FUNÇÃO PARA ENVIAR O FORMULÁRIO PARA O BACKEND
-  const enviarFormulario = (e) => {
-    e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
-
-    const dadosFormulario = criarDadosFormulario({
+  const obterDadosFormulario = () => {
+    return {
       nomeCompleto,
       email,
       telefone,
@@ -151,7 +146,14 @@ function FormularioComponent({
       cidade,
       estado,
       pais,
-    });
+    };
+  };
+
+  //*FUNÇÃO PARA ENVIAR O FORMULÁRIO PARA O BACKEND
+  const enviarFormulario = (e) => {
+    e.preventDefault(); //Impede recarregar a página ao enviar o formulário.
+
+    const dadosFormulario = obterDadosFormulario();
 
     if (modo === "edicao") {
       // Se o modo do formulário for "edição", ele envia os dados do formulário para o backend para atualizar o usuário selecionado.
@@ -182,6 +184,7 @@ function FormularioComponent({
     }
 
     const formularioValido = validarFormulario({
+      dadosFormulario,
       nomeCompleto,
       email,
       telefone,
@@ -234,16 +237,7 @@ function FormularioComponent({
       cancelButtonColor: "#636f83",
     }).then((result) => {
       if (result.isConfirmed) {
-        const dadosFormulario = {
-          nomeCompleto,
-          email,
-          telefone,
-          genero,
-          data_nascimento: dataNascimento,
-          cidade,
-          estado,
-          pais,
-        };
+        const dadosFormulario = obterDadosFormulario();
 
         const formularioValido = validarFormulario({
           dadosFormulario,
@@ -261,7 +255,6 @@ function FormularioComponent({
           .then(() => {
             mostrarAvisoEdicao();
             onFechar();
-
             onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
           })
           .catch((error) => {

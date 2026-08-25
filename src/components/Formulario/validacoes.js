@@ -1,4 +1,11 @@
 export const validarCamposObrigatorios = (dados) => {
+  if (!dados) {
+    return {
+      valido: false,
+      erro: "DADOS_AUSENTES",
+    };
+  }
+
   const valores = Object.values(dados);
 
   for (const valor of valores) {
@@ -85,10 +92,10 @@ export const validarTelefone = (telefone) => {
   return regex.test(telefone); // A função 'validarTelefone' recebe um parâmetro 'telefone' e verifica se ele contém exatamente 11 dígitos numéricos.
 };
 
-export const validarData = (data_nascimento) => {
+export const validarData = (dataNascimento) => {
   //Verifica o formato AAAA-MM-DD
   const regex = /^\d{4}-\d{2}-\d{2}$/;
-  if (!regex.test(data_nascimento)) {
+  if (!regex.test(dataNascimento)) {
     return {
       valido: false,
       erro: "DATA_INVALIDA",
@@ -96,7 +103,7 @@ export const validarData = (data_nascimento) => {
   }
 
   //Separa ano, mês e dia
-  const [ano, mes, dia] = data_nascimento.split("-").map(Number);
+  const [ano, mes, dia] = dataNascimento.split("-").map(Number);
   //Verifica se o ano está dentro do limite (1900)
   if (ano < 1900) {
     return {

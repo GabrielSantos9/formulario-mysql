@@ -22,7 +22,7 @@ const cadastrarUsuarioController = (req, res) => {
     email,
     telefone,
     genero,
-    data_nascimento,
+    dataNascimento,
     cidade,
     estado,
     pais,
@@ -35,7 +35,7 @@ const cadastrarUsuarioController = (req, res) => {
     email: emailNormalizado,
     telefone,
     genero,
-    data_nascimento,
+    dataNascimento,
     cidade,
     estado,
     pais,
@@ -101,7 +101,7 @@ const cadastrarUsuarioController = (req, res) => {
     });
   }
 
-  const resultadoData = validarData(data_nascimento);
+  const resultadoData = validarData(dataNascimento);
   if (!resultadoData.valido) {
     if (resultadoData.erro === "DATA_INVALIDA") {
       return res.status(400).json({
@@ -215,7 +215,7 @@ function atualizarUsuarioController(req, res) {
     email,
     telefone,
     genero,
-    data_nascimento,
+    dataNascimento,
     cidade,
     estado,
     pais,
@@ -229,7 +229,7 @@ function atualizarUsuarioController(req, res) {
     email: emailNormalizado,
     telefone,
     genero,
-    data_nascimento,
+    dataNascimento,
     cidade,
     estado,
     pais,
@@ -295,7 +295,7 @@ function atualizarUsuarioController(req, res) {
     });
   }
 
-  const resultadoData = validarData(data_nascimento);
+  const resultadoData = validarData(dataNascimento);
   if (!resultadoData.valido) {
     if (resultadoData.erro === "DATA_INVALIDA") {
       return res.status(400).json({

@@ -10,7 +10,7 @@ function cadastrarUsuario(dados, callback) {
       email,
       telefone,
       genero,
-      data_nascimento,
+      dataNascimento,
       cidade,
       estado,
       pais
@@ -25,7 +25,7 @@ function cadastrarUsuario(dados, callback) {
       dados.email,
       dados.telefone,
       dados.genero,
-      dados.data_nascimento,
+      dados.dataNascimento,
       dados.cidade,
       dados.estado,
       dados.pais,
@@ -44,7 +44,7 @@ function listarUsuarios(callback) {
       u.email,
       u.telefone,
       u.genero,
-      u.data_nascimento,
+      u.dataNascimento,
       c.nome AS cidade,
       e.nome AS estado,
       u.pais
@@ -80,7 +80,7 @@ function buscarUsuarioPorId(id, callback) { // A função buscarUsuarioPorId é 
       u.email,
       u.telefone,
       u.genero,
-      u.data_nascimento,
+      u.dataNascimento,
       u.cidade,
       u.estado,
       u.pais
@@ -100,7 +100,7 @@ function atualizarUsuario(id, dados, callback) {
       email = ?,
       telefone = ?,
       genero = ?,
-      data_nascimento = ?,
+      dataNascimento = ?,
       cidade = ?,
       estado = ?
     WHERE idusuarios = ?
@@ -113,7 +113,7 @@ function atualizarUsuario(id, dados, callback) {
       dados.email,
       dados.telefone,
       dados.genero,
-      dados.data_nascimento,
+      dados.dataNascimento,
       dados.cidade,
       dados.estado,
       id,

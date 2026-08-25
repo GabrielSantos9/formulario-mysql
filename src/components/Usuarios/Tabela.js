@@ -64,7 +64,7 @@ function Tabela({ usuarioSelecionado, selecionarUsuario, usuarios }) {
               <CelulaDados>{usuario.telefone}</CelulaDados>
               <CelulaDados>{usuario.genero}</CelulaDados>
               <CelulaDados>
-                {new Date(usuario.data_nascimento).toLocaleDateString("pt-BR")}
+                {new Date(usuario.dataNascimento).toLocaleDateString("pt-BR")}
               </CelulaDados>
               <CelulaDados>{usuario.cidade}</CelulaDados>
               <CelulaDados>{usuario.estado}</CelulaDados>
