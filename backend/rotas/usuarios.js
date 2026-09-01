@@ -7,6 +7,7 @@ const {
   listarUsuariosController,
   buscarUsuarioPorIdController,
   atualizarUsuarioController,
+  deletarUsuarioPorIDController,
 } = require("../controladores/controleUsuarios");
 
 router.post("/cadastrar", cadastrarUsuarioController); // Define uma rota POST para o caminho "/cadastrar", que será responsável por receber os dados do formulário enviados pelo front-end e realizar o cadastro no banco de dados. A função "cadastrarUsuario" é passada como callback para essa rota, permitindo que ela seja executada quando uma requisição POST for feita para esse caminho.
@@ -16,5 +17,7 @@ router.get("/usuarios", listarUsuariosController); // Liga a URL a função do c
 router.get("/usuarios/:id", buscarUsuarioPorIdController); // Busca o usuário pelo ID selecionado na tabela de registros.
 
 router.put("/usuarios/:id", atualizarUsuarioController); // Edita o usuário selecionado, enviando novos dados para o back-end, que será atualizado no banco de dados.
+
+router.delete("/usuarios/:id", deletarUsuarioPorIDController);
 
 module.exports = router;

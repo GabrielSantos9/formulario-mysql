@@ -42,6 +42,7 @@ import Swal from "sweetalert2";
 import {
   atualizarUsuario,
   cadastrarUsuario,
+  deletarUsuarioPorID,
 } from "../../services/usuarioService";
 
 import { validarFormulario } from "../../utils/validacaoFormulario";
@@ -179,10 +180,20 @@ function FormularioComponent({
           console.error(error);
           mostrarAvisoErroEdicao();
         });
-
       return;
     }
 
+    deletarUsuarioPorID(usuario.idusuario, dadosFormulario)
+      .then(() => {
+          console.log("Usuário excluído!");
+          onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
+        })
+        .catch((error) => {
+          console.error(error);
+          console.log("Erro ao exluir o usuário!");
+          
+        });
+      return;
     const formularioValido = validarFormulario({
       dadosFormulario,
       nomeCompleto,

@@ -22,5 +22,5 @@ app.use("/estados", estadosRoutes); // Define que todas as requisições para o 
 app.use("/cidades", cidadesRoutes); // Define que todas as requisições para o caminho "/cidades" serão tratadas pelo roteador de cidades, permitindo que as rotas definidas em "cidades.js" sejam acessadas através desse caminho
 
 app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
+  console.log("Servidor rodando na porta 3001!");
 });

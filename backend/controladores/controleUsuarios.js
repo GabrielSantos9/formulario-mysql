@@ -14,6 +14,7 @@ const {
   buscarUsuarioPorEmail,
   buscarUsuarioPorId,
   atualizarUsuario,
+  deletarUsuarioPorID,
 } = require("../modelos/usuarioModel");
 
 const cadastrarUsuarioController = (req, res) => {
@@ -180,6 +181,18 @@ const listarUsuariosController = (req, res) => {
   });
 };
 
+const deletarUsuarioPorIDController = (req, res) => {
+  const id = req.params.id;
+  deletarUsuarioPorID(id, (err, resultado) => {
+    if (err) {
+      console.error("Erro ao excluir usuário:", err);
+      res.status(500).json({ error: "Erro ao excluir usuário" });
+    } else {
+      res.status(200).json({ message: "Usuário excluído com sucesso" });
+    }
+  });
+};
+
 const buscarUsuarioPorIdController = (req, res) => {
   const { id } = req.params; //Pega o id do usuario selecionado e busca no banco de dados, retornando as informações desse id.
 
@@ -343,4 +356,5 @@ module.exports = {
   listarUsuariosController,
   buscarUsuarioPorIdController,
   atualizarUsuarioController,
+  deletarUsuarioPorIDController,
 };

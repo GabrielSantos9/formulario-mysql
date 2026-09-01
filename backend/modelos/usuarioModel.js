@@ -72,7 +72,8 @@ function buscarUsuarioPorEmail(email, callback) {
   db.query(sql, [email], callback);
 }
 
-function buscarUsuarioPorId(id, callback) { // A função buscarUsuarioPorId é responsável por buscar um usuário específico no banco de dados com base no seu ID. Ela recebe dois parâmetros: o ID do usuário que se deseja buscar e uma função de callback que será executada após a consulta ao banco de dados.
+function buscarUsuarioPorId(id, callback) {
+  // A função buscarUsuarioPorId é responsável por buscar um usuário específico no banco de dados com base no seu ID. Ela recebe dois parâmetros: o ID do usuário que se deseja buscar e uma função de callback que será executada após a consulta ao banco de dados.
   const sql = `
     SELECT
       u.idusuarios,
@@ -118,8 +119,16 @@ function atualizarUsuario(id, dados, callback) {
       dados.estado,
       id,
     ],
-    callback
+    callback,
   );
+}
+
+function deletarUsuarioPorID(id, callback) {
+  const sql = `
+    DELETE FROM usuarios WHERE idusuarios = ?;
+  `;
+
+  db.query(sql, [id], callback);
 }
 
 module.exports = {
@@ -128,4 +137,5 @@ module.exports = {
   buscarUsuarioPorEmail,
   buscarUsuarioPorId,
   atualizarUsuario,
+  deletarUsuarioPorID,
 };

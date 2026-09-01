@@ -17,9 +17,7 @@ import {
   OpcoesTabela,
 } from "./styles";
 import ModalEditarUsuario from "./ModalEditarUsuario";
-import {
-  mostrarSelecaoUsuario,
-} from "../Formulario/aviso";
+import { mostrarSelecaoUsuario } from "../Formulario/aviso";
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
@@ -53,12 +51,12 @@ function UsuariosRegistrados() {
     buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for atualizado.
   };
 
-  //* Função responsável por avisar ao usuário que ele precisa selecionar um usuário para ser editado.
   const editarUsuario = () => {
     if (!usuarioSelecionado) {
       mostrarSelecaoUsuario();
       return;
     }
+    console.log("O botão 'EDITAR' está funcionando!");
 
     axios
       .get(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
@@ -71,6 +69,25 @@ function UsuariosRegistrados() {
         console.error(error);
       });
   };
+
+  const excluirUsuarioPorID = () => {
+    if (!usuarioSelecionado) {
+      mostrarSelecaoUsuario();
+      return;
+    }
+    console.log("O botão 'EXCLUIR' está funcionando!");
+
+    axios
+      .delete(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
+      .then((response) => {
+        console.log("Usuário excluído com sucesso!");
+        buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <Conteudo>
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
@@ -91,7 +108,7 @@ function UsuariosRegistrados() {
           <BotaoAdicionar />
           <BotaoEditar onClick={editarUsuario} />
           {/*Toda vez que o usuário selecionar outra linha, esse valor será atualizado automaticamente (Depois de clicar no checkbox do ID 8, usuarioSelecionado = 8) */}
-          <BotaoExcluir />
+          <BotaoExcluir onClick={excluirUsuarioPorID} />
         </OpcoesTabela>
         <Tabela
           usuarioSelecionado={usuarioSelecionado} //Informa qual linha da tabela está selecionada.
