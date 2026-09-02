@@ -181,18 +181,6 @@ const listarUsuariosController = (req, res) => {
   });
 };
 
-const deletarUsuarioPorIDController = (req, res) => {
-  const id = req.params.id;
-  deletarUsuarioPorID(id, (err, resultado) => {
-    if (err) {
-      console.error("Erro ao excluir usuário:", err);
-      res.status(500).json({ error: "Erro ao excluir usuário" });
-    } else {
-      res.status(200).json({ message: "Usuário excluído com sucesso" });
-    }
-  });
-};
-
 const buscarUsuarioPorIdController = (req, res) => {
   const { id } = req.params; //Pega o id do usuario selecionado e busca no banco de dados, retornando as informações desse id.
 
@@ -220,8 +208,8 @@ const buscarUsuarioPorIdController = (req, res) => {
   });
 };
 
-function atualizarUsuarioController(req, res) {
-  const { id } = req.params; //Pega o id do usuário selecionado para edição, que é passado como parâmetro na url da requuisição.
+const atualizarUsuarioController = (req, res) => {
+  const { id } = req.params; //Pega o id do usuário selecionado para edição, que é passado como parâmetro na url da requisição.
 
   const {
     nomeCompleto,
@@ -349,7 +337,19 @@ function atualizarUsuarioController(req, res) {
       mensagem: "Usuário atualizado com sucesso.",
     });
   });
-}
+};
+
+const deletarUsuarioPorIDController = (req, res) => {
+  const id = req.params.id;
+  deletarUsuarioPorID(id, (err, resultado) => {
+    if (err) {
+      console.error("Erro ao excluir usuário:", err);
+      res.status(500).json({ error: "Erro ao excluir usuário" });
+    } else {
+      res.status(200).json({ message: "Usuário excluído com sucessoss" });
+    }
+  });
+};
 
 module.exports = {
   cadastrarUsuarioController,

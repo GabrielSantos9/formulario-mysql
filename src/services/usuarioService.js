@@ -1,7 +1,7 @@
 import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
 
-function deletarUsuarioPorID(id, dadosFormulario) {
-  return axios.delete(`http://localhost:3001/usuarios/${id}`, dadosFormulario);
+function cadastrarUsuario(dadosFormulario) {
+  return axios.post("http://localhost:3001/cadastrar", dadosFormulario);
 }
 
 function atualizarUsuario(id, dadosFormulario) {
@@ -12,8 +12,8 @@ function atualizarUsuario(id, dadosFormulario) {
   );
 }
 
-function cadastrarUsuario(dadosFormulario) {
-  return axios.post("http://localhost:3001/cadastrar", dadosFormulario);
+function deletarUsuarioPorID(id) {
+  return axios.delete(`http://localhost:3001/usuarios/${id}`);
 }
 
-export { atualizarUsuario, cadastrarUsuario, deletarUsuarioPorID };
+export { cadastrarUsuario, atualizarUsuario, deletarUsuarioPorID };

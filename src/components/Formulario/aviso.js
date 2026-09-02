@@ -41,11 +41,20 @@ export const mostrarAvisoCadastro = () => {
   });
 };
 
-export const mostrarSelecaoUsuario = () => {
+export const mostrarSelecaoUsuarioEdicao = () => {
   Swal.fire({
     icon: "error",
     title: "Erro na edição",
     text: "Selecione um usuário para editar.",
+    confirmButtonText: "Entendi",
+  });
+};
+
+export const mostrarSelecaoUsuarioExclusao = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na exclusão",
+    text: "Selecione um usuário para excluir.",
     confirmButtonText: "Entendi",
   });
 };

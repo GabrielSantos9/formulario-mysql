@@ -33,6 +33,18 @@ export const Introducao = styled.div`
   flex-direction: column;
 `;
 
+export const LocalizacaoAnterior = styled.a`
+  font-size: 13px;
+  font-weight: 400;
+  display: flex;
+  color: #FFF;
+  text-decoration: none;
+  &:hover {
+    font-weight: bold;
+    transition: 0.2s;
+  }
+`;
+
 export const Localizacao = styled.span`
   font-size: 13px;
   font-weight: 400;

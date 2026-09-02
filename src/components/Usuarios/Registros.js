@@ -11,13 +11,15 @@ import {
   Conteudo,
   Introducao,
   Localizacao,
+  LocalizacaoAnterior,
   TituloUsuarios,
   ParagrafoUsuarios,
   BancoUsuarios,
   OpcoesTabela,
 } from "./styles";
 import ModalEditarUsuario from "./ModalEditarUsuario";
-import { mostrarSelecaoUsuario } from "../Formulario/aviso";
+import { mostrarSelecaoUsuarioEdicao, mostrarSelecaoUsuarioExclusao } from "../Formulario/aviso";
+import { deletarUsuarioPorID, atualizarUsuario } from "../../services/usuarioService"
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
@@ -53,10 +55,9 @@ function UsuariosRegistrados() {
 
   const editarUsuario = () => {
     if (!usuarioSelecionado) {
-      mostrarSelecaoUsuario();
+      mostrarSelecaoUsuarioEdicao();
       return;
     }
-    console.log("O botão 'EDITAR' está funcionando!");
 
     axios
       .get(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
@@ -72,13 +73,11 @@ function UsuariosRegistrados() {
 
   const excluirUsuarioPorID = () => {
     if (!usuarioSelecionado) {
-      mostrarSelecaoUsuario();
+      mostrarSelecaoUsuarioExclusao();
       return;
     }
-    console.log("O botão 'EXCLUIR' está funcionando!");
 
-    axios
-      .delete(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
+     deletarUsuarioPorID(usuarioSelecionado)
       .then((response) => {
         console.log("Usuário excluído com sucesso!");
         buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
@@ -93,7 +92,7 @@ function UsuariosRegistrados() {
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
       <Introducao>
         <Localizacao>
-          Página Inicial &gt;&nbsp;
+          <LocalizacaoAnterior href="http://localhost:3000">Página Inicial</LocalizacaoAnterior> &gt;&nbsp;
           <strong style={{ textDecoration: "underline" }}>Usuários</strong>
         </Localizacao>
         <TituloUsuarios>Usuários Registrados</TituloUsuarios>
