@@ -1,6 +1,7 @@
 //* Busca os usuários, exibe eles na tabela e permite selecionar um usuário para edição ou exclusão.
 
 import axios from "axios";
+import Swal from "sweetalert2";
 import InputBusca from "./InputBusca";
 import BotaoAdicionar from "./BotaoAdicionar";
 import BotaoEditar from "./BotaoEditar";
@@ -18,8 +19,17 @@ import {
   OpcoesTabela,
 } from "./styles";
 import ModalEditarUsuario from "./ModalEditarUsuario";
-import { mostrarSelecaoUsuarioEdicao, mostrarSelecaoUsuarioExclusao } from "../Formulario/aviso";
-import { deletarUsuarioPorID, atualizarUsuario } from "../../services/usuarioService"
+import {
+  mostrarSelecaoUsuarioEdicao,
+  mostrarSelecaoUsuarioExclusao,
+  mostrarAvisoExclusao,
+  mostrarAvisoErroExclusao,
+  mostrarAvisoConfirmacaoExclusao,
+} from "../Formulario/aviso";
+import {
+  deletarUsuarioPorID,
+  buscarUsuarioPorId,
+} from "../../services/usuarioService";
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
@@ -59,8 +69,8 @@ function UsuariosRegistrados() {
       return;
     }
 
-    axios
-      .get(`http://localhost:3001/usuarios/${usuarioSelecionado}`)
+    //*FUNÇÃO PARA BUSCAR OS DADOS DO USUÁRIO SELECIONADO, ARMAZENAR NO ESTADO "usuarioEdicao" E ABRIR O MODAL DE EDIÇÃO (http://localhost:3001/usuarios/:id).
+    buscarUsuarioPorId(usuarioSelecionado)
       .then((response) => {
         //Faz uma requisição GET para o endpoint da API, passando o id do usuário selecionado. then() é chamado quando a requisição é bem-sucedida, recebendo a resposta da API como argumento (response).
         setUsuarioEdicao(response.data); //Armaena os dados do usuário selecionado no checkbox no estado usuarioEdicao, para serem utiliados no modal de edição
@@ -76,15 +86,21 @@ function UsuariosRegistrados() {
       mostrarSelecaoUsuarioExclusao();
       return;
     }
-
-     deletarUsuarioPorID(usuarioSelecionado)
-      .then((response) => {
-        console.log("Usuário excluído com sucesso!");
-        buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    mostrarAvisoConfirmacaoExclusao(usuarioSelecionado).then((result) => {
+      if (result.isConfirmed) {
+        deletarUsuarioPorID(usuarioSelecionado)
+          .then((response) => {
+            mostrarAvisoExclusao()
+            buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
+          })
+          .catch((error) => {
+            mostrarAvisoErroExclusao();
+            console.error(error);
+          });
+        return;
+      } else if (result.isDismissed) {
+      }
+    });
   };
 
   return (
@@ -92,7 +108,10 @@ function UsuariosRegistrados() {
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
       <Introducao>
         <Localizacao>
-          <LocalizacaoAnterior href="http://localhost:3000">Página Inicial</LocalizacaoAnterior> &gt;&nbsp;
+          <LocalizacaoAnterior href="http://localhost:3000">
+            Página Inicial
+          </LocalizacaoAnterior>{" "}
+          &gt;&nbsp;
           <strong style={{ textDecoration: "underline" }}>Usuários</strong>
         </Localizacao>
         <TituloUsuarios>Usuários Registrados</TituloUsuarios>

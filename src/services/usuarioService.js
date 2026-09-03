@@ -4,6 +4,10 @@ function cadastrarUsuario(dadosFormulario) {
   return axios.post("http://localhost:3001/cadastrar", dadosFormulario);
 }
 
+function buscarUsuarioPorId(id) {
+  return axios.get(`http://localhost:3001/usuarios/${id}`);
+}
+
 function atualizarUsuario(id, dadosFormulario) {
   // o Formulario.js é quem passa os valores do id e dadosFormularios para essa função.
   return axios.put(
@@ -16,4 +20,4 @@ function deletarUsuarioPorID(id) {
   return axios.delete(`http://localhost:3001/usuarios/${id}`);
 }
 
-export { cadastrarUsuario, atualizarUsuario, deletarUsuarioPorID };
+export { cadastrarUsuario, buscarUsuarioPorId, atualizarUsuario, deletarUsuarioPorID };

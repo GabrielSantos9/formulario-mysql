@@ -269,8 +269,8 @@ function FormularioComponent({
             onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
           })
           .catch((error) => {
-            console.error(error);
             mostrarAvisoErroEdicao();
+            console.error(error);
           });
 
         return;

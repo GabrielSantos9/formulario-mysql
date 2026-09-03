@@ -34,7 +34,7 @@ export const mostrarAvisoCadastro = () => {
     toast: true,
     position: "top-end",
     icon: "success",
-    title: "Usuário cadastrado com sucesso!",
+    title: "Usuário(a) cadastrado com sucesso!",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -64,7 +64,7 @@ export const mostrarAvisoEdicao = () => {
     toast: true,
     position: "top-end",
     icon: "success",
-    title: "Usuário editado com sucesso!",
+    title: "Usuário(a) editado com sucesso!",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -182,5 +182,42 @@ export const mostrarAvisoDataFutura = () => {
     icon: "error",
     title: "Data inválida",
     text: "A data de nascimento não pode ser maior que a data atual.",
+  });
+};
+
+export const mostrarAvisoConfirmacaoExclusao = (id) => {
+  return Swal.fire({
+    title: "CONFIRMAÇÃO",
+    html:
+      "Você tem certeza que deseja excluir o usuário do ID " +
+      id +
+      "? Após a confirmação, <strong>essa ação não poderá ser desfeita.</strong>",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Confirmar",
+    cancelButtonText: "Cancelar",
+    allowOutsideClick: false,
+    confirmButtonColor: "#2eb85c",
+    cancelButtonColor: "#636f83",
+  });
+};
+
+export const mostrarAvisoExclusao = () => {
+  Swal.fire({
+    toast: true,
+    position: "top-end",
+    icon: "success",
+    title: "Usuário(a) excluído com sucesso!",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+  });
+};
+
+export const mostrarAvisoErroExclusao = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na exclusão",
+    text: "Ocorreu um erro ao excluir o usuário. Por favor, tente novamente.",
   });
 };
