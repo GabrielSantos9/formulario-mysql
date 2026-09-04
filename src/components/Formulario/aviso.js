@@ -29,6 +29,15 @@ export const mostrarAvisoPreenchimento = () => {
   });
 };
 
+export const mostrarAvisoErroCadastro = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro no cadastro",
+    text: "Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente.",
+    confirmButtonText: "Entendi",
+  });
+};
+
 export const mostrarAvisoCadastro = () => {
   Swal.fire({
     toast: true,
@@ -50,12 +59,19 @@ export const mostrarSelecaoUsuarioEdicao = () => {
   });
 };
 
-export const mostrarSelecaoUsuarioExclusao = () => {
-  Swal.fire({
-    icon: "error",
-    title: "Erro na exclusão",
-    text: "Selecione um usuário para excluir.",
-    confirmButtonText: "Entendi",
+export const mostrarAvisoConfirmacaoEdicao = () => {
+  return Swal.fire({
+    title: "O que deseja fazer antes de fechar?",
+    icon: "question",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Salvar e Sair",
+    denyButtonText: "Sair sem Salvar",
+    cancelButtonText: "Voltar",
+    allowOutsideClick: false,
+    confirmButtonColor: "#2eb85c",
+    denyButtonColor: "#e55353",
+    cancelButtonColor: "#636f83",
   });
 };
 
@@ -68,15 +84,6 @@ export const mostrarAvisoEdicao = () => {
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-  });
-};
-
-export const mostrarAvisoErroCadastro = () => {
-  Swal.fire({
-    icon: "error",
-    title: "Erro no cadastro",
-    text: "Ocorreu um erro ao cadastrar o usuário. Por favor, tente novamente.",
-    confirmButtonText: "Entendi",
   });
 };
 
@@ -182,6 +189,15 @@ export const mostrarAvisoDataFutura = () => {
     icon: "error",
     title: "Data inválida",
     text: "A data de nascimento não pode ser maior que a data atual.",
+  });
+};
+
+export const mostrarSelecaoUsuarioExclusao = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na exclusão",
+    text: "Selecione um usuário para excluir.",
+    confirmButtonText: "Entendi",
   });
 };
 

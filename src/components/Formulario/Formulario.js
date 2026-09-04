@@ -31,13 +31,12 @@ import {
   mostrarAvisoPais,
   mostrarAvisoCidade,
   mostrarAvisoCadastro,
-  mostrarAvisoEdicao,
   mostrarAvisoErroCadastro,
+  mostrarAvisoEdicao,
+  mostrarAvisoConfirmacaoEdicao,
   mostrarAvisoErroEdicao,
   mostrarAvisoEmailDuplicado,
 } from "./aviso";
-
-import Swal from "sweetalert2";
 
 import {
   atualizarUsuario,
@@ -185,15 +184,14 @@ function FormularioComponent({
 
     deletarUsuarioPorID(usuario.idusuario, dadosFormulario)
       .then(() => {
-          console.log("Usuário excluído!");
-          onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
-        })
-        .catch((error) => {
-          console.error(error);
-          console.log("Erro ao exluir o usuário!");
-          
-        });
-      return;
+        console.log("Usuário excluído!");
+        onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
+      })
+      .catch((error) => {
+        console.error(error);
+        console.log("Erro ao exluir o usuário!");
+      });
+    return;
     const formularioValido = validarFormulario({
       dadosFormulario,
       nomeCompleto,
@@ -233,20 +231,8 @@ function FormularioComponent({
     setNomeCompleto(valor);
   };
 
-  const modalConfirmacao = () => {
-    Swal.fire({
-      title: "O que deseja fazer antes de fechar?",
-      icon: "question",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Salvar e Sair",
-      denyButtonText: "Sair sem Salvar",
-      cancelButtonText: "Voltar",
-      allowOutsideClick: false,
-      confirmButtonColor: "#2eb85c",
-      denyButtonColor: "#e55353",
-      cancelButtonColor: "#636f83",
-    }).then((result) => {
+  const modalConfirmacaoEdicao = () => {
+    mostrarAvisoConfirmacaoEdicao().then((result) => {
       if (result.isConfirmed) {
         const dadosFormulario = obterDadosFormulario();
 
@@ -280,7 +266,6 @@ function FormularioComponent({
       }
     });
   };
-
   return (
     <Conteudo>
       {modo === "cadastro" && (
@@ -451,9 +436,7 @@ function FormularioComponent({
         <BotaoEnviar type="submit">
           {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
         </BotaoEnviar>
-        {modo === "edicao" && (
-          <FuncaoFechar onClick={modalConfirmacao}>Fechar</FuncaoFechar>
-        )}
+        {modo === "edicao" && <FuncaoFechar onClick={modalConfirmacaoEdicao}>Fechar</FuncaoFechar>}
       </Formulario>
     </Conteudo>
   );
