@@ -1,7 +1,5 @@
 //* Busca os usuários, exibe eles na tabela e permite selecionar um usuário para edição ou exclusão.
 
-import axios from "axios";
-import Swal from "sweetalert2";
 import InputBusca from "./InputBusca";
 import BotaoAdicionar from "./BotaoAdicionar";
 import BotaoEditar from "./BotaoEditar";
@@ -27,8 +25,9 @@ import {
   mostrarAvisoConfirmacaoExclusao,
 } from "../Formulario/aviso";
 import {
-  deletarUsuarioPorID,
+  buscaUsuarios,
   buscarUsuarioPorId,
+  deletarUsuarioPorID,
 } from "../../services/usuarioService";
 
 function UsuariosRegistrados() {
@@ -40,8 +39,7 @@ function UsuariosRegistrados() {
 
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
   const buscarUsuarios = () => {
-    axios
-      .get("http://localhost:3001/usuarios")
+    buscaUsuarios()
       .then((response) => {
         setUsuarios(response.data);
       })

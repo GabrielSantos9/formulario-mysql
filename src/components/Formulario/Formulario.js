@@ -1,4 +1,3 @@
-import axios from "axios"; //Ajuda a enviar os dados do formulário para o backend
 import { useState, useEffect } from "react"; //Ajuda a armazenar os dados do formulário e a fazer requisições para o backend
 import {
   Conteudo,
@@ -41,7 +40,8 @@ import {
 import {
   atualizarUsuario,
   cadastrarUsuario,
-  deletarUsuarioPorID,
+  buscarEstados,
+  buscarCidadesPorEstado,
 } from "../../services/usuarioService";
 
 import { validarFormulario } from "../../utils/validacaoFormulario";
@@ -59,7 +59,6 @@ function FormularioComponent({
   const [dataNascimento, setDataNascimento] = useState("");
   const [cidade, setCidade] = useState(""); // 'cidade': guarda o valor e 'setCidade': atualiza o valor do campo 'cidade'
   const [estado, setEstado] = useState("");
-  const [usuarios, setUsuarios] = useState([]);
   const pais = "Brasil"; // O valor do país é fixo, então não precisa de um estado para armazenar o valor do país.
   const [estados, setEstados] = useState([]);
   const [cidades, setCidades] = useState([]); // O 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado.
@@ -79,26 +78,9 @@ function FormularioComponent({
     }
   }, [modo, usuario]);
 
-  //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND
-  const buscarUsuarios = () => {
-    //Função para buscar os usuários cadastrados no backend
-    axios // o 'axios' é uma biblioteca que ajuda a fazer requisições HTTP para o backend. O 'axios.get' faz uma requisição GET para o backend, que é um pedido para buscar informações do backend. O 'http://localhost:3001/usuarios' é a URL do backend onde estão os usuários cadastrados. O 'then' é executado quando a requisição é bem-sucedida e o 'catch' é executado quando há algum erro na requisição.
-      .get("http://localhost:3001/usuarios")
-      .then((response) => {
-        //Faz uma requisição GET para o backend para buscar os usuários cadastrados
-        setUsuarios(response.data); //Armazena os usuários recebidos do backend no estado "usuarios"
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   //*FUNÇÃO PARA BUSCAR ESTADOS DO BACKEND
   useEffect(() => {
-    buscarUsuarios();
-
-    axios
-      .get("http://localhost:3001/estados")
+    buscarEstados()
       .then((response) => {
         setEstados(response.data); //Armazena os estados recebidos do backend no estado "estados". o 'setEstados' ele tem a função de apenas trocar a lista de estados, quando o componente é montado, aí ele passa para a 'estados', onde guarda a lista de estados cadastrados no backend. o response.data é a lista de estados recebidos do backend, que é um array de objetos, onde cada objeto representa um estado com suas propriedades (id e nome). O 'setEstados' atualiza o estado "estados" com a lista de estados recebidos do backend.
       }) // Faz uma requisição GET para o backend para buscar os estados cadastrados
@@ -115,8 +97,7 @@ function FormularioComponent({
     } // Se o estado não estiver selecionado, a lista de cidades é limpa e a função retorna sem fazer nada.
 
     //*FUNÇÃO PARA BUSCAR CIDADES DO BACKEND DE ACORDO COM O ESTADO SELECIONADO
-    axios
-      .get(`http://localhost:3001/cidades/${estado}`)
+    buscarCidadesPorEstado(estado)
       .then((response) => {
         setCidades(response.data); // Armazena as cidades recebidas do backend no estado "cidades". o 'setCidades' ele tem a função de apenas trocar a lista de cidades, quando um estado é selecionado, aí ele passa para a 'cidades', onde guarda a lista de cidades do estado selecionado. o response.data é a lista de cidades recebidos do backend, que é um array de objetos, onde cada objeto representa uma cidade com suas propriedades (id e nome). O 'setCidades' atualiza o estado "cidades" com a lista de cidades recebidos do backend.
       }) // Faz uma requisição GET para o backend para buscar as cidades do estado selecionado. O estado selecionado é passado como parâmetro na URL da requisição. O backend retorna a lista de cidades do estado selecionado, que é armazenada no estado "cidades".
@@ -170,7 +151,7 @@ function FormularioComponent({
         return;
       }
 
-      atualizarUsuario(usuario.idusuarios, dadosFormulario)
+      atualizarUsuario(usuario.idusuarios, dadosFormulario) //O 'usuario.idusuarios' é o id do usuário selecionado para edição, que é passado como parâmetro na URL da requisição. O backend usa esse id para identificar qual usuário deve ser atualizado com os novos dados do formulário. Já o 'dadosFormulario' é o objeto que contém os novos dados do usuário, que são enviados no corpo da requisição PUT para o backend. O backend usa esses dados para atualizar as informações do usuário no banco de dados.
         .then(() => {
           mostrarAvisoEdicao();
           onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
@@ -182,16 +163,6 @@ function FormularioComponent({
       return;
     }
 
-    deletarUsuarioPorID(usuario.idusuario, dadosFormulario)
-      .then(() => {
-        console.log("Usuário excluído!");
-        onAtualizado(); // Avisará o Registro.js, informando que o usuário foi atualizado, para que ele possa atualizar a lista de usuários cadastrados.
-      })
-      .catch((error) => {
-        console.error(error);
-        console.log("Erro ao exluir o usuário!");
-      });
-    return;
     const formularioValido = validarFormulario({
       dadosFormulario,
       nomeCompleto,
@@ -436,7 +407,9 @@ function FormularioComponent({
         <BotaoEnviar type="submit">
           {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
         </BotaoEnviar>
-        {modo === "edicao" && <FuncaoFechar onClick={modalConfirmacaoEdicao}>Fechar</FuncaoFechar>}
+        {modo === "edicao" && (
+          <FuncaoFechar onClick={modalConfirmacaoEdicao}>Fechar</FuncaoFechar>
+        )}
       </Formulario>
     </Conteudo>
   );
