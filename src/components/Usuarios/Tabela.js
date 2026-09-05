@@ -1,5 +1,4 @@
 //*ESSE ARQUIVO RECEBE OS USUÁRIOS E EXIBE ELES!
-import React from "react";
 
 import {
   ContainerTabela,
@@ -24,8 +23,17 @@ const colunas = [
   { id: "pais", titulo: "País", largura: "120px" },
 ];
 
-function Tabela({ usuarioSelecionado, selecionarUsuario, usuarios }) {
+const selecionarTodosUsuarios = () => {
+  if (usuariosSelecionados.length === usuarios.length) {
+    // Verifica se todos os usuários estão selecionados. Se estiverem, a função limpa a seleção, removendo todos os ids do array de usuários selecionados.
+    setUsuariosSelecionados([]); // Limpa a seleção de usuários, removendo todos os ids do array de usuários selecionados.
+    return;
+  }
 
+  setUsuariosSelecionados(usuarios.map((usuario) => usuario.idusuarios)); // Se nem todos os usuários estiverem selecionados, a função seleciona todos os usuários, adicionando todos os ids ao array de usuários selecionados. O método map() é usado para criar um novo array contendo apenas os ids dos usuários.
+};
+
+function Tabela({ usuariosSelecionados, selecionarUsuario, usuarios }) {
   return (
     <ContainerTabela>
       <TabelaUsuarios>
@@ -53,10 +61,12 @@ function Tabela({ usuarioSelecionado, selecionarUsuario, usuarios }) {
               <CelulaDados>
                 <input
                   type="checkbox"
-                  checked={usuarioSelecionado === usuario.idusuarios}
-                  onChange={() => selecionarUsuario(usuario.idusuarios)}
+                  checked={
+                    usuarios.length > 0 && // Evitar que o checkbox apareça como selecionado quando a tabela ainda não possui usuários.
+                    usuariosSelecionados.length === usuarios.length // Faz com que ele fique marcado quando todos os usuários estiverem selecionados.
+                  }
+                  onChange={selecionarTodosUsuarios}
                 />
-                {/*"checked={usuarioSelecionado === usuario.idusuarios}"": Seleciona apenas um id. e "onChange={() => selecionarUsuario(usuario.idusuarios)}" é executado quando o usuário clica no checkbox. Ele chama a função selecionarUsuario, que por sua vez atualiza o estado através de setUsuarioSelecionado(usuario.idusuarios).*/}
               </CelulaDados>
               <CelulaDados>{usuario.idusuarios}</CelulaDados>
               <CelulaDados>{usuario.nomeCompleto}</CelulaDados>

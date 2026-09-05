@@ -32,7 +32,7 @@ import {
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
-  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null); //Armazena o id do usuário atualmente selecionado na tabela.
+  const [usuariosSelecionados, setUsuariosSelecionados] = useState([]); //Armazena os ids dos usuários selecionados na tabela.
   const [usuarioEdicao, setUsuarioEdicao] = useState(null); //Guarda os dados coletados para serem editados.
   const [modalAberto, setModalAberto] = useState(false); //Responsável por controlar o modal.
   const [usuarios, setUsuarios] = useState([]); //Guarda os usuários que foram cadastrados.
@@ -62,13 +62,20 @@ function UsuariosRegistrados() {
   };
 
   const editarUsuario = () => {
-    if (!usuarioSelecionado) {
+    if (usuariosSelecionados.length === 0) {
       mostrarSelecaoUsuarioEdicao();
       return;
     }
 
+    if (usuariosSelecionados.length > 1) {
+      mostrarAvisoMaisDeUmUsuarioEdicao();
+      return;
+    }
+
+    const idUsuario = usuariosSelecionados[0]; // Pega o id do usuário selecionado para edição, que é o primeiro elemento do array de usuários selecionados. O array usuariosSelecionados pode conter apenas um id, pois a função editarUsuario só permite a edição de um usuário por vez. O id do usuário selecionado é usado para buscar os dados do usuário no backend e exibi-los no modal de edição.
+
     //*FUNÇÃO PARA BUSCAR OS DADOS DO USUÁRIO SELECIONADO, ARMAZENAR NO ESTADO "usuarioEdicao" E ABRIR O MODAL DE EDIÇÃO (http://localhost:3001/usuarios/:id).
-    buscarUsuarioPorId(usuarioSelecionado)
+    buscarUsuarioPorId(idUsuario)
       .then((response) => {
         //Faz uma requisição GET para o endpoint da API, passando o id do usuário selecionado. then() é chamado quando a requisição é bem-sucedida, recebendo a resposta da API como argumento (response).
         setUsuarioEdicao(response.data); //Armaena os dados do usuário selecionado no checkbox no estado usuarioEdicao, para serem utiliados no modal de edição
@@ -80,7 +87,7 @@ function UsuariosRegistrados() {
   };
 
   const excluirUsuarioPorID = () => {
-    if (!usuarioSelecionado) {
+    if (usuariosSelecionados.length === 0) {
       mostrarSelecaoUsuarioExclusao();
       return;
     }
@@ -88,7 +95,7 @@ function UsuariosRegistrados() {
       if (result.isConfirmed) {
         deletarUsuarioPorID(usuarioSelecionado)
           .then((response) => {
-            mostrarAvisoExclusao()
+            mostrarAvisoExclusao();
             buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
           })
           .catch((error) => {
@@ -98,6 +105,17 @@ function UsuariosRegistrados() {
         return;
       } else if (result.isDismissed) {
       }
+    });
+  };
+
+  const selecionarUsuarioExclusao = (idUsuario) => {
+    setUsuariosSelecionados((selecionados) => {
+      // Atualiza o estado "usuariosSelecionados" com base no id do usuário selecionado para exclusão. A função recebe o id do usuário (idUsuario) e verifica se ele já está presente no array de usuários selecionados (selecionados). Se estiver, ele é removido do array; caso contrário, é adicionado ao array. O operador spread (...) é usado para criar um novo array com os elementos existentes e adicionar o novo id do usuário.
+      if (selecionados.includes(idUsuario)) {
+        return selecionados.filter((id) => id !== idUsuario);
+      } // Se o id do usuário já estiver presente no array de usuários selecionados, ele é removido usando o método filter(), que cria um novo array contendo apenas os ids diferentes do id do usuário selecionado.
+
+      return [...selecionados, idUsuario]; //
     });
   };
 
