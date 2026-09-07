@@ -19,6 +19,7 @@ import {
 import ModalEditarUsuario from "./ModalEditarUsuario";
 import {
   mostrarSelecaoUsuarioEdicao,
+  mostrarAvisoMaisDeUmUsuarioEdicao,
   mostrarSelecaoUsuarioExclusao,
   mostrarAvisoExclusao,
   mostrarAvisoErroExclusao,
@@ -28,6 +29,7 @@ import {
   buscaUsuarios,
   buscarUsuarioPorId,
   deletarUsuarioPorID,
+  deletarUsuariosPorIDs,
 } from "../../services/usuarioService";
 
 function UsuariosRegistrados() {
@@ -53,8 +55,14 @@ function UsuariosRegistrados() {
   }, []); // O useEffect é usado para buscar os dados dos usuários do backend quando o componente Tabela é montado. A função de callback dentro do useEffect faz uma requisição GET para a rota "/usuarios" do backend, e quando a resposta é recebida, os dados dos usuários são armazenados no estado "usuarios" usando a função setUsuarios. Se ocorrer algum erro durante a requisição, ele será registrado no console. O array vazio [] passado como segundo argumento garante que o efeito seja executado apenas uma vez, quando o componente é montado.
 
   const selecionarUsuario = (idUsuario) => {
-    setUsuarioSelecionado(idUsuario);
-  }; // A função selecionarUsuario recebe um valor (idUsuario) e o atualiza para o estado usuarioSelecionado através do setUsuarioSelecionado.
+    setUsuariosSelecionados((selecionados) => {
+      if (selecionados.includes(idUsuario)) {
+        return selecionados.filter((id) => id !== idUsuario);
+      }
+
+      return [...selecionados, idUsuario];
+    });
+  }; // A função selecionarUsuario é responsável por adicionar ou remover o id do usuário selecionado do array de usuários selecionados. Ela recebe o id do usuário como parâmetro e verifica se ele já está presente no array de usuários selecionados. Se estiver, ele é removido usando o método filter(). Caso contrário, o id do usuário é adicionado ao array usando o operador spread (...). A função setUsuariosSelecionados é usada para atualizar o estado dos usuários selecionados.
 
   const usuarioAtualizado = () => {
     setModalAberto(false); //Responsável por fechar o modal depois que o formulário confirmar que o usuário foi atualizado
@@ -86,37 +94,35 @@ function UsuariosRegistrados() {
       });
   };
 
-  const excluirUsuarioPorID = () => {
+  const excluirUsuarios = () => {
     if (usuariosSelecionados.length === 0) {
+      //Caso o usuário clique no botão de excluir sem selecionar um usuário...
       mostrarSelecaoUsuarioExclusao();
       return;
     }
-    mostrarAvisoConfirmacaoExclusao(usuarioSelecionado).then((result) => {
+    mostrarAvisoConfirmacaoExclusao(usuariosSelecionados).then((result) => {
       if (result.isConfirmed) {
-        deletarUsuarioPorID(usuarioSelecionado)
+        deletarUsuariosPorIDs(usuariosSelecionados)
           .then((response) => {
             mostrarAvisoExclusao();
             buscarUsuarios(); //Atualiza a tabela de usuários depois que o usuário for excluído.
+            setUsuariosSelecionados([]); //Limpa a seleção de usuários, removendo todos os ids do array de usuários selecionados.
           })
           .catch((error) => {
             mostrarAvisoErroExclusao();
             console.error(error);
           });
-        return;
-      } else if (result.isDismissed) {
       }
     });
   };
 
-  const selecionarUsuarioExclusao = (idUsuario) => {
-    setUsuariosSelecionados((selecionados) => {
-      // Atualiza o estado "usuariosSelecionados" com base no id do usuário selecionado para exclusão. A função recebe o id do usuário (idUsuario) e verifica se ele já está presente no array de usuários selecionados (selecionados). Se estiver, ele é removido do array; caso contrário, é adicionado ao array. O operador spread (...) é usado para criar um novo array com os elementos existentes e adicionar o novo id do usuário.
-      if (selecionados.includes(idUsuario)) {
-        return selecionados.filter((id) => id !== idUsuario);
-      } // Se o id do usuário já estiver presente no array de usuários selecionados, ele é removido usando o método filter(), que cria um novo array contendo apenas os ids diferentes do id do usuário selecionado.
+  const selecionarTodosUsuarios = () => {
+    if (usuariosSelecionados.length === usuarios.length) {
+      setUsuariosSelecionados([]);
+      return;
+    }
 
-      return [...selecionados, idUsuario]; //
-    });
+    setUsuariosSelecionados(usuarios.map((usuario) => usuario.idusuarios));
   };
 
   return (
@@ -126,7 +132,7 @@ function UsuariosRegistrados() {
         <Localizacao>
           <LocalizacaoAnterior href="http://localhost:3000">
             Página Inicial
-          </LocalizacaoAnterior>{" "}
+          </LocalizacaoAnterior>
           &gt;&nbsp;
           <strong style={{ textDecoration: "underline" }}>Usuários</strong>
         </Localizacao>
@@ -142,12 +148,13 @@ function UsuariosRegistrados() {
           <BotaoAdicionar />
           <BotaoEditar onClick={editarUsuario} />
           {/*Toda vez que o usuário selecionar outra linha, esse valor será atualizado automaticamente (Depois de clicar no checkbox do ID 8, usuarioSelecionado = 8) */}
-          <BotaoExcluir onClick={excluirUsuarioPorID} />
+          <BotaoExcluir onClick={excluirUsuarios} />
         </OpcoesTabela>
         <Tabela
-          usuarioSelecionado={usuarioSelecionado} //Informa qual linha da tabela está selecionada.
-          selecionarUsuario={selecionarUsuario} //Envia a função para que a Tabela possa avisar ao componente pai quando outro usuário for selecionado.
-          usuarios={usuarios} //Envia os usuários cadastrados para a Tabela, para que ela possa exibir eles.
+          usuarios={usuarios} // Passa a lista de usuários cadastrados para o componente Tabela, que será responsável por exibir esses dados na tabela.
+          usuariosSelecionados={usuariosSelecionados} // Passa a lista de ids dos usuários selecionados para o componente Tabela, que será responsável por exibir os checkboxes marcados na tabela.
+          selecionarUsuario={selecionarUsuario} // Passa a função selecionarUsuario para o componente Tabela, que será responsável por atualizar o estado usuarioSelecionado quando um usuário for selecionado na tabela.
+          selecionarTodosUsuarios={selecionarTodosUsuarios} // Passa a função selecionarTodosUsuarios para o componente Tabela, que será responsável por atualizar o estado usuariosSelecionados quando o checkbox de selecionar todos for clicado na tabela.
         />
         {modalAberto && (
           <ModalEditarUsuario

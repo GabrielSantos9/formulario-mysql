@@ -23,24 +23,26 @@ const colunas = [
   { id: "pais", titulo: "País", largura: "120px" },
 ];
 
-const selecionarTodosUsuarios = () => {
-  if (usuariosSelecionados.length === usuarios.length) {
-    // Verifica se todos os usuários estão selecionados. Se estiverem, a função limpa a seleção, removendo todos os ids do array de usuários selecionados.
-    setUsuariosSelecionados([]); // Limpa a seleção de usuários, removendo todos os ids do array de usuários selecionados.
-    return;
-  }
-
-  setUsuariosSelecionados(usuarios.map((usuario) => usuario.idusuarios)); // Se nem todos os usuários estiverem selecionados, a função seleciona todos os usuários, adicionando todos os ids ao array de usuários selecionados. O método map() é usado para criar um novo array contendo apenas os ids dos usuários.
-};
-
-function Tabela({ usuariosSelecionados, selecionarUsuario, usuarios }) {
+function Tabela({
+  usuarios,
+  usuariosSelecionados,
+  selecionarUsuario,
+  selecionarTodosUsuarios,
+}) {
   return (
     <ContainerTabela>
       <TabelaUsuarios>
         <CabecalhoTabela>
           <LinhaTabela>
             <CelulaCabecalho style={{ minWidth: "50px" }}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={
+                  usuarios.length > 0 && // Evitar que o checkbox apareça como selecionado quando a tabela ainda não possui usuários.
+                  usuariosSelecionados.length === usuarios.length // Faz com que ele fique marcado quando todos os usuários estiverem selecionados.
+                }
+                onChange={selecionarTodosUsuarios}
+              />
             </CelulaCabecalho>
 
             {colunas
@@ -61,11 +63,8 @@ function Tabela({ usuariosSelecionados, selecionarUsuario, usuarios }) {
               <CelulaDados>
                 <input
                   type="checkbox"
-                  checked={
-                    usuarios.length > 0 && // Evitar que o checkbox apareça como selecionado quando a tabela ainda não possui usuários.
-                    usuariosSelecionados.length === usuarios.length // Faz com que ele fique marcado quando todos os usuários estiverem selecionados.
-                  }
-                  onChange={selecionarTodosUsuarios}
+                  checked={usuariosSelecionados.includes(usuario.idusuarios)} //O ID deste usuário está dentro da lista de selecionados. Assim permite [12, 15, 20].
+                  onChange={() => selecionarUsuario(usuario.idusuarios)} // Adiciona ou remove o id do usuário selecionado do array.
                 />
               </CelulaDados>
               <CelulaDados>{usuario.idusuarios}</CelulaDados>

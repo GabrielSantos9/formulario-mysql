@@ -59,6 +59,15 @@ export const mostrarSelecaoUsuarioEdicao = () => {
   });
 };
 
+export const mostrarAvisoMaisDeUmUsuarioEdicao = () => {
+  Swal.fire({
+    icon: "error",
+    title: "Erro na edição",
+    text: "Não é possível editar dois usuários ao mesmo tempo.Selecione apenas um usuário para editar.",
+    confirmButtonText: "Entendi",
+  });
+};
+
 export const mostrarAvisoConfirmacaoEdicao = () => {
   return Swal.fire({
     title: "O que deseja fazer antes de fechar?",
@@ -205,7 +214,7 @@ export const mostrarAvisoConfirmacaoExclusao = (id) => {
   return Swal.fire({
     title: "CONFIRMAÇÃO",
     html:
-      "Você tem certeza que deseja excluir o usuário do ID " +
+      "Você tem certeza que deseja excluir o usuário(s) do(s) ID(s) " +
       id +
       "? Após a confirmação, <strong>essa ação não poderá ser desfeita.</strong>",
     icon: "question",
@@ -223,7 +232,7 @@ export const mostrarAvisoExclusao = () => {
     toast: true,
     position: "top-end",
     icon: "success",
-    title: "Usuário(a) excluído com sucesso!",
+    title: "Usuário(a)(s) excluído com sucesso!",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,

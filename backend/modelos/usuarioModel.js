@@ -131,6 +131,17 @@ function deletarUsuarioPorID(id, callback) {
   db.query(sql, [id], callback);
 }
 
+function deletarUsuarios(ids, callback) {
+  const placeholders = ids.map(() => "?").join(", "); //ids.map(() => "?"): Cria um array de placeholders "?" com o mesmo tamanho do array de ids. O método map() percorre cada elemento do array ids e retorna um "?" para cada elemento, resultando em um novo array contendo apenas os placeholders. Por exemplo, se ids = [1, 2, 3], o resultado será ["?", "?", "?"]. .join(", "): Transforma '["?", "?", "?"]' em '?, ?, ?'.
+
+  const sql = `
+    DELETE FROM usuarios
+    WHERE idusuarios IN (${placeholders})
+  `;
+
+  db.query(sql, ids, callback);
+}
+
 module.exports = {
   cadastrarUsuario,
   listarUsuarios,
@@ -138,4 +149,5 @@ module.exports = {
   buscarUsuarioPorId,
   atualizarUsuario,
   deletarUsuarioPorID,
+  deletarUsuarios,
 };

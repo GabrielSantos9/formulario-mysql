@@ -26,6 +26,12 @@ function deletarUsuarioPorID(id) {
   return axios.delete(`http://localhost:3001/usuarios/${id}`);
 }
 
+function deletarUsuariosPorIDs(ids) {
+  return axios.delete("http://localhost:3001/usuarios", {
+    data: { ids }, // Envia os ids dos usuários a serem excluídos para o backend, para que ele possa processar a exclusão. O backend espera receber os ids no corpo da requisição, por isso usamos a propriedade 'data' para enviar os dados.
+  });
+}
+
 function buscarEstados() {
   return axios.get("http://localhost:3001/estados");
 }
@@ -40,6 +46,7 @@ export {
   buscarUsuarioPorId,
   atualizarUsuario,
   deletarUsuarioPorID,
+  deletarUsuariosPorIDs,
   buscarEstados,
   buscarCidadesPorEstado,
 };

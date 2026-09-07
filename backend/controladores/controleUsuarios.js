@@ -15,6 +15,7 @@ const {
   buscarUsuarioPorId,
   atualizarUsuario,
   deletarUsuarioPorID,
+  deletarUsuarios,
 } = require("../modelos/usuarioModel");
 
 const cadastrarUsuarioController = (req, res) => {
@@ -351,10 +352,37 @@ const deletarUsuarioPorIDController = (req, res) => {
   });
 };
 
+const deletarUsuariosController = (req, res) => {
+  const { ids } = req.body; //Recebe os ids dos usuários para serem excluidos.
+
+  if (!Array.isArray(ids) || ids.length === 0) { // Array.isArray(ids): Garante que realmente recebemos uma lista (Array [12, 15, 20]). ids.length === 0: Impede uma requisição sem nenhum usuário selecionado:
+    return res.status(400).json({
+      erro: "IDS_INVALIDOS",
+      mensagem: "Informe pelo menos um ID para exclusão.",
+    });
+  }
+
+  deletarUsuarios(ids, (err, resultado) => {
+    if (err) {
+      console.error("Erro ao excluir usuários:", err);
+
+      return res.status(500).json({
+        erro: "ERRO_AO_EXCLUIR_USUARIOS",
+        mensagem: "Ocorreu um erro ao excluir os usuários.",
+      });
+    }
+
+    return res.status(200).json({
+      mensagem: "Usuários excluídos com sucesso.",
+    });
+  });
+};
+
 module.exports = {
   cadastrarUsuarioController,
   listarUsuariosController,
   buscarUsuarioPorIdController,
   atualizarUsuarioController,
   deletarUsuarioPorIDController,
+  deletarUsuariosController,
 };
