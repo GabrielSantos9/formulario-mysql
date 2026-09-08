@@ -19,8 +19,6 @@ router.get("/usuarios/:id", buscarUsuarioPorIdController); // Busca o usuário p
 
 router.put("/usuarios/:id", atualizarUsuarioController); // Edita o usuário selecionado, enviando novos dados para o back-end, que será atualizado no banco de dados.
 
-router.delete("/usuarios/:id", deletarUsuarioPorIDController); // Exclui o usuário selecionado, enviando o ID do usuário para o back-end, que será removido do banco de dados.
-
 router.delete("/usuarios", deletarUsuariosController); // Exclui os usuários selecionados (+ de 1). 
 
 module.exports = router;

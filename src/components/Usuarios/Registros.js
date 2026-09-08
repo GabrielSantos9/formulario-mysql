@@ -28,7 +28,6 @@ import {
 import {
   buscaUsuarios,
   buscarUsuarioPorId,
-  deletarUsuarioPorID,
   deletarUsuariosPorIDs,
 } from "../../services/usuarioService";
 

@@ -14,7 +14,6 @@ const {
   buscarUsuarioPorEmail,
   buscarUsuarioPorId,
   atualizarUsuario,
-  deletarUsuarioPorID,
   deletarUsuarios,
 } = require("../modelos/usuarioModel");
 

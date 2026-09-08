@@ -63,7 +63,7 @@ export const mostrarAvisoMaisDeUmUsuarioEdicao = () => {
   Swal.fire({
     icon: "error",
     title: "Erro na edição",
-    text: "Não é possível editar dois usuários ao mesmo tempo.Selecione apenas um usuário para editar.",
+    text: "Não é possível editar dois usuários ao mesmo tempo. Selecione apenas um usuário para editar.",
     confirmButtonText: "Entendi",
   });
 };
