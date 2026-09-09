@@ -37,7 +37,7 @@ export const LocalizacaoAnterior = styled.a`
   font-size: 13px;
   font-weight: 400;
   display: flex;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
   &:hover {
     font-weight: bold;
@@ -100,7 +100,7 @@ export const CabecalhoTabela = styled.thead`
 
 export const LinhaTabela = styled.tr`
   &:nth-child(even) {
-  background-color: #1f1f1f;
+    background-color: #1f1f1f;
   }
 `;
 
@@ -123,4 +123,33 @@ export const CelulaCabecalho = styled.th`
 export const CelulaDados = styled.td`
   padding: 16px;
   white-space: nowrap;
+`;
+
+export const TotalResultados = styled.div`
+  flex-direction: column;
+  width: 30.75rem;
+  font-size: 1rem;
+  position: absolute;
+  z-index: 2;
+  top: 19.0625rem;
+  display: flex;
+  background-color: black;
+`;
+
+export const ResultadoPesquisa = styled.div`
+  text-align: start;
+  cursor: pointer;
+  height: 3.75rem;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    background-color: #002f52aa;
+    transition: 0.7s ease;
+  }
+`;
+
+export const TituloUsuario = styled.p`
+  font-size: 1.25rem;
+  padding-left: 0.9375rem;
 `;
