@@ -1,26 +1,76 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  position: relative;
-  width: 400px;
-  margin-right: 444px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+
+  border: 1px solid #555;
+  border-radius: 8px;
+
+  background: #101010;
+`;
+
+export const Icone = styled.div`
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Select = styled.select`
+  height: 100%;
+  padding: 0 10px;
+
+  border: none;
+  border-right: 1px solid #555;
+
+  outline: none;
+
+  background: transparent;
+  color: white;
+
+  cursor: pointer;
+
+  option {
+    background: #101010;
+    color: white;
+  }
 `;
 
 export const Input = styled.input`
-  width: 100%;
-  height: 32px;
-  background-color: #333;
+  flex: 1;
+  height: 100%;
+
+  padding: 0 12px;
+
   border: none;
-  padding-left: 30px;
+  outline: none;
+
+  background: transparent;
   color: white;
-  font-size: 15px;
+
+  &::placeholder {
+    color: #888;
+  }
 `;
 
-export const Icone = styled.svg`
-  position: absolute;
-  left: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+export const BotaoLimpar = styled.button`
+  width: 40px;
+  height: 100%;
+
+  border: none;
+  background: transparent;
+
+  color: #888;
+  font-size: 18px;
+
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+  }
 `;
 
 export const Conteudo = styled.div`

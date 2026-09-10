@@ -33,10 +33,26 @@ import {
 
 function UsuariosRegistrados() {
   //Elemento pai qresponsável por controlar o estado do usuário selecionado e compartilhar essas informações com os componentes filhos.
-  const [usuariosSelecionados, setUsuariosSelecionados] = useState([]); //Armazena os ids dos usuários selecionados na tabela.
-  const [usuarioEdicao, setUsuarioEdicao] = useState(null); //Guarda os dados coletados para serem editados.
-  const [modalAberto, setModalAberto] = useState(false); //Responsável por controlar o modal.
-  const [usuarios, setUsuarios] = useState([]); //Guarda os usuários que foram cadastrados.
+  const [usuariosSelecionados, setUsuariosSelecionados] = useState([]); // Armazena os ids dos usuários selecionados na tabela.
+  const [usuarioEdicao, setUsuarioEdicao] = useState(null); // Guarda os dados coletados para serem editados.
+  const [modalAberto, setModalAberto] = useState(false); // Responsável por controlar o modal.
+  const [usuarios, setUsuarios] = useState([]); // Guarda os usuários que foram cadastrados.
+  const [tipoPesquisa, setTipoPesquisa] = useState("nomeCompleto"); // Estado para armazenar o tipo de pesquisa selecionado (nome, email, telefone, etc.).
+  const [pesquisa, setPesquisa] = useState(""); // Estado para armazenar o valor digitado no input de pesquisa.
+
+  const usuariosFiltrados = usuarios.filter((usuario) => {
+    if (!pesquisa) {
+      return true;
+    } // Se o valor da pesquisa estiver vazio, retorna true para incluir todos os usuários na lista filtrada.
+
+    const valor = usuario[tipoPesquisa];
+
+    if (valor === null || valor === undefined) {
+      return false;
+    } // Se o valor do campo pesquisado for nulo ou indefinido, retorna false para não incluir o usuário na lista filtrada.
+
+    return valor.toString().toLowerCase().includes(pesquisa.toLowerCase()); // usuario.email.toLowerCase().includes("gabriel")
+  });
 
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
   const buscarUsuarios = () => {
@@ -116,12 +132,25 @@ function UsuariosRegistrados() {
   };
 
   const selecionarTodosUsuarios = () => {
-    if (usuariosSelecionados.length === usuarios.length) {
-      setUsuariosSelecionados([]);
+    const idsUsuariosFiltrados = usuariosFiltrados.map(
+      (usuario) => usuario.idusuarios,
+    );
+
+    const todosSelecionados = idsUsuariosFiltrados.every((id) =>
+      usuariosSelecionados.includes(id),
+    );
+
+    if (todosSelecionados) {
+      setUsuariosSelecionados((selecionados) =>
+        selecionados.filter((id) => !idsUsuariosFiltrados.includes(id)),
+      );
+
       return;
     }
 
-    setUsuariosSelecionados(usuarios.map((usuario) => usuario.idusuarios));
+    setUsuariosSelecionados((selecionados) => [
+      ...new Set([...selecionados, ...idsUsuariosFiltrados]),
+    ]);
   };
 
   return (
@@ -150,7 +179,7 @@ function UsuariosRegistrados() {
           <BotaoExcluir onClick={excluirUsuarios} />
         </OpcoesTabela>
         <Tabela
-          usuarios={usuarios} // Passa a lista de usuários cadastrados para o componente Tabela, que será responsável por exibir esses dados na tabela.
+          usuarios={usuariosFiltrados} // Passa a lista de usuários filtrados para o componente Tabela, que será responsável por exibir os usuários na tabela.
           usuariosSelecionados={usuariosSelecionados} // Passa a lista de ids dos usuários selecionados para o componente Tabela, que será responsável por exibir os checkboxes marcados na tabela.
           selecionarUsuario={selecionarUsuario} // Passa a função selecionarUsuario para o componente Tabela, que será responsável por atualizar o estado usuarioSelecionado quando um usuário for selecionado na tabela.
           selecionarTodosUsuarios={selecionarTodosUsuarios} // Passa a função selecionarTodosUsuarios para o componente Tabela, que será responsável por atualizar o estado usuariosSelecionados quando o checkbox de selecionar todos for clicado na tabela.
