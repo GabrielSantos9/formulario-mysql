@@ -39,7 +39,9 @@ function Tabela({
                 type="checkbox"
                 checked={
                   usuarios.length > 0 && // Evitar que o checkbox apareça como selecionado quando a tabela ainda não possui usuários.
-                  usuariosSelecionados.length === usuarios.length // Faz com que ele fique marcado quando todos os usuários estiverem selecionados.
+                  usuarios.every((usuario) =>
+                    usuariosSelecionados.includes(usuario.idusuarios),
+                  )
                 }
                 onChange={selecionarTodosUsuarios}
               />
@@ -50,7 +52,8 @@ function Tabela({
               .map((coluna) => (
                 <CelulaCabecalho
                   key={coluna.id} // A chave única para cada célula do cabeçalho, necessária para o React identificar quais itens foram alterados, adicionados ou removidos. A key serve para o React identificar quais itens mudaram, foram inseridos ou removidos sem ter que refazer a tela inteira. Na prática deste código, se eu ordenar a tabela por nome, deletar um usuário ou esconder uma coluna, o React usa o id da coluna e do usuário para mexer apenas nas linhas e células exatas que sofreram a ação, deixando a tabela rápida e performática."
-                  style={{ minWidth: coluna.largura }}>
+                  style={{ minWidth: coluna.largura }}
+                >
                   {coluna.titulo}
                 </CelulaCabecalho>
               ))}

@@ -41,17 +41,29 @@ function UsuariosRegistrados() {
   const [pesquisa, setPesquisa] = useState(""); // Estado para armazenar o valor digitado no input de pesquisa.
 
   const usuariosFiltrados = usuarios.filter((usuario) => {
-    if (!pesquisa) {
+    if (!pesquisa.trim()) {
       return true;
-    } // Se o valor da pesquisa estiver vazio, retorna true para incluir todos os usuários na lista filtrada.
+    }
 
+    const textoPesquisa = pesquisa.trim().toLowerCase();
     const valor = usuario[tipoPesquisa];
 
     if (valor === null || valor === undefined) {
       return false;
-    } // Se o valor do campo pesquisado for nulo ou indefinido, retorna false para não incluir o usuário na lista filtrada.
+    }
 
-    return valor.toString().toLowerCase().includes(pesquisa.toLowerCase()); // usuario.email.toLowerCase().includes("gabriel")
+    // Pesquisa específica para data de nascimento
+    if (tipoPesquisa === "dataNascimento") {
+      const data = valor.toString().split("T")[0];
+
+      const [ano, mes, dia] = data.split("-");
+
+      const dataFormatada = `${dia}/${mes}/${ano}`;
+
+      return dataFormatada.includes(textoPesquisa);
+    }
+
+    return valor.toString().toLowerCase().includes(textoPesquisa);
   });
 
   //*FUNÇÃO PARA BUSCAR USUÁRIOS DO BACKEND, ARMAZENAR NO ESTADO "usuarios" E EXIBIR NA TABELA DO SITE (http://localhost:3001/usuarios).
@@ -172,7 +184,13 @@ function UsuariosRegistrados() {
       </Introducao>
       <BancoUsuarios>
         <OpcoesTabela>
-          <InputBusca placeholder="Buscar usuários" />
+          <InputBusca
+            placeholder="Buscar usuários"
+            tipoPesquisa={tipoPesquisa}
+            setTipoPesquisa={setTipoPesquisa}
+            pesquisa={pesquisa}
+            setPesquisa={setPesquisa}
+          />
           <BotaoAdicionar />
           <BotaoEditar onClick={editarUsuario} />
           {/*Toda vez que o usuário selecionar outra linha, esse valor será atualizado automaticamente (Depois de clicar no checkbox do ID 8, usuarioSelecionado = 8) */}
