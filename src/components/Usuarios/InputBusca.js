@@ -1,7 +1,10 @@
 import {
-  Wrapper,
-  Input,
-  Select,
+  BarraPesquisa,
+  CampoPesquisa,
+  IconeFiltro,
+  ContainerFiltro,
+  Filtro,
+  IconeSeta,
   BotaoLimpar,
 } from "../../components/Usuarios/styles";
 
@@ -28,35 +31,34 @@ const opcoes = [
   { id: "estado", titulo: "Estado", placeholder: "Pesquisar pelo Estado..." },
 ];
 
-function InputBusca({
-  tipoPesquisa,
-  setTipoPesquisa,
-  pesquisa,
-  setPesquisa,
-}) {
+function InputBusca({ tipoPesquisa, setTipoPesquisa, pesquisa, setPesquisa }) {
   const limparBusca = () => {
     setPesquisa("");
   };
 
-  //* Função que muda a escrita do placeholder, com base no filtro selecionado.
+  //* Função que muda a escrita do placeholder, com base no IconeFiltro selecionado.
   const placeholderAtual = opcoes.find(
     (opcao) => opcao.id === tipoPesquisa,
   )?.placeholder;
 
   return (
-    <Wrapper>
-      <Select
-        value={tipoPesquisa}
-        onChange={(evento) => setTipoPesquisa(evento.target.value)}
-      >
-        {opcoes.map((opcao) => (
-          <option key={opcao.id} value={opcao.id}>
-            {opcao.titulo}
-          </option>
-        ))}
-      </Select>
+    <BarraPesquisa>
+      <ContainerFiltro>
+        <IconeFiltro />
+        <Filtro
+          value={tipoPesquisa}
+          onChange={(evento) => setTipoPesquisa(evento.target.value)}
+        >
+          {opcoes.map((opcao) => (
+            <option key={opcao.id} value={opcao.id}>
+              {opcao.titulo}
+            </option>
+          ))}
+        </Filtro>
+          <IconeSeta />
+      </ContainerFiltro>
 
-      <Input
+      <CampoPesquisa
         placeholder={placeholderAtual}
         value={pesquisa}
         onChange={(evento) => setPesquisa(evento.target.value)}
@@ -67,7 +69,7 @@ function InputBusca({
           ✕
         </BotaoLimpar>
       )}
-    </Wrapper>
+    </BarraPesquisa>
   );
 }
 export default InputBusca;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { ReactComponent as FilterIcon } from "../../imgs/filter_alt.svg";
+import { ReactComponent as ArrowDropIcon } from "../../imgs/arrow_drop_down.svg";
 
-export const Wrapper = styled.div`
+export const BarraPesquisa = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -12,34 +14,41 @@ export const Wrapper = styled.div`
   background: #101010;
 `;
 
-export const Icone = styled.div`
-  width: 40px;
+export const ContainerFiltro = styled.div`
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
 `;
 
-export const Select = styled.select`
+export const IconeFiltro = styled(FilterIcon)`
+  margin-left: 5px;
+  margin-right: 2.5px;
+`;
+
+export const Filtro = styled.select`
   height: 100%;
-  padding: 0 10px;
-
+  width: 150px;
   border: none;
+  padding: 0 40px 0 45px;
   border-right: 1px solid #555;
-
   outline: none;
-
   background: transparent;
+  appearance: none;
   color: white;
-
   cursor: pointer;
-
   option {
     background: #101010;
     color: white;
   }
 `;
 
-export const Input = styled.input`
+export const IconeSeta = styled(ArrowDropIcon)`
+  position: absolute;
+  pointer-events: none;
+  right: 12px;
+`;
+
+export const CampoPesquisa = styled.input`
   flex: 1;
   height: 100%;
 
