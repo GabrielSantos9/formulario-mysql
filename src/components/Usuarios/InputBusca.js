@@ -26,6 +26,7 @@ const opcoes = [
     id: "dataNascimento",
     titulo: "Nascimento",
     placeholder: "Pesquisar pela Data de Nascimento (DIA/MÊS/ANO)...",
+    width: "123px",
   },
   { id: "cidade", titulo: "Cidade", placeholder: "Pesquisar pela Cidade..." },
   { id: "estado", titulo: "Estado", placeholder: "Pesquisar pelo Estado..." },
@@ -41,6 +42,8 @@ function InputBusca({ tipoPesquisa, setTipoPesquisa, pesquisa, setPesquisa }) {
     (opcao) => opcao.id === tipoPesquisa,
   )?.placeholder;
 
+  const opcaoAtual = opcoes.find((opcao) => opcao.id === tipoPesquisa);
+
   return (
     <BarraPesquisa>
       <ContainerFiltro>
@@ -48,6 +51,7 @@ function InputBusca({ tipoPesquisa, setTipoPesquisa, pesquisa, setPesquisa }) {
         <Filtro
           value={tipoPesquisa}
           onChange={(evento) => setTipoPesquisa(evento.target.value)}
+          $width={opcaoAtual?.width}
         >
           {opcoes.map((opcao) => (
             <option key={opcao.id} value={opcao.id}>
@@ -55,7 +59,7 @@ function InputBusca({ tipoPesquisa, setTipoPesquisa, pesquisa, setPesquisa }) {
             </option>
           ))}
         </Filtro>
-          <IconeSeta />
+        <IconeSeta />
       </ContainerFiltro>
 
       <CampoPesquisa

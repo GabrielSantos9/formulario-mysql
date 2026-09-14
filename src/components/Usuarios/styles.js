@@ -5,18 +5,18 @@ import { ReactComponent as ArrowDropIcon } from "../../imgs/arrow_drop_down.svg"
 export const BarraPesquisa = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 45px;
-
-  border: 1px solid #555;
-  border-radius: 8px;
-
-  background: #101010;
+  margin-right: 281px;
+  width: 592px;
+  height: 32px;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background: transparent;
 `;
 
 export const ContainerFiltro = styled.div`
   position: relative;
   display: flex;
+  height: 32px;
   align-items: center;
 `;
 
@@ -26,16 +26,16 @@ export const IconeFiltro = styled(FilterIcon)`
 `;
 
 export const Filtro = styled.select`
-  height: 100%;
-  width: 150px;
+  width: ${(props) => props.$width};
   border: none;
-  padding: 0 40px 0 45px;
-  border-right: 1px solid #555;
+  border-right: 1px solid #d9d9d9;
   outline: none;
   background: transparent;
   appearance: none;
   color: white;
+  font-size: 15px;
   cursor: pointer;
+
   option {
     background: #101010;
     color: white;
@@ -50,13 +50,9 @@ export const IconeSeta = styled(ArrowDropIcon)`
 
 export const CampoPesquisa = styled.input`
   flex: 1;
-  height: 100%;
-
-  padding: 0 12px;
-
+  padding-left: 5px;
   border: none;
   outline: none;
-
   background: transparent;
   color: white;
 
@@ -67,14 +63,10 @@ export const CampoPesquisa = styled.input`
 
 export const BotaoLimpar = styled.button`
   width: 40px;
-  height: 100%;
-
   border: none;
   background: transparent;
-
   color: #888;
   font-size: 18px;
-
   cursor: pointer;
 
   &:hover {
@@ -98,6 +90,7 @@ export const LocalizacaoAnterior = styled.a`
   display: flex;
   color: #fff;
   text-decoration: none;
+
   &:hover {
     font-weight: bold;
     transition: 0.2s;
