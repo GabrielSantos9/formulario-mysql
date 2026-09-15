@@ -5,7 +5,7 @@ import { ReactComponent as ArrowDropIcon } from "../../imgs/arrow_drop_down.svg"
 export const BarraPesquisa = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 281px;
+  margin-right: 264px;
   width: 592px;
   height: 32px;
   border: 1px solid #d9d9d9;
@@ -45,7 +45,7 @@ export const Filtro = styled.select`
 export const IconeSeta = styled(ArrowDropIcon)`
   position: absolute;
   pointer-events: none;
-  right: 12px;
+  right: 6px;
 `;
 
 export const CampoPesquisa = styled.input`
