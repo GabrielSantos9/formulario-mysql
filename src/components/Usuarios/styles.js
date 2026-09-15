@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as FilterIcon } from "../../imgs/filter_alt.svg";
 import { ReactComponent as ArrowDropIcon } from "../../imgs/arrow_drop_down.svg";
+import { ReactComponent as ZoomIcon } from "../../imgs/zoom_in.svg";
 
 export const BarraPesquisa = styled.div`
   display: flex;
@@ -48,9 +49,14 @@ export const IconeSeta = styled(ArrowDropIcon)`
   right: 6px;
 `;
 
+export const IconeLupa = styled(ZoomIcon)`
+  margin-left: 7px;
+  margin-right: 6px;
+  pointer-events: none;
+`;
+
 export const CampoPesquisa = styled.input`
   flex: 1;
-  padding-left: 5px;
   border: none;
   outline: none;
   background: transparent;

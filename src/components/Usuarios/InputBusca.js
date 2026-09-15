@@ -2,6 +2,7 @@ import {
   BarraPesquisa,
   CampoPesquisa,
   IconeFiltro,
+  IconeLupa,
   ContainerFiltro,
   Filtro,
   IconeSeta,
@@ -89,6 +90,7 @@ function InputBusca({ tipoPesquisa, setTipoPesquisa, pesquisa, setPesquisa }) {
         <IconeSeta />
       </ContainerFiltro>
 
+      <IconeLupa />
       <CampoPesquisa
         placeholder={placeholderAtual}
         value={pesquisa}
