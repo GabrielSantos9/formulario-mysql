@@ -14,6 +14,29 @@ const GlobalStyle = createGlobalStyle`
   color: white;
   background-color: #101010;
   font-family: 'Montserrat', sans-serif;
+
+   /* Barra de rolagem */
+  ::-webkit-scrollbar {
+    width: 10px;
+    display: flex;
+    height: 10px;
+  }
+
+  /* Fundo da barra */
+  ::-webkit-scrollbar-track {
+    background: #101010;
+  }
+
+  /* Parte que você arrasta */
+  ::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 10px;
+  }
+
+  /* Quando passa o mouse */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FFF;
+  }
 }
 
 * {
@@ -26,10 +49,10 @@ root.render(
   <React.StrictMode>
     <GlobalStyle />
     <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/usuarios" element={<Usuarios />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/usuarios" element={<Usuarios />} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>,
 );

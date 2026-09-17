@@ -12,6 +12,11 @@ export const BarraPesquisa = styled.div`
   border: 1px solid #d9d9d9;
   border-radius: 5px;
   background: transparent;
+
+  &:hover {
+    transition: .3s;
+    border: 1px solid #0061f3;
+  }
 `;
 
 export const ContainerFiltro = styled.div`
