@@ -147,6 +147,7 @@ export const OpcoesTabela = styled.div`
 
 export const ContainerTabela = styled.div`
   width: 100%;
+  height: 100%;
   overflow-x: auto;
   margin-top: 42px;
 `;

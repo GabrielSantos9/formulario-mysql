@@ -14,33 +14,28 @@ const GlobalStyle = createGlobalStyle`
   color: white;
   background-color: #101010;
   font-family: 'Montserrat', sans-serif;
-
-   /* Barra de rolagem */
-  ::-webkit-scrollbar {
-    width: 10px;
-    display: flex;
-    height: 10px;
-  }
-
-  /* Fundo da barra */
-  ::-webkit-scrollbar-track {
-    background: #101010;
-  }
-
-  /* Parte que você arrasta */
-  ::-webkit-scrollbar-thumb {
-    background: #d9d9d9;
-    border-radius: 10px;
-  }
-
-  /* Quando passa o mouse */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #FFF;
-  }
 }
+
+    @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes girar {
+    from {
+      --angle: 0deg;
+    }
+
+    to {
+      --angle: 360deg;
+    }
+  }
 
 * {
   box-sizing: border-box;
+  scrollbar-width: auto;
+  scrollbar-color: #d9d9d9 #333;
 }
 `;
 
