@@ -238,180 +238,176 @@ function FormularioComponent({
     });
   };
   return (
-    <Conteudo>
-      {modo === "cadastro" && (
-        <Introducao>
-          <TituloIntroducao>Formulário de Teste</TituloIntroducao>
-          <ParagrafoIntroducao>
-            Esse é um formulário teste, com a finalidade de testar o banco de
-            dados <strong>MySQL</strong>. Preencha todos os campos na lateral!
-          </ParagrafoIntroducao>
-          <BotaoUsuarios href="http://localhost:3000/usuarios">
-            Usuários
-          </BotaoUsuarios>
-        </Introducao>
-      )}
-      <Formulario onSubmit={enviarFormulario} modo={modo}>
-        <TituloFormulario>
-          {modo === "edicao" ? "Editar usuário" : "Cadastro"}
-        </TituloFormulario>
-        <CampoInput>
-          <Input
-            type="text"
-            placeholder=" "
-            autoComplete="name"
-            minLength="5"
-            maxLength="80"
-            required
-            title="Digite seu nome completo (Nome e Sobrenome)."
-            value={nomeCompleto}
-            onChange={tratarNome}
-          />
-          <Label>Nome Completo</Label>
-        </CampoInput>
-        <CampoInput>
-          <Input
-            type="text"
-            placeholder=" "
-            value={email}
-            minLength="5"
-            maxLength="254"
-            required
-            title="Digite seu e-mail."
-            onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))} // Remove espaços em branco do e-mail
-          />
-          <Label>E-mail</Label>
-        </CampoInput>
-        <CampoInput>
-          <Input
-            type="text"
-            placeholder=" "
-            required
-            title="Digite seu telefone."
-            value={telefone}
-            onChange={(e) => {
-              const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
-              setTelefone(valor);
-            }}
-          />
-          <Label>Telefone</Label>
-        </CampoInput>
-        <CampoSexo>
-          <CampoIntrodutorio>
-            <TextSexo title="Selecione seu gênero.">Gênero:</TextSexo>
-            <TextLimparSelecao onClick={() => setGenero("")}>
-              Limpar seleção
-            </TextLimparSelecao>
-          </CampoIntrodutorio>
-          <OpcoesSexo>
-            <RadioInput
-              type="radio"
-              name="genero"
-              id="masculino"
-              title="Se você for masculino, selecione esta opção."
-              value="Masculino"
-              required
-              checked={genero === "Masculino"}
-              onChange={(e) => setGenero(e.target.value)}
-            />
-            <LabelOpcoes htmlFor="masculino">Masculino</LabelOpcoes>
-            <RadioInput
-              type="radio"
-              name="genero"
-              id="feminino"
-              title="Se você for feminino, selecione esta opção."
-              value="Feminino"
-              required
-              checked={genero === "Feminino"}
-              onChange={(e) => setGenero(e.target.value)}
-            />
-            <LabelOpcoes htmlFor="feminino">Feminino</LabelOpcoes>
-            <RadioInput
-              type="radio"
-              name="genero"
-              id="outros"
-              title="Se você for outros, selecione esta opção."
-              value="Outros"
-              required
-              checked={genero === "Outros"}
-              onChange={(e) => setGenero(e.target.value)}
-            />
-            <LabelOpcoes htmlFor="outros">Outros</LabelOpcoes>
-          </OpcoesSexo>
-        </CampoSexo>
-        <DataNascimento>
-          <TituloDataNascimento title="Selecione sua data de nascimento.">
-            Data de Nascimento:
-          </TituloDataNascimento>
-          <InputDate
-            type="date"
-            value={dataNascimento}
-            required
-            max={new Date().toISOString().split("T")[0]} // Define a data máxima como a data atual, para que o usuário não possa selecionar uma data futura.
-            min="1900-01-01"
-            title="Selecione sua data de nascimento."
-            onChange={(e) => setDataNascimento(e.target.value)}
-          />
-        </DataNascimento>
-        <InputPais
-          type="text"
-          value={pais}
-          readOnly
-          required
-          id="input-pais"
-          onClick={mostrarAvisoPais}
-        />
-
-        <Select
-          value={estado}
-          required
-          onChange={(e) => setEstado(e.target.value)}
-        >
-          {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
-          <option value="" required>
-            Selecione um estado
-          </option>
-          {estados.map((estado) => (
-            <option key={estado.id} value={estado.id}>
-              {estado.nome}
-            </option>
-          ))}
-          {/* // O 'estados.map' ele percorre a lista de estados e cria uma opção para cada estado, onde o 'estado.id' é o valor da opção e o 'estado.nome' é o texto da opção. */}
-        </Select>
-
-        <Select
-          value={cidade}
-          onChange={(e) => setCidade(e.target.value)}
-          onClick={() => mostrarAvisoCidade(estado)}
-          required
-        >
-          <option value="" required>
-            {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
-            Selecione uma cidade
-          </option>
-
-          {cidades.map((cidade) => (
-            <option key={cidade.id} value={cidade.id}>
-              {cidade.nome}
-            </option>
-          ))}
-          {/*
-          1. cidades.map(...): Percorre uma lista (array) de cidades que você buscou de um banco de dados ou API.
-          2. (cidade) => ...: Para cada cidade encontrada nessa lista, ele executa o bloco de código de dentro.
-          3. key={cidade.id}: É uma regra do React. Toda lista gerada dinamicamente precisa de um identificador único (key) para que o React saiba exatamente qual item atualizar se a lista mudar.
-          4. value={cidade.id}: Define o valorll interno que o sistema vai salvar (o ID da cidade).
-          5. {cidade.nome}: É o texto que o usuário final vai ler na tela (o nome da cidade).
-          */}
-        </Select>
-
-        <BotaoEnviar type="submit">
-          {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
-        </BotaoEnviar>
-        {modo === "edicao" && (
-          <FuncaoFechar onClick={modalConfirmacaoEdicao}>Fechar</FuncaoFechar>
+      <Conteudo>
+        {modo === "cadastro" && (
+          <Introducao>
+            <TituloIntroducao>Formulário de Teste</TituloIntroducao>
+            <ParagrafoIntroducao>
+              Esse é um formulário teste, com a finalidade de testar o banco de
+              dados <strong>MySQL</strong>. Preencha todos os campos na lateral!
+            </ParagrafoIntroducao>
+            <BotaoUsuarios href="http://localhost:3000/usuarios">
+              Usuários
+            </BotaoUsuarios>
+          </Introducao>
         )}
-      </Formulario>
-    </Conteudo>
+        <Formulario onSubmit={enviarFormulario} modo={modo}>
+          <TituloFormulario>
+            {modo === "edicao" ? "Editar usuário" : "Cadastro"}
+          </TituloFormulario>
+          <CampoInput>
+            <Input
+              type="text"
+              placeholder=" "
+              autoComplete="name"
+              minLength="5"
+              maxLength="80"
+              required
+              title="Digite seu nome completo (Nome e Sobrenome)."
+              value={nomeCompleto}
+              onChange={tratarNome}
+            />
+            <Label>Nome Completo</Label>
+          </CampoInput>
+          <CampoInput>
+            <Input
+              type="text"
+              placeholder=" "
+              value={email}
+              minLength="5"
+              maxLength="254"
+              required
+              title="Digite seu e-mail."
+              onChange={(e) => setEmail(e.target.value.replace(/\s/g, ""))} // Remove espaços em branco do e-mail
+            />
+            <Label>E-mail</Label>
+          </CampoInput>
+          <CampoInput>
+            <Input
+              type="text"
+              placeholder=" "
+              required
+              title="Digite seu telefone."
+              value={telefone}
+              onChange={(e) => {
+                const valor = e.target.value.replace(/\D/g, "").slice(0, 11); // Remove todos os caracteres que não são dígitos e limita a 11 caracteres
+                setTelefone(valor);
+              }}
+            />
+            <Label>Telefone</Label>
+          </CampoInput>
+          <CampoSexo>
+            <CampoIntrodutorio>
+              <TextSexo title="Selecione seu gênero.">Gênero:</TextSexo>
+              <TextLimparSelecao onClick={() => setGenero("")}>
+                Limpar seleção
+              </TextLimparSelecao>
+            </CampoIntrodutorio>
+            <OpcoesSexo>
+              <RadioInput
+                type="radio"
+                name="genero"
+                id="masculino"
+                title="Se você for masculino, selecione esta opção."
+                value="Masculino"
+                required
+                checked={genero === "Masculino"}
+                onChange={(e) => setGenero(e.target.value)}
+              />
+              <LabelOpcoes htmlFor="masculino">Masculino</LabelOpcoes>
+              <RadioInput
+                type="radio"
+                name="genero"
+                id="feminino"
+                title="Se você for feminino, selecione esta opção."
+                value="Feminino"
+                required
+                checked={genero === "Feminino"}
+                onChange={(e) => setGenero(e.target.value)}
+              />
+              <LabelOpcoes htmlFor="feminino">Feminino</LabelOpcoes>
+              <RadioInput
+                type="radio"
+                name="genero"
+                id="outros"
+                title="Se você for outros, selecione esta opção."
+                value="Outros"
+                required
+                checked={genero === "Outros"}
+                onChange={(e) => setGenero(e.target.value)}
+              />
+              <LabelOpcoes htmlFor="outros">Outros</LabelOpcoes>
+            </OpcoesSexo>
+          </CampoSexo>
+          <DataNascimento>
+            <TituloDataNascimento title="Selecione sua data de nascimento.">
+              Data de Nascimento:
+            </TituloDataNascimento>
+            <InputDate
+              type="date"
+              value={dataNascimento}
+              required
+              max={new Date().toISOString().split("T")[0]} // Define a data máxima como a data atual, para que o usuário não possa selecionar uma data futura.
+              min="1900-01-01"
+              title="Selecione sua data de nascimento."
+              onChange={(e) => setDataNascimento(e.target.value)}
+            />
+          </DataNascimento>
+          <InputPais
+            type="text"
+            value={pais}
+            readOnly
+            required
+            id="input-pais"
+            onClick={mostrarAvisoPais}
+          />
+          <Select
+            value={estado}
+            required
+            onChange={(e) => setEstado(e.target.value)}
+          >
+            {/* // O 'setEstado' ele tem a função de apenas trocar o valor do estado selecionado, quando um estado é selecionado, aí ele passa para o 'estado', onde guarda o valor do estado selecionado. */}
+            <option value="" required>
+              Selecione um estado
+            </option>
+            {estados.map((estado) => (
+              <option key={estado.id} value={estado.id}>
+                {estado.nome}
+              </option>
+            ))}
+            {/* // O 'estados.map' ele percorre a lista de estados e cria uma opção para cada estado, onde o 'estado.id' é o valor da opção e o 'estado.nome' é o texto da opção. */}
+          </Select>
+          <Select
+            value={cidade}
+            onChange={(e) => setCidade(e.target.value)}
+            onClick={() => mostrarAvisoCidade(estado)}
+            required
+          >
+            <option value="" required>
+              {/*o value está zerado, pois o usuário não consegue cadastrar o usuário se não tiver uma cidade selecionada */}
+              Selecione uma cidade
+            </option>
+            {cidades.map((cidade) => (
+              <option key={cidade.id} value={cidade.id}>
+                {cidade.nome}
+              </option>
+            ))}
+            {/*
+            1. cidades.map(...): Percorre uma lista (array) de cidades que você buscou de um banco de dados ou API.
+            2. (cidade) => ...: Para cada cidade encontrada nessa lista, ele executa o bloco de código de dentro.
+            3. key={cidade.id}: É uma regra do React. Toda lista gerada dinamicamente precisa de um identificador único (key) para que o React saiba exatamente qual item atualizar se a lista mudar.
+            4. value={cidade.id}: Define o valorll interno que o sistema vai salvar (o ID da cidade).
+            5. {cidade.nome}: É o texto que o usuário final vai ler na tela (o nome da cidade).
+            */}
+          </Select>
+          <BotaoEnviar type="submit">
+            {modo === "edicao" ? "Salvar Alterações" : "Enviar"}
+          </BotaoEnviar>
+          {modo === "edicao" && (
+            <FuncaoFechar onClick={modalConfirmacaoEdicao}>Fechar</FuncaoFechar>
+          )}
+        </Formulario>
+      </Conteudo>
   );
 }
 

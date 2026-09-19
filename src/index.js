@@ -16,22 +16,6 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Montserrat', sans-serif;
 }
 
-    @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-
-  @keyframes girar {
-    from {
-      --angle: 0deg;
-    }
-
-    to {
-      --angle: 360deg;
-    }
-  }
-
 * {
   box-sizing: border-box;
   scrollbar-width: auto;

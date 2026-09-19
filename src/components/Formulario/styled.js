@@ -47,56 +47,18 @@ export const BotaoUsuarios = styled.a`
 `;
 
 export const Formulario = styled.form`
-  position: relative;
-  isolation: isolate;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 2px;
-    border-radius: 10px;
-
-    background: conic-gradient(from var(--angle), #8000ff, #4d0099, #8000ff);
-
-    animation: girar 3s linear infinite;
-
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite: xor;
-
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-
-    mask-composite: exclude;
-
-    pointer-events: none;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 10px;
-
-    background-color: ${({ modo }) =>
-      modo === "edicao" ? "#1C1C1C" : "rgba(41, 41, 41, 0.49)"};
-
-    z-index: -1;
-  }
-
   display: flex;
   padding-left: 36px;
   padding-right: 36px;
-  /* background-color: rgb(41, 41, 41); */
+  background-color: rgb(41, 41, 41);
   justify-content: flex-start;
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
   margin: 10px 0px 0px 0px;
+
+  background-color: ${({ modo }) =>
+    modo === "edicao" ? "#1C1C1C" : "rgba(41, 41, 41, 0.49)"};
 `;
 
 export const TituloFormulario = styled.span`

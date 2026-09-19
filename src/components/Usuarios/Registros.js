@@ -165,6 +165,20 @@ function UsuariosRegistrados() {
     ]);
   };
 
+  useEffect(() => {
+    const pressionarEsc = (evento) => {
+      if (evento.key === "Escape" && modalAberto) {
+        setModalAberto(false);
+      }
+    };
+
+    document.addEventListener("keydown", pressionarEsc);
+
+    return () => {
+      document.removeEventListener("keydown", pressionarEsc);
+    };
+  }, [modalAberto]);
+
   return (
     <Conteudo>
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
