@@ -28,7 +28,7 @@ function Tabela({
   usuariosSelecionados,
   selecionarUsuario,
   selecionarTodosUsuarios,
-}) {
+}) { 
   return (
     <ContainerTabela>
       <TabelaUsuarios>

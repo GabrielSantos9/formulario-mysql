@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import FormularioComponent from "../components/Formulario/Formulario.js";
+import Particulas from "../components/Particulas/particulas.js";
 
 const FundoInterativo = styled.div`
   position: relative;
@@ -7,7 +8,6 @@ const FundoInterativo = styled.div`
   min-height: 100vh;
   overflow: hidden;
   background: #101010;
-
 `;
 
 const Conteudo = styled.div`
@@ -22,11 +22,11 @@ const Conteudo = styled.div`
 `;
 
 function Home() {
-
   return (
     <FundoInterativo>
       <Conteudo>
         <FormularioComponent />
+        <Particulas />
       </Conteudo>
     </FundoInterativo>
   );
