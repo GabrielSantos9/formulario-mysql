@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import FormularioComponent from "../components/Formulario/Formulario.js";
-import Particulas from "../components/Particulas/particulas.js";
 
 const FundoInterativo = styled.div`
   position: relative;
@@ -26,7 +25,6 @@ function Home() {
     <FundoInterativo>
       <Conteudo>
         <FormularioComponent />
-        <Particulas />
       </Conteudo>
     </FundoInterativo>
   );
