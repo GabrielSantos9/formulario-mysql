@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import FormularioComponent from "../components/Formulario/Formulario.js";
 import FluidBackground from "../components/FluidBackground/FluidBackground.js";
+import Cursor from "../components/Cursor/Cursor.js";
 
 const FundoInterativo = styled.div`
   position: relative;
@@ -9,6 +10,7 @@ const FundoInterativo = styled.div`
   height: auto;
   overflow: hidden;
   background: #101010;
+  cursor: none;
 `;
 
 const Conteudo = styled.div`
@@ -26,6 +28,7 @@ function Home() {
   return (
     <FundoInterativo>
       <FluidBackground />
+      <Cursor />
       <Conteudo>
         <FormularioComponent />
       </Conteudo>
