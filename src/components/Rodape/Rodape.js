@@ -17,6 +17,11 @@ const RodapeLink = styled.a`
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
+
+  &:hover {
+    transition: .5s;
+    color: #cecdcd;
+}
 `;
 
 function Rodape() {

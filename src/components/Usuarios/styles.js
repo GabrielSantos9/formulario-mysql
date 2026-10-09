@@ -105,6 +105,7 @@ export const LocalizacaoAnterior = styled.a`
   &:hover {
     font-weight: bold;
     transition: 0.2s;
+    color: red;
   }
 `;
 
