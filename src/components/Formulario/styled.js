@@ -289,7 +289,6 @@ export const BotaoEnviar = styled.button`
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
-  margin-bottom: 25px;
 
   background: linear-gradient(to right, #8000ff, #4d0099);
   background-size: 200% 100%;
@@ -300,7 +299,7 @@ export const BotaoEnviar = styled.button`
     background-position: right;
   }
 
-  margin-bottom: ${({ modo }) => (modo === "edicao" ? "25px" : "20px")};
+  margin-bottom: ${({ modo }) => (modo === "edicao" ? "25px" : "56px")};
 `;
 
 export const Select = styled.select`
