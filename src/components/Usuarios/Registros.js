@@ -9,7 +9,12 @@ import Tabela from "./Tabela";
 import {
   Conteudo,
   Introducao,
-  Localizacao,
+  IconeSetaDireita,
+  HeaderTrilhaNavegacao,
+  TrilhasNavecaoContainer,
+  TrilhasNavecao,
+  NavegacaoItem,
+  LocalizacaoAtual,
   LocalizacaoAnterior,
   TituloUsuarios,
   ParagrafoUsuarios,
@@ -183,13 +188,23 @@ function UsuariosRegistrados() {
     <Conteudo>
       {/*Elemento filho de UsuariosRegistrados, mas pai das tags a seguir (InputBusca, BotaoAdicionar, entre outros.*/}
       <Introducao>
-        <Localizacao>
-          <LocalizacaoAnterior href="http://localhost:3000">
-            Página Inicial
-          </LocalizacaoAnterior>
-          &gt;&nbsp;
-          <strong style={{ textDecoration: "underline" }}>Usuários</strong>
-        </Localizacao>
+        <HeaderTrilhaNavegacao>
+          <TrilhasNavecaoContainer>
+            <TrilhasNavecao>
+              <NavegacaoItem>
+                <LocalizacaoAnterior href="http://localhost:3000">
+                  Página Inicial
+                </LocalizacaoAnterior>
+                <IconeSetaDireita />
+              </NavegacaoItem>
+              <NavegacaoItem>
+                <LocalizacaoAtual>
+                  <strong>Usuários</strong>
+                </LocalizacaoAtual>
+              </NavegacaoItem>
+            </TrilhasNavecao>
+          </TrilhasNavecaoContainer>
+        </HeaderTrilhaNavegacao>
         <TituloUsuarios>Usuários Registrados</TituloUsuarios>
         <ParagrafoUsuarios>
           Adicionar, editar, excluir e visualizar as informações de usuários

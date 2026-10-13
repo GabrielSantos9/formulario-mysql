@@ -3,6 +3,8 @@ import { ReactComponent as FilterIcon } from "../../imgs/filter_alt.svg";
 import { ReactComponent as ArrowDropIcon } from "../../imgs/arrow_drop_down.svg";
 import { ReactComponent as ZoomIcon } from "../../imgs/zoom_in.svg";
 
+import { ReactComponent as ArrowRightIcon } from "../../imgs/keyboard_arrow_right.svg";
+
 export const BarraPesquisa = styled.div`
   display: flex;
   align-items: center;
@@ -14,7 +16,7 @@ export const BarraPesquisa = styled.div`
   background: transparent;
 
   &:hover {
-    transition: .3s;
+    transition: 0.3s;
     border: 1px solid #0061f3;
   }
 `;
@@ -60,6 +62,14 @@ export const IconeLupa = styled(ZoomIcon)`
   pointer-events: none;
 `;
 
+export const IconeSetaDireita = styled(ArrowRightIcon)`
+
+  &, svg {
+    width: 17px;
+    height: 17px;
+  }
+`;
+
 export const CampoPesquisa = styled.input`
   flex: 1;
   border: none;
@@ -95,6 +105,37 @@ export const Introducao = styled.div`
   flex-direction: column;
 `;
 
+export const HeaderTrilhaNavegacao = styled.div`
+  display: flex;
+`;
+
+export const TrilhasNavecaoContainer = styled.nav`
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  width: 100%;
+`;
+
+export const TrilhasNavecao = styled.ol`
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+export const NavegacaoItem = styled.li`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+export const LocalizacaoAtual = styled.span`
+  font-size: 13px;
+  font-weight: 400;
+  display: flex;
+`;
+
 export const LocalizacaoAnterior = styled.a`
   font-size: 13px;
   font-weight: 400;
@@ -103,16 +144,9 @@ export const LocalizacaoAnterior = styled.a`
   text-decoration: none;
 
   &:hover {
-    font-weight: bold;
     transition: 0.2s;
-    color: red;
+    text-decoration: underline;
   }
-`;
-
-export const Localizacao = styled.span`
-  font-size: 13px;
-  font-weight: 400;
-  display: flex;
 `;
 
 export const TituloUsuarios = styled.h1`
