@@ -13,14 +13,15 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: none;
     color: ${({ theme }) => theme.fontColors.mainColor};
-    background-color: #101010;
+    background-color: ${({ theme }) => theme.backgroundColors.backgroundMain};
     font-family: 'Montserrat', sans-serif;
 }
 
 * {
   box-sizing: border-box;
   scrollbar-width: auto;
-  scrollbar-color: #d9d9d9 #333;
+  scrollbar-color: ${({ theme }) =>
+  `${theme.scrollbarColors.scrollbarThumb} ${theme.scrollbarColors.scrollbarTrack}`};
 }
 `;
 

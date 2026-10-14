@@ -28,7 +28,7 @@ export const BotaoUsuarios = styled.a`
   max-width: 157px;
   border: none;
   cursor: pointer;
-  color: white;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   border-radius: 8px;
   font-size: 20px;
   font-weight: 700;
@@ -36,7 +36,7 @@ export const BotaoUsuarios = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #8000ff, #4d0099);
+  background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
   background-size: 200% 100%;
   background-position: left;
   transition: background-position 0.5s ease;
@@ -50,15 +50,16 @@ export const Formulario = styled.form`
   display: flex;
   padding-left: 36px;
   padding-right: 36px;
-  background-color: rgb(41, 41, 41);
   justify-content: flex-start;
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
   margin: 10px 0px 0px 0px;
 
-  background-color: ${({ modo }) =>
-    modo === "edicao" ? "#1C1C1C" : "rgba(41, 41, 41, 0.49)"};
+  background-color: ${({ theme, modo }) =>
+    modo === "edicao"
+      ? theme.backgroundColors.backgroundFormEdit
+      : theme.backgroundColors.backgroundForm};
 `;
 
 export const TituloFormulario = styled.span`
@@ -78,7 +79,7 @@ export const TituloFormulario = styled.span`
     margin-top: 8px;
     width: 4.875rem;
     height: 0.5rem;
-    background: linear-gradient(to right, #8000ff 0%, #4d0099 100%);
+    background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
   }
 `;
 
@@ -92,12 +93,12 @@ export const Input = styled.input`
   width: 318px;
   height: 40px;
   border-radius: 5px;
-  background-color: rgba(41, 41, 41, 0.698);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
   font-size: 15px;
   font-weight: 500;
   padding: 10px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
 
   appearance: none;
   -webkit-appearance: none;
@@ -114,22 +115,29 @@ export const Input = styled.input`
     border: 1px solid transparent;
     transition: 0.5s ease;
     background:
-      linear-gradient(#252525, #252525) padding-box,
-      linear-gradient(to right, #8000ff, #4d0099) border-box;
+      linear-gradient(
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus},
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus}
+        )
+        padding-box,
+      ${({ theme }) => theme.outherColors.borderGradient} border-box;
   }
 
   &:focus ~ label,
   &:not(:placeholder-shown) ~ label {
     top: 0px;
     font-size: 12px;
-    color: #8000ff;
-    background-color: #252525; /* Fundo escuro para cobrir a borda atrás do texto */
+    color: ${({ theme }) => theme.outherColors.borderForm};
+    background-color: ${({ theme }) =>
+      theme.backgroundColors
+        .backgroundFieldName}; /* Fundo escuro para cobrir a borda atrás do texto */
     padding: 0 4px; /* Pequeno espaçamento nas laterais do texto */
   }
 
   &#input-pais {
-    background-color: #e9ecef;
-    color: #6c757d;
+    background-color: ${({ theme }) =>
+      theme.backgroundColors.backgroundDisabled};
+    color: ${({ theme }) => theme.fontColors.disabledColor};
     cursor: "not-allowed";
   }
 `;
@@ -138,13 +146,13 @@ export const InputPais = styled.input`
   width: 318px;
   height: 40px;
   border-radius: 5px;
-  background-color: rgba(41, 41, 41, 0.698);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
   font-size: 15px;
   font-weight: 500;
   padding: 10px;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
 
   appearance: none;
   -webkit-appearance: none;
@@ -160,19 +168,16 @@ export const InputPais = styled.input`
     outline: none;
     border: 1px solid transparent;
     transition: 0.5s ease;
-
-    background:
-      linear-gradient(#252525, #252525) padding-box,
-      linear-gradient(to right, #8000ff, #4d0099) border-box;
   }
 
   &::placeholder {
-    color: #a1a1a1;
+    color: ${({ theme }) => theme.fontColors.secondaryColor};
   }
 
   &#input-pais {
-    background-color: #e9ecef;
-    color: #6c757d;
+    background-color: ${({ theme }) =>
+      theme.backgroundColors.backgroundDisabled};
+    color: ${({ theme }) => theme.fontColors.disabledColor};
     cursor: "not-allowed";
   }
 `;
@@ -184,7 +189,7 @@ export const Label = styled.label`
   transform: translateY(-50%);
   font-size: 15px;
   font-weight: 500;
-  color: #a1a1a1;
+  color: ${({ theme }) => theme.fontColors.secondaryColor};
   transition: 0.2s ease;
   pointer-events: none;
 `;
@@ -222,11 +227,11 @@ export const TextLimparSelecao = styled.h2`
   font-weight: 400;
   text-decoration: underline;
   cursor: pointer;
-  color: #c9c9c9;
+  color: ${({ theme }) => theme.fontColors.mutedColor};
 
   &:hover {
     transition: 0.5s ease;
-    color: white;
+    color: ${({ theme }) => theme.fontColors.mainColor};
     font-weight: 500;
   }
 `;
@@ -237,7 +242,8 @@ export const RadioInput = styled.input`
   margin-top: 0px;
   cursor: pointer;
 
-  accent-color: #8000ff;
+  accent-color: ${({ theme }) =>
+    theme.formColors.radioAccent}; //Cor do botão de seleção (radio).
 `;
 
 export const DataNascimento = styled.div`
@@ -259,10 +265,10 @@ export const InputDate = styled.input`
   height: 26px;
   padding: 0 8px;
   border-radius: 5px;
-  background-color: rgba(41, 41, 41, 0.698);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
   font-size: 15px;
-  color: white;
+  color: ${({ theme }) => theme.fontColors.mainColor};
 
   &:focus {
     outline: none;
@@ -270,12 +276,16 @@ export const InputDate = styled.input`
     transition: 0.5s ease;
 
     background:
-      linear-gradient(#252525, #252525) padding-box,
-      linear-gradient(to right, #8000ff, #4d0099) border-box;
+      linear-gradient(
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus},
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus}
+        )
+        padding-box,
+      ${({ theme }) => theme.outherColors.borderGradient} border-box;
   }
 
   &::placeholder {
-    color: #a1a1a1;
+    color: ${({ theme }) => theme.fontColors.secondaryColor};
   }
 `;
 
@@ -285,12 +295,12 @@ export const BotaoEnviar = styled.button`
   font-size: 20px;
   font-weight: 700;
   border: none;
-  color: white;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px;
 
-  background: linear-gradient(to right, #8000ff, #4d0099);
+  background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
   background-size: 200% 100%;
   background-position: left;
   transition: background-position 0.5s ease;
@@ -306,14 +316,13 @@ export const Select = styled.select`
   width: 318px;
   height: 40px;
   border-radius: 5px;
-  background-color: rgba(41, 41, 41, 0.698);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
   font-size: 15px;
   font-weight: 500;
   padding: 10px;
   margin-bottom: 20px;
-  color: #ffffff;
-
+  color: ${({ theme }) => theme.fontColors.mainColor};
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -330,22 +339,26 @@ export const Select = styled.select`
     transition: 0.5s ease;
 
     background:
-      linear-gradient(#252525, #252525) padding-box,
-      linear-gradient(to right, #8000ff, #4d0099) border-box;
+      linear-gradient(
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus},
+          ${({ theme }) => theme.backgroundColors.backgroundInputFocus}
+        )
+        padding-box,
+      ${({ theme }) => theme.outherColors.borderGradient} border-box;
   }
 
   &::placeholder {
-    color: #a1a1a1;
+    color: ${({ theme }) => theme.fontColors.secondaryColor};
   }
 
   option {
-    background: #1f1f1f;
-    color: white;
+    background: ${({ theme }) => theme.backgroundColors.backgroundSelectOption};
+    color: ${({ theme }) => theme.fontColors.mainColor};
   }
 `;
 
 export const FuncaoFechar = styled.a`
-  color: #ffffff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   text-decoration: underline;
   font-size: 14px;
   font-weight: 400;
