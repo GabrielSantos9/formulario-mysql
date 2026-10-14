@@ -59,7 +59,7 @@ function Tabela({
               ))}
           </LinhaTabela>
         </CabecalhoTabela>
-        <CorpoTabela>
+        <tbody>
           {usuarios.map((usuario) => (
             <LinhaTabela key={usuario.idusuarios}>
               <CelulaDados>
@@ -82,7 +82,7 @@ function Tabela({
               <CelulaDados>{usuario.pais}</CelulaDados>
             </LinhaTabela>
           ))}
-        </CorpoTabela>
+        </tbody>
       </TabelaUsuarios>
     </ContainerTabela>
   );

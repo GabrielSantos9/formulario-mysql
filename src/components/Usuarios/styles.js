@@ -11,13 +11,13 @@ export const BarraPesquisa = styled.div`
   margin-right: 264px;
   width: 592px;
   height: 32px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${({ theme }) => theme.fontColors.searchBorderColor};
   border-radius: 5px;
-  background: transparent;
+  background: ${({ theme }) => theme.backgroundColors.backgroundSearch};
 
   &:hover {
     transition: 0.3s;
-    border: 1px solid #0061f3;
+    border: 1px solid ${({ theme }) => theme.fontColors.searchBorderHover};
   }
 `;
 
@@ -36,17 +36,17 @@ export const IconeFiltro = styled(FilterIcon)`
 export const Filtro = styled.select`
   width: ${(props) => props.$width};
   border: none;
-  border-right: 1px solid #d9d9d9;
+  border-right: 1px solid ${({ theme }) => theme.fontColors.searchBorderColor};
   outline: none;
-  background: transparent;
+  background: ${({ theme }) => theme.backgroundColors.backgroundSearch};
   appearance: none;
-  color: white;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   font-size: 15px;
   cursor: pointer;
 
   option {
-    background: #101010;
-    color: white;
+    background: ${({ theme }) => theme.backgroundColors.backgroundMain};
+    color: ${({ theme }) => theme.fontColors.mainColor};
   }
 `;
 
@@ -63,8 +63,8 @@ export const IconeLupa = styled(ZoomIcon)`
 `;
 
 export const IconeSetaDireita = styled(ArrowRightIcon)`
-
-  &, svg {
+  &,
+  svg {
     width: 17px;
     height: 17px;
   }
@@ -74,24 +74,24 @@ export const CampoPesquisa = styled.input`
   flex: 1;
   border: none;
   outline: none;
-  background: transparent;
-  color: white;
+  background: ${({ theme }) => theme.backgroundColors.backgroundSearch};
+  color: ${({ theme }) => theme.fontColors.mainColor};
 
   &::placeholder {
-    color: #888;
+    color: ${({ theme }) => theme.fontColors.placeholderColor};
   }
 `;
 
 export const BotaoLimpar = styled.button`
   width: 40px;
   border: none;
-  background: transparent;
-  color: #888;
+  background: ${({ theme }) => theme.backgroundColors.backgroundSearch};
+  color: ${({ theme }) => theme.fontColors.placeholderColor};
   font-size: 18px;
   cursor: pointer;
 
   &:hover {
-    color: white;
+    color: ${({ theme }) => theme.fontColors.mainColor};
   }
 `;
 
@@ -140,7 +140,7 @@ export const LocalizacaoAnterior = styled.a`
   font-size: 13px;
   font-weight: 400;
   display: flex;
-  color: #fff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   text-decoration: none;
 
   &:hover {
@@ -164,7 +164,7 @@ export const ParagrafoUsuarios = styled.p`
 export const BancoUsuarios = styled.div`
   width: 1411px;
   height: 630px;
-  background-color: rgba(41, 41, 41, 0.49);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundUsers};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -194,12 +194,12 @@ export const TabelaUsuarios = styled.table`
 `;
 
 export const CabecalhoTabela = styled.thead`
-  background-color: #333;
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundTableHeader};
 `;
 
 export const LinhaTabela = styled.tr`
   &:nth-child(even) {
-    background-color: #1f1f1f;
+    background-color: ${({ theme }) => theme.backgroundColors.backgroundTableRowEven};
   }
 `;
 
@@ -210,8 +210,6 @@ export const CelulaTabela = styled.th`
   font-weight: 600;
   white-space: nowrap;
 `;
-
-export const CorpoTabela = styled.tbody``;
 
 export const CelulaCabecalho = styled.th`
   padding: 16px;
@@ -232,7 +230,7 @@ export const TotalResultados = styled.div`
   z-index: 2;
   top: 19.0625rem;
   display: flex;
-  background-color: black;
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundSearchResults};
 `;
 
 export const ResultadoPesquisa = styled.div`
@@ -243,7 +241,7 @@ export const ResultadoPesquisa = styled.div`
   align-items: center;
 
   &:hover {
-    background-color: #002f52aa;
+    background-color: ${({ theme }) => theme.backgroundColors.backgroundSearchResultHover};
     transition: 0.7s ease;
   }
 `;
