@@ -1,27 +1,10 @@
-import styled from "styled-components";
 import FormularioComponent from "../Formulario/Formulario";
+import { FundoDesfocado, Janela } from "./styles";
 
-const Fundo = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Janela = styled.div``;
 
 function ModalEditarUsuario({ usuario, onFechar, onAtualizado }) {
   return (
-    <Fundo>
+    <FundoDesfocado>
       <Janela>
         <FormularioComponent
           modo="edicao"
@@ -30,7 +13,7 @@ function ModalEditarUsuario({ usuario, onFechar, onAtualizado }) {
           onFechar={onFechar}
         />
       </Janela>
-    </Fundo>
+    </FundoDesfocado>
   );
 }
 

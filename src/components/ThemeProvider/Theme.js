@@ -14,6 +14,7 @@ const theme = {
     backgroundTableRowEven: "#1f1f1f",
     backgroundSearchResults: "#000",
     backgroundSearchResultHover: "#002f52aa",
+    backgroundFundoDesfocado: "#00000066",
   },
 
   scrollbarColors: {
@@ -29,10 +30,23 @@ const theme = {
     placeholderColor: "#888",
     searchBorderColor: "#d9d9d9",
     searchBorderHover: "#0061f3",
+    hoverRodape: "#cecdcd",
   },
 
-  bottonUsuariosColors: {
-    backgroundBotton: "linear-gradient(to right, #8000ff, #4d0099)",
+  buttonUsuariosColors: {
+    backgroundButton: "linear-gradient(to right, #8000ff, #4d0099)",
+  },
+
+  buttonSignuPColors: {
+    backgroundButton: "linear-gradient(to right, #0c62f2 0%, #023a9b 60%)",
+  },
+
+  buttonEditColors: {
+    backgroundButton: "linear-gradient(to right, #6e48cc 0%, #4c03ff 60%)",
+  },
+
+  buttonDeleteColors: {
+    backgroundButton: "linear-gradient(to right, #b70000 0%, #620000 60%);",
   },
 
   outherColors: {

@@ -7,7 +7,6 @@ import {
   LinhaTabela,
   CelulaDados,
   CelulaCabecalho,
-  CorpoTabela,
 } from "./styles";
 
 const colunas = [

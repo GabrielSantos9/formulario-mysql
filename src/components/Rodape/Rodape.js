@@ -5,7 +5,7 @@ const RodapeContainer = styled.footer`
   z-index: 1;
   width: 100%;
   box-sizing: border-box;
-  color: #fff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   font-size: 14px;
   font-weight: 400;
   text-align: center;
@@ -13,21 +13,30 @@ const RodapeContainer = styled.footer`
 `;
 
 const RodapeLink = styled.a`
-  color: #fff;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
 
   &:hover {
-    transition: .5s;
-    color: #cecdcd;
-}
+    transition: 0.5s;
+    color: ${({ theme }) => theme.fontColors.hoverRodape};
+  }
 `;
 
 function Rodape() {
   return (
     <RodapeContainer>
-      <p>© 2026 - <RodapeLink href="https://github.com/gabrielsantos9" target="_blank" rel="noopener noreferrer">GabrielSantos9</RodapeLink></p>
+      <p>
+        © 2026 -{" "}
+        <RodapeLink
+          href="https://github.com/gabrielsantos9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GabrielSantos9
+        </RodapeLink>
+      </p>
     </RodapeContainer>
   );
 }

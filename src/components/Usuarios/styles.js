@@ -194,12 +194,14 @@ export const TabelaUsuarios = styled.table`
 `;
 
 export const CabecalhoTabela = styled.thead`
-  background-color: ${({ theme }) => theme.backgroundColors.backgroundTableHeader};
+  background-color: ${({ theme }) =>
+    theme.backgroundColors.backgroundTableHeader};
 `;
 
 export const LinhaTabela = styled.tr`
   &:nth-child(even) {
-    background-color: ${({ theme }) => theme.backgroundColors.backgroundTableRowEven};
+    background-color: ${({ theme }) =>
+      theme.backgroundColors.backgroundTableRowEven};
   }
 `;
 
@@ -230,7 +232,8 @@ export const TotalResultados = styled.div`
   z-index: 2;
   top: 19.0625rem;
   display: flex;
-  background-color: ${({ theme }) => theme.backgroundColors.backgroundSearchResults};
+  background-color: ${({ theme }) =>
+    theme.backgroundColors.backgroundSearchResults};
 `;
 
 export const ResultadoPesquisa = styled.div`
@@ -241,7 +244,8 @@ export const ResultadoPesquisa = styled.div`
   align-items: center;
 
   &:hover {
-    background-color: ${({ theme }) => theme.backgroundColors.backgroundSearchResultHover};
+    background-color: ${({ theme }) =>
+      theme.backgroundColors.backgroundSearchResultHover};
     transition: 0.7s ease;
   }
 `;
@@ -250,3 +254,21 @@ export const TituloUsuario = styled.p`
   font-size: 1.25rem;
   padding-left: 0.9375rem;
 `;
+
+export const FundoDesfocado = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: ${({theme}) => theme.backgroundColors.backgroundFundoDesfocado};
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Janela = styled.div``;

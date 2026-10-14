@@ -36,7 +36,7 @@ export const BotaoUsuarios = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
+  background: ${({ theme }) => theme.buttonUsuariosColors.backgroundButton};
   background-size: 200% 100%;
   background-position: left;
   transition: background-position 0.5s ease;
@@ -79,7 +79,7 @@ export const TituloFormulario = styled.span`
     margin-top: 8px;
     width: 4.875rem;
     height: 0.5rem;
-    background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
+    background: ${({ theme }) => theme.buttonUsuariosColors.backgroundButton};
   }
 `;
 
@@ -300,7 +300,7 @@ export const BotaoEnviar = styled.button`
   border-radius: 5px;
   margin-top: 10px;
 
-  background: ${({ theme }) => theme.bottonUsuariosColors.backgroundBotton};
+  background: ${({ theme }) => theme.buttonUsuariosColors.backgroundButton};
   background-size: 200% 100%;
   background-position: left;
   transition: background-position 0.5s ease;

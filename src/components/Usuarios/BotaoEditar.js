@@ -5,17 +5,15 @@ const Botao = styled.a`
   align-items: center;
   gap: 5px;
   font-size: 15px;
-  color: white;
+  color: ${({ theme }) => theme.fontColors.mainColor};
   font-weight: bold;
   margin-right: 40px;
-  font-family: "Montserrat", serif;
-
   justify-content: center;
   padding: 8.5px 18.5px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background: linear-gradient(to right, #6e48cc 0%, #4c03ff 60%);
+  background: ${({theme}) => theme.buttonEditColors.backgroundButton};
   background-size: 200% 100%;
   background-position: left;
   transition: background-position 0.5s ease;
