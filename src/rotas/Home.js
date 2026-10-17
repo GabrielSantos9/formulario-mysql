@@ -3,6 +3,7 @@ import FormularioComponent from "../components/Formulario/Formulario.js";
 import FluidBackground from "../components/FluidBackground/FluidBackground.js";
 import Cursor from "../components/Cursor/Cursor.js";
 import Rodape from "../components/Rodape/Rodape.js";
+import {responseFundoInterativo} from "./responsivo.js";
 
 const FundoInterativo = styled.div`
   position: relative;
@@ -11,6 +12,8 @@ const FundoInterativo = styled.div`
   display: flex;
   flex-direction: column;
   cursor: none;
+
+  ${responseFundoInterativo}
 `;
 
 const Conteudo = styled.div`
@@ -31,7 +34,7 @@ function Home() {
       <Conteudo>
         <FormularioComponent />
       </Conteudo>
-      <Rodape/>
+      <Rodape />
     </FundoInterativo>
   );
 }
