@@ -11,15 +11,16 @@ export const Introducao = styled.div`
 `;
 
 export const TituloIntroducao = styled.h1`
-  font-size: 40px;
+  font-size: clamp(20px, calc(16px + 1.25vw), 40px);
   font-weight: bold;
 `;
 
 export const ParagrafoIntroducao = styled.p`
   width: 379px;
   height: 112px;
-  font-size: 23px;
+  font-size: clamp(14px, calc(12.2px + 0.5625vw), 23px);
   font-weight: 500;
+  color: ${({ theme }) => theme.fontColors.paragraphColor};
 `;
 
 export const BotaoUsuarios = styled.a`
@@ -31,6 +32,7 @@ export const BotaoUsuarios = styled.a`
   color: ${({ theme }) => theme.fontColors.mainColor};
   border-radius: 8px;
   font-size: 20px;
+  /* font-size: clamp(14px, calc(12.8px + 0.375vw), 20px); */
   font-weight: 700;
   text-decoration: none;
   display: flex;

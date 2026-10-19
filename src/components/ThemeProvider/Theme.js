@@ -23,7 +23,8 @@ const theme = {
   },
 
   fontColors: {
-    mainColor: "#FFF",
+    mainColor: "#fff",
+    paragraphColor: "#d5d5d5",
     secondaryColor: "#a1a1a1",
     mutedColor: "#c9c9c9",
     disabledColor: "#6c757d",
