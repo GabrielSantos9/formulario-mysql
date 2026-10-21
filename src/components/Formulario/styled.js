@@ -24,15 +24,14 @@ export const ParagrafoIntroducao = styled.p`
 `;
 
 export const BotaoUsuarios = styled.a`
-  width: 157px;
-  height: 46px;
-  max-width: 157px;
+  width: clamp(100px, calc(88.6px + 3.5625vw), 157px);
+  height: clamp(36px, calc(34px + 0.625vw), 46px);
   border: none;
   cursor: pointer;
   color: ${({ theme }) => theme.fontColors.mainColor};
   border-radius: 8px;
   font-size: 20px;
-  /* font-size: clamp(14px, calc(12.8px + 0.375vw), 20px); */
+  font-size: clamp(14px, calc(12.8px + 0.375vw), 20px);
   font-weight: 700;
   text-decoration: none;
   display: flex;
@@ -50,8 +49,7 @@ export const BotaoUsuarios = styled.a`
 
 export const Formulario = styled.form`
   display: flex;
-  padding-left: 36px;
-  padding-right: 36px;
+  padding-inline: clamp(15px, calc(10.8px + 1.3125vw), 36px);
   justify-content: flex-start;
   border-radius: 10px;
   flex-direction: column;
@@ -65,7 +63,7 @@ export const Formulario = styled.form`
 `;
 
 export const TituloFormulario = styled.span`
-  font-size: 2.5rem;
+  font-size: clamp(20px, calc(16px + 1.25vw), 40px);
   font-weight: 700;
   margin-top: -1.875rem;
   position: relative;
@@ -79,21 +77,21 @@ export const TituloFormulario = styled.span`
     left: 0.12rem;
     top: 70%;
     margin-top: 8px;
-    width: 4.875rem;
-    height: 0.5rem;
+
+    width: clamp(38px, calc(30px + 2.5vw), 78px);
+    height: clamp(4px, calc(3.2px + 0.25vw), 8px);
     background: ${({ theme }) => theme.buttonUsuariosColors.backgroundButton};
   }
 `;
 
 export const CampoInput = styled.div`
   position: relative;
-  width: 318px;
   margin-bottom: 20px;
 `;
 
 export const Input = styled.input`
-  width: 318px;
-  height: 40px;
+  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
@@ -145,8 +143,8 @@ export const Input = styled.input`
 `;
 
 export const InputPais = styled.input`
-  width: 318px;
-  height: 40px;
+  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
@@ -292,8 +290,8 @@ export const InputDate = styled.input`
 `;
 
 export const BotaoEnviar = styled.button`
-  width: 318px;
-  height: 40px;
+  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   font-size: 20px;
   font-weight: 700;
   border: none;
@@ -315,8 +313,8 @@ export const BotaoEnviar = styled.button`
 `;
 
 export const Select = styled.select`
-  width: 318px;
-  height: 40px;
+  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
