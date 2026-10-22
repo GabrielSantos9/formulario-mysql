@@ -205,6 +205,7 @@ export const LabelOpcoes = styled.label`
 export const CampoSexo = styled.div`
   display: flex;
   flex-direction: column;
+  width: clamp(84px, calc(38.4px + 14.25vw), 312px);
 `;
 
 export const CampoIntrodutorio = styled.div`
@@ -214,10 +215,12 @@ export const CampoIntrodutorio = styled.div`
 
 export const OpcoesSexo = styled.div`
   display: flex;
+  background: red;
+  flex-direction: column;
 `;
 
 export const TextSexo = styled.h2`
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 700;
   margin-bottom: 7px;
 `;
