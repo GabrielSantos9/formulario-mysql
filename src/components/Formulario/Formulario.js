@@ -10,18 +10,19 @@ import {
   CampoInput,
   Input,
   InputPais,
-  CampoSexo,
-  OpcoesSexo,
-  TextSexo,
-  RadioInput,
   Label,
-  LabelOpcoes,
   DataNascimento,
   TituloDataNascimento,
   InputDate,
   BotaoEnviar,
   Select,
-  CampoIntrodutorio,
+  IntroducaoGenero,
+  ContainerGenero,
+  TituloGenero,
+  ItensGenero,
+  ItemGenero,
+  InputRadioGenero,
+  TextoGenero,
   TextLimparSelecao,
   FuncaoFechar,
 } from "./styled";
@@ -43,16 +44,6 @@ import {
   buscarEstados,
   buscarCidadesPorEstado,
 } from "../../services/usuarioService";
-
-import {
-  ContainerGenero,
-  TituloGenero,
-  ItemGenero,
-  InputRadioGenero,
-  TextoGenero,
-} from "../Genero/styled";
-
-import Genero from "../Genero/Genero";
 
 import { validarFormulario } from "../../utils/validacaoFormulario";
 
@@ -308,84 +299,46 @@ function FormularioComponent({
             <Label>Telefone</Label>
           </CampoInput>
           <ContainerGenero>
-            <TituloGenero>Gênero:</TituloGenero>
+            <IntroducaoGenero>
+              <TituloGenero>Gênero:</TituloGenero>
+              <TextLimparSelecao onClick={() => setGenero("")}>
+                Limpar seleção
+              </TextLimparSelecao>
+            </IntroducaoGenero>
 
-            <ItemGenero>
-              <InputRadioGenero
-                type="radio"
-                name="genero"
-                value="Feminino"
-                checked={genero === "Feminino"}
-                onChange={(e) => setGenero(e.target.value)}
-              />
-              <TextoGenero>Feminino</TextoGenero>
-            </ItemGenero>
-
-            <ItemGenero>
-              <InputRadioGenero
-                type="radio"
-                name="genero"
-                value="Masculino"
-                checked={genero === "Masculino"}
-                onChange={(e) => setGenero(e.target.value)}
-              />
-              <TextoGenero>Masculino</TextoGenero>
-            </ItemGenero>
-
-            <ItemGenero>
-              <InputRadioGenero
-                type="radio"
-                name="genero"
-                value="Outros"
-                checked={genero === "Outros"}
-                onChange={(e) => setGenero(e.target.value)}
-              />
-              <TextoGenero>Outros</TextoGenero>
-            </ItemGenero>
-          </ContainerGenero>
-          {/* <CampoSexo>
-              <CampoIntrodutorio>
-                <TextSexo title="Selecione seu gênero.">Gênero:</TextSexo>
-                <TextLimparSelecao onClick={() => setGenero("")}>
-                  Limpar seleção
-                </TextLimparSelecao>
-              </CampoIntrodutorio>
-              <OpcoesSexo>
-                <RadioInput
+            <ItensGenero>
+              <ItemGenero>
+                <InputRadioGenero
                   type="radio"
                   name="genero"
-                  id="masculino"
-                  title="Se você for masculino, selecione esta opção."
-                  value="Masculino"
-                  required
-                  checked={genero === "Masculino"}
-                  onChange={(e) => setGenero(e.target.value)}
-                />
-                <LabelOpcoes htmlFor="masculino">Masculino</LabelOpcoes>
-                <RadioInput
-                  type="radio"
-                  name="genero"
-                  id="feminino"
-                  title="Se você for feminino, selecione esta opção."
                   value="Feminino"
-                  required
                   checked={genero === "Feminino"}
                   onChange={(e) => setGenero(e.target.value)}
                 />
-                <LabelOpcoes htmlFor="feminino">Feminino</LabelOpcoes>
-                <RadioInput
+                <TextoGenero>Feminino</TextoGenero>
+              </ItemGenero>
+              <ItemGenero>
+                <InputRadioGenero
                   type="radio"
                   name="genero"
-                  id="outros"
-                  title="Se você for outros, selecione esta opção."
+                  value="Masculino"
+                  checked={genero === "Masculino"}
+                  onChange={(e) => setGenero(e.target.value)}
+                />
+                <TextoGenero>Masculino</TextoGenero>
+              </ItemGenero>
+              <ItemGenero>
+                <InputRadioGenero
+                  type="radio"
+                  name="genero"
                   value="Outros"
-                  required
                   checked={genero === "Outros"}
                   onChange={(e) => setGenero(e.target.value)}
                 />
-                <LabelOpcoes htmlFor="outros">Outros</LabelOpcoes>
-              </OpcoesSexo>
-            </CampoSexo> */}
+                <TextoGenero>Outros</TextoGenero>
+              </ItemGenero>
+            </ItensGenero>
+          </ContainerGenero>
           <DataNascimento>
             <TituloDataNascimento title="Selecione sua data de nascimento.">
               Data de Nascimento:

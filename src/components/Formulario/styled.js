@@ -87,10 +87,13 @@ export const TituloFormulario = styled.span`
 export const CampoInput = styled.div`
   position: relative;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 export const Input = styled.input`
-  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  width: 100%;
   height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
@@ -179,6 +182,7 @@ export const InputPais = styled.input`
       theme.backgroundColors.backgroundDisabled};
     color: ${({ theme }) => theme.fontColors.disabledColor};
     cursor: "not-allowed";
+    width: 100%;
   }
 `;
 
@@ -194,35 +198,10 @@ export const Label = styled.label`
   pointer-events: none;
 `;
 
-export const LabelOpcoes = styled.label`
-  margin-right: 30px;
-
-  &:last-of-type {
-    margin-right: 0;
-  }
-`;
-
-export const CampoSexo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: clamp(84px, calc(38.4px + 14.25vw), 312px);
-`;
-
-export const CampoIntrodutorio = styled.div`
+export const IntroducaoGenero = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-export const OpcoesSexo = styled.div`
-  display: flex;
-  background: red;
-  flex-direction: column;
-`;
-
-export const TextSexo = styled.h2`
-  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
-  font-weight: 700;
-  margin-bottom: 7px;
+  align-items: center;
 `;
 
 export const TextLimparSelecao = styled.h2`
@@ -239,14 +218,57 @@ export const TextLimparSelecao = styled.h2`
   }
 `;
 
-export const RadioInput = styled.input`
-  margin-right: 5px;
-  margin-left: 0px;
-  margin-top: 0px;
-  cursor: pointer;
+export const ContainerGenero = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+`;
 
-  accent-color: ${({ theme }) =>
-    theme.formColors.radioAccent}; //Cor do botão de seleção (radio).
+export const TituloGenero = styled.h3`
+  color: #ffffff;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
+  font-family: sans-serif;
+  margin: 0;
+`;
+
+export const ItensGenero = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ItemGenero = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+`;
+
+export const InputRadioGenero = styled.input`
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  margin: 0;
+
+  &:checked::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.formColors.radioAccent};
+  }
+`;
+
+export const TextoGenero = styled.span`
+  color: #ffffff;
+  font-size: clamp(13px, calc(12.6px + 0.125vw), 15px);
+  font-family: sans-serif;
 `;
 
 export const DataNascimento = styled.div`
@@ -259,7 +281,6 @@ export const DataNascimento = styled.div`
 export const TituloDataNascimento = styled.h2`
   font-size: 15px;
   font-weight: 700;
-  margin-bottom: 7px;
   margin-right: 5px;
 `;
 
@@ -316,7 +337,7 @@ export const BotaoEnviar = styled.button`
 `;
 
 export const Select = styled.select`
-  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  width: 100%;
   height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
