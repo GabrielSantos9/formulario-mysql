@@ -30,7 +30,6 @@ export const BotaoUsuarios = styled.a`
   cursor: pointer;
   color: ${({ theme }) => theme.fontColors.mainColor};
   border-radius: 8px;
-  font-size: 20px;
   font-size: clamp(14px, calc(12.8px + 0.375vw), 20px);
   font-weight: 700;
   text-decoration: none;
@@ -54,7 +53,6 @@ export const Formulario = styled.form`
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0px 0px 0px;
 
   background-color: ${({ theme, modo }) =>
     modo === "edicao"
@@ -86,7 +84,7 @@ export const TituloFormulario = styled.span`
 
 export const CampoInput = styled.div`
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: clamp(15px, calc(14px + 0.3125vw), 20px);
   display: flex;
   justify-content: center;
   width: 100%;
@@ -98,7 +96,7 @@ export const Input = styled.input`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 500;
   padding: 10px;
   color: ${({ theme }) => theme.fontColors.mainColor};
@@ -146,16 +144,16 @@ export const Input = styled.input`
 `;
 
 export const InputPais = styled.input`
-  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  width: 100%;
   height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 500;
   padding: 10px;
-  margin-bottom: 20px;
-  color: ${({ theme }) => theme.fontColors.mainColor};
+  margin-bottom: clamp(15px, calc(14px + 0.3125vw), 20px);
+  background-color: ${({ theme }) => theme.backgroundColors.backgroundDisabled};
+  color: ${({ theme }) => theme.fontColors.disabledColor};
 
   appearance: none;
   -webkit-appearance: none;
@@ -176,14 +174,6 @@ export const InputPais = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.fontColors.secondaryColor};
   }
-
-  &#input-pais {
-    background-color: ${({ theme }) =>
-      theme.backgroundColors.backgroundDisabled};
-    color: ${({ theme }) => theme.fontColors.disabledColor};
-    cursor: "not-allowed";
-    width: 100%;
-  }
 `;
 
 export const Label = styled.label`
@@ -191,7 +181,7 @@ export const Label = styled.label`
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 500;
   color: ${({ theme }) => theme.fontColors.secondaryColor};
   transition: 0.2s ease;
@@ -274,12 +264,12 @@ export const TextoGenero = styled.span`
 export const DataNascimento = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: clamp(15px, calc(14px + 0.3125vw), 20px);
+  margin-bottom: clamp(15px, calc(14px + 0.3125vw), 20px);
 `;
 
 export const TituloDataNascimento = styled.h2`
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 700;
   margin-right: 5px;
 `;
@@ -291,7 +281,7 @@ export const InputDate = styled.input`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   color: ${({ theme }) => theme.fontColors.mainColor};
 
   &:focus {
@@ -314,15 +304,15 @@ export const InputDate = styled.input`
 `;
 
 export const BotaoEnviar = styled.button`
-  width: clamp(230px, calc(212.4px + 5.5vw), 318px);
+  width: 100%;
   height: clamp(31px, calc(29.2px + 0.5625vw), 40px);
-  font-size: 20px;
+  font-size: clamp(14px, calc(12.8px + 0.375vw), 20px);
   font-weight: 700;
   border: none;
   color: ${({ theme }) => theme.fontColors.mainColor};
   cursor: pointer;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: clamp(5px, calc(4px + 0.3125vw), 10px);
 
   background: ${({ theme }) => theme.buttonUsuariosColors.backgroundButton};
   background-size: 200% 100%;
@@ -342,10 +332,10 @@ export const Select = styled.select`
   border-radius: 5px;
   background-color: ${({ theme }) => theme.backgroundColors.backgroundInput};
   border: none;
-  font-size: 15px;
+  font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 500;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: clamp(15px, calc(14px + 0.3125vw), 20px);
   color: ${({ theme }) => theme.fontColors.mainColor};
   appearance: none;
   -webkit-appearance: none;
