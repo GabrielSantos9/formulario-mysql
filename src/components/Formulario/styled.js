@@ -1,18 +1,31 @@
 import styled from "styled-components";
 
+import {
+  responsivoConteudo,
+  responsivoParagrafoIntroducao,
+  responsivoIntroducao,
+  responsivoTituloIntroducao,
+} from "./responsivo";
+
 export const Conteudo = styled.div`
   display: flex;
+
+  ${responsivoConteudo}
 `;
 
 export const Introducao = styled.div`
   width: 417px;
   margin-top: 128px;
-  margin-right: 222px;
+  margin-right: clamp(30px, calc(-8.4px + 12vw), 222px);
+
+  ${responsivoIntroducao}
 `;
 
 export const TituloIntroducao = styled.h1`
   font-size: clamp(20px, calc(16px + 1.25vw), 40px);
   font-weight: bold;
+
+  ${responsivoTituloIntroducao}
 `;
 
 export const ParagrafoIntroducao = styled.p`
@@ -21,6 +34,8 @@ export const ParagrafoIntroducao = styled.p`
   font-size: clamp(14px, calc(12.2px + 0.5625vw), 23px);
   font-weight: 500;
   color: ${({ theme }) => theme.fontColors.paragraphColor};
+
+  ${responsivoParagrafoIntroducao}
 `;
 
 export const BotaoUsuarios = styled.a`
@@ -63,7 +78,7 @@ export const Formulario = styled.form`
 export const TituloFormulario = styled.span`
   font-size: clamp(20px, calc(16px + 1.25vw), 40px);
   font-weight: 700;
-  margin-top: -1.875rem;
+  margin-top: clamp(-30px, calc(-16.8px - 0.6875vw), -19px);
   position: relative;
   display: inline-block;
   margin-bottom: 35px;
