@@ -5,6 +5,11 @@ import {
   responsivoParagrafoIntroducao,
   responsivoIntroducao,
   responsivoTituloIntroducao,
+  responsivoBotaoUsuarios,
+  responsivoSelect,
+  responsivoFormulario,
+  responsivoOpcoesGenero,
+  responsivoContainerGenero,
 } from "./responsivo";
 
 export const Conteudo = styled.div`
@@ -59,6 +64,8 @@ export const BotaoUsuarios = styled.a`
   &:hover {
     background-position: right;
   }
+
+  ${responsivoBotaoUsuarios}
 `;
 
 export const Formulario = styled.form`
@@ -68,6 +75,8 @@ export const Formulario = styled.form`
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
+
+  ${responsivoFormulario}
 
   background-color: ${({ theme, modo }) =>
     modo === "edicao"
@@ -203,7 +212,7 @@ export const Label = styled.label`
   pointer-events: none;
 `;
 
-export const IntroducaoGenero = styled.div`
+export const OpcoesGenero = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -228,6 +237,8 @@ export const ContainerGenero = styled.div`
   flex-direction: column;
   gap: 7px;
   width: 100%;
+
+  ${responsivoContainerGenero}
 `;
 
 export const TituloGenero = styled.h3`
@@ -240,6 +251,7 @@ export const TituloGenero = styled.h3`
 export const ItensGenero = styled.div`
   display: flex;
   justify-content: space-between;
+  ${responsivoOpcoesGenero}
 `;
 
 export const ItemGenero = styled.label`
@@ -355,6 +367,8 @@ export const Select = styled.select`
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: textfield;
+
+  ${responsivoSelect}
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

@@ -16,7 +16,7 @@ import {
   InputDate,
   BotaoEnviar,
   Select,
-  IntroducaoGenero,
+  OpcoesGenero,
   ContainerGenero,
   TituloGenero,
   ItensGenero,
@@ -299,12 +299,12 @@ function FormularioComponent({
             <Label>Telefone</Label>
           </CampoInput>
           <ContainerGenero>
-            <IntroducaoGenero>
+            <OpcoesGenero>
               <TituloGenero>Gênero:</TituloGenero>
               <TextLimparSelecao onClick={() => setGenero("")}>
                 Limpar seleção
               </TextLimparSelecao>
-            </IntroducaoGenero>
+            </OpcoesGenero>
 
             <ItensGenero>
               <ItemGenero>
