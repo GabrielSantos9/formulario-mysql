@@ -72,7 +72,6 @@ export const responsivoContainerGenero = css`
 export const responsivoOpcoesGenero = css`
   @media (max-width: 400px) {
     flex-direction: column;
-    width: 100%;
 
     & > :nth-child(n + 2) {
       margin-top: 12px;
