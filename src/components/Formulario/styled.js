@@ -10,6 +10,11 @@ import {
   responsivoFormulario,
   responsivoOpcoesGenero,
   responsivoContainerGenero,
+  responsivoTituloFormulario,
+  responsivoTextLimparSelecao,
+  responsivoTituloDataNascimento,
+  responsivoInputDate,
+  responsivoBotaoEnviar,
 } from "./responsivo";
 
 export const Conteudo = styled.div`
@@ -92,6 +97,8 @@ export const TituloFormulario = styled.span`
   display: inline-block;
   margin-bottom: 35px;
   align-self: center;
+
+  ${responsivoTituloFormulario}
 
   &::after {
     content: "";
@@ -225,6 +232,8 @@ export const TextLimparSelecao = styled.h2`
   cursor: pointer;
   color: ${({ theme }) => theme.fontColors.mutedColor};
 
+  ${responsivoTextLimparSelecao}
+
   &:hover {
     transition: 0.5s ease;
     color: ${({ theme }) => theme.fontColors.mainColor};
@@ -299,6 +308,8 @@ export const TituloDataNascimento = styled.h2`
   font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   font-weight: 700;
   margin-right: 5px;
+
+  ${responsivoTituloDataNascimento}
 `;
 
 export const InputDate = styled.input`
@@ -310,6 +321,8 @@ export const InputDate = styled.input`
   border: none;
   font-size: clamp(14px, calc(13.8px + 0.0625vw), 15px);
   color: ${({ theme }) => theme.fontColors.mainColor};
+
+  ${responsivoInputDate}
 
   &:focus {
     outline: none;
@@ -351,6 +364,8 @@ export const BotaoEnviar = styled.button`
   }
 
   margin-bottom: ${({ modo }) => (modo === "edicao" ? "25px" : "56px")};
+
+  ${responsivoBotaoEnviar}
 `;
 
 export const Select = styled.select`

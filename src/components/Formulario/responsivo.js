@@ -22,6 +22,8 @@ export const responsivoParagrafoIntroducao = css`
 
   @media (max-width: 400px) {
     width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -42,6 +44,10 @@ export const responsivoTituloIntroducao = css`
 export const responsivoBotaoUsuarios = css`
   @media (max-width: 765px) {
     margin-bottom: 100px;
+  }
+
+  @media (max-width: 400px) {
+    margin-bottom: 49px;
   }
 `;
 
@@ -66,9 +72,44 @@ export const responsivoContainerGenero = css`
 export const responsivoOpcoesGenero = css`
   @media (max-width: 400px) {
     flex-direction: column;
+    width: 100%;
 
     & > :nth-child(n + 2) {
       margin-top: 12px;
     }
+  }
+`;
+
+export const responsivoTituloFormulario = css`
+  @media (max-width: 400px) {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+`;
+
+export const responsivoTextLimparSelecao = css`
+  @media (max-width: 400px) {
+    margin: 0px;
+  }
+`;
+
+export const responsivoTituloDataNascimento = css`
+  @media (max-width: 400px) {
+    margin-right: 4px;
+    font-size: 12px;
+  }
+`;
+
+export const responsivoInputDate = css`
+  @media (max-width: 400px) {
+    width: 103px;
+    height: 26px;
+    font-size: 12px;
+  }
+`;
+
+export const responsivoBotaoEnviar = css`
+  @media (max-width: 400px) {
+    margin-bottom: 35px;
   }
 `;
